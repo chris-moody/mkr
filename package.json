@@ -1,0 +1,19 @@
+{
+  "name": "admkr",
+  "version": "0.0.8",
+  "description": "admkr!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chris-moody/admkr.git"
+  },
+  "author": "Christopher C. Moody chris@moodydigital.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chris-moody/admkr/issues"
+  },
+  "homepage": "https://github.com/chris-moody/admkr#readme"
+}
