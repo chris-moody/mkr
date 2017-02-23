@@ -163,7 +163,7 @@
 		options.css.position = options.css.position || "absolute";
 		admkr.setDefault("force3d", true, options);
 
-		deep = deep === undefined ? true : deep;
+		deep === undefined ? true : deep;
 		var clone;
 		if(target.tagName.toLowerCase() === 'svg') {
 			options.text = target.innerHTML;
