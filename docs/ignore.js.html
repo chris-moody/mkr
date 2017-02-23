@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: ignore.js</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html"></a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="admkr">
+            <span class="title">
+                <a href="admkr.html">admkr</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="admkr.styles"><a href="admkr.html#.styles">styles</a></li>
+            
+                <li data-name="admkr#container"><a href="admkr.html#container">container</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="admkr.addRule"><a href="admkr.html#.addRule">addRule</a></li>
+            
+                <li data-name="admkr.angle"><a href="admkr.html#.angle">angle</a></li>
+            
+                <li data-name="admkr.DEG"><a href="admkr.html#.DEG">DEG</a></li>
+            
+                <li data-name="admkr.distance"><a href="admkr.html#.distance">distance</a></li>
+            
+                <li data-name="admkr.extend"><a href="admkr.html#.extend">extend</a></li>
+            
+                <li data-name="admkr.get"><a href="admkr.html#.get">get</a></li>
+            
+                <li data-name="admkr.makeDC"><a href="admkr.html#.makeDC">makeDC</a></li>
+            
+                <li data-name="admkr.off"><a href="admkr.html#.off">off</a></li>
+            
+                <li data-name="admkr.on"><a href="admkr.html#.on">on</a></li>
+            
+                <li data-name="admkr.query"><a href="admkr.html#.query">query</a></li>
+            
+                <li data-name="admkr.queryAll"><a href="admkr.html#.queryAll">queryAll</a></li>
+            
+                <li data-name="admkr.RAD"><a href="admkr.html#.RAD">RAD</a></li>
+            
+                <li data-name="admkr.randomRange"><a href="admkr.html#.randomRange">randomRange</a></li>
+            
+                <li data-name="admkr.reveal"><a href="admkr.html#.reveal">reveal</a></li>
+            
+                <li data-name="admkr.rotation"><a href="admkr.html#.rotation">rotation</a></li>
+            
+                <li data-name="admkr.setDefault"><a href="admkr.html#.setDefault">setDefault</a></li>
+            
+                <li data-name="admkr.setPolyPath"><a href="admkr.html#.setPolyPath">setPolyPath</a></li>
+            
+                <li data-name="admkr#add"><a href="admkr.html#add">add</a></li>
+            
+                <li data-name="admkr#clone"><a href="admkr.html#clone">clone</a></li>
+            
+                <li data-name="admkr#createElement"><a href="admkr.html#createElement">createElement</a></li>
+            
+                <li data-name="admkr#killAllTweens"><a href="admkr.html#killAllTweens">killAllTweens</a></li>
+            
+                <li data-name="admkr#load"><a href="admkr.html#load">load</a></li>
+            
+                <li data-name="admkr#nuke"><a href="admkr.html#nuke">nuke</a></li>
+            
+                <li data-name="admkr#remove"><a href="admkr.html#remove">remove</a></li>
+            
+                <li data-name="admkr#reset"><a href="admkr.html#reset">reset</a></li>
+            
+                <li data-name="admkr#saveElement"><a href="admkr.html#saveElement">saveElement</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="ignore.js.html">Source: ignore.js</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre id="source-code" class="prettyprint source "><code>
+(function(className) {
+	/**
+	 * @class ignore
+	 * @private
+	 * @description Initializes a new ignore instance. Ignore this. I'm only here to make sure jsdocs doesn't use full file paths in src ref links
+	 * @param {Object} options - Lorem ipsum blah blah
+	 * @param {String} [options.frack="FRACK"] - Lorem ipsum blah blah
+	 * @param {String} [options.flarg="FLARG"] - Lorem ipsum blah blah
+	 * @requires {@link https://google.com/}
+	 */
+	var ignore = function(options) {
+
+		this._frack = ignore.setDefault("frack", "FRACK", options);
+		delete options.frack;
+
+		this._flarg = ignore.setDefault("flarg", "FLARG", options);
+		delete options.FLARG;
+		
+		/**
+		 * @name ignore#instanceMember
+		 * @type HTMLElement
+		 * @description Lorem ipsum blah blah
+		**/
+		this.instanceMember = this.createElement("div", options, document.body, true);
+
+
+		var _privateMethod = function() {
+
+		}
+
+		/**
+		 * @function priviligedMethod
+		 * @memberof ignore
+		 * @instance
+		 * @description Lorem ipsum blah blah
+		 * @param {function} callback - Lorem ipsum blah blah
+		 * @param {Object=} context - Lorem ipsum blah blah
+		**/
+		this.priviligedMethod = function(callback, context) {
+			this._loadCallback = callback;
+			this._loadContext = context;
+
+			var i = this._images.length;
+			if(i &lt;= 0) {
+				this._loadCallback.apply(this._loadContext);
+				return;
+			}
+			
+			while(i--) {
+				this._images[i].img.onload = _imageLoaded;
+			}
+
+			i = this._images.length;
+			while(i--) {
+				this._images[i].img.src = this._images[i].src;
+			}
+		};
+	};
+
+	/**
+	 * @function protoMember
+	 * @memberof ignore.prototype
+	 * @public
+	 * @description Lorem ipsum blah blah
+	 * @param {string} type - Lorem ipsum blah blah
+	 * @param {Object=} options - Lorem ipsum blah blah
+	 * @param {Element=} parent - Lorem ipsum blah blah
+	 * @param {boolean} [ignore=false] - Lorem ipsum blah blah
+	 * @returns The new element
+	**/
+	ignore.prototype.protoMember = function(type, options, parent, ignore) {
+		
+	};
+
+	/**
+	 * @function staticMember
+	 * @memberof ignore
+	 * @static
+	 * @description Lorem ipsum blah blah
+	 * @param {*} target - Lorem ipsum blah blah
+	 * @param {Object=} options - Lorem ipsum blah blah
+	**/
+    ignore.staticMember = function(target, options) {
+
+    };
+
+    window[className] = ignore;
+	return ignore;
+})('ignore');</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 00:27:36 GMT-0500 (EST)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/jaguar.js"></script>
+</body>
+</html>
