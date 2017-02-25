@@ -1,0 +1,4 @@
+#!/bin/bash
+# doc script
+
+jsdoc ../src/ -r -t ../node_modules/jaguarjs-jsdoc -d ../docs/docs
