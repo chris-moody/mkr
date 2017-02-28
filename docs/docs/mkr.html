@@ -61,17 +61,23 @@
             
             <span class="subtitle">Methods</span>
             
+                <li data-name="mkr.addChild"><a href="mkr.html#.addChild">addChild</a></li>
+            
                 <li data-name="mkr.addRule"><a href="mkr.html#.addRule">addRule</a></li>
             
                 <li data-name="mkr.angle"><a href="mkr.html#.angle">angle</a></li>
+            
+                <li data-name="mkr.clearListeners"><a href="mkr.html#.clearListeners">clearListeners</a></li>
+            
+                <li data-name="mkr.default"><a href="mkr.html#.default">default</a></li>
+            
+                <li data-name="mkr.deleteRule"><a href="mkr.html#.deleteRule">deleteRule</a></li>
             
                 <li data-name="mkr.distance"><a href="mkr.html#.distance">distance</a></li>
             
                 <li data-name="mkr.each"><a href="mkr.html#.each">each</a></li>
             
                 <li data-name="mkr.extend"><a href="mkr.html#.extend">extend</a></li>
-            
-                <li data-name="mkr.get"><a href="mkr.html#.get">get</a></li>
             
                 <li data-name="mkr.getDefault"><a href="mkr.html#.getDefault">getDefault</a></li>
             
@@ -89,6 +95,8 @@
             
                 <li data-name="mkr.randomRange"><a href="mkr.html#.randomRange">randomRange</a></li>
             
+                <li data-name="mkr.removeChild"><a href="mkr.html#.removeChild">removeChild</a></li>
+            
                 <li data-name="mkr.reveal"><a href="mkr.html#.reveal">reveal</a></li>
             
                 <li data-name="mkr.rotation"><a href="mkr.html#.rotation">rotation</a></li>
@@ -101,21 +109,19 @@
             
                 <li data-name="mkr#add"><a href="mkr.html#add">add</a></li>
             
-                <li data-name="mkr#clone"><a href="mkr.html#clone">clone</a></li>
+                <li data-name="mkr#batch"><a href="mkr.html#batch">batch</a></li>
             
                 <li data-name="mkr#create"><a href="mkr.html#create">create</a></li>
             
-                <li data-name="mkr#killAllTweens"><a href="mkr.html#killAllTweens">killAllTweens</a></li>
+                <li data-name="mkr#kill"><a href="mkr.html#kill">kill</a></li>
             
                 <li data-name="mkr#load"><a href="mkr.html#load">load</a></li>
-            
-                <li data-name="mkr#nuke"><a href="mkr.html#nuke">nuke</a></li>
             
                 <li data-name="mkr#remove"><a href="mkr.html#remove">remove</a></li>
             
                 <li data-name="mkr#reset"><a href="mkr.html#reset">reset</a></li>
             
-                <li data-name="mkr#saveElement"><a href="mkr.html#saveElement">saveElement</a></li>
+                <li data-name="mkr#save"><a href="mkr.html#save">save</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -166,7 +172,7 @@
     
     
     <div class="description">
-        Initializes a new mkr instance. mkr leverages the power of <a target="_blank" href="https://greensock.com/tweenlite">https://greensock.com/tweenlite</a> to make building web content a cinch!
+        Initializes a new mkr instance. A lightweight companion library to the <a target="_blank" href="https://greensock.com/">greensock animation platform</a>, mkr delivers a 100% javascript method of content creation
     </div>
     
 
@@ -213,7 +219,7 @@
             
             <td class="description last">
                 
-                A set of attributes and css properties used to create the container
+                A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
                 
 
 <table class="params">
@@ -234,6 +240,76 @@
 	</thead>
 	
 	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    document.body
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Element the mkr instance container is appended to</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tmln</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                options passed to the built-in TimelineMax instance</td>
+        </tr>
+	
 	
 	
         <tr>
@@ -367,7 +443,7 @@
         <h3 class="subsection-title">Requires</h3>
         
         <ul>
-            <li><a target="_blank" href="https://greensock.com/tweenlite">https://greensock.com/tweenlite</a></li>
+            <li><a target="_blank" href="https://greensock.com/tweenmax">https://greensock.com/tweenmax</a></li>
         </ul>
     
     
@@ -613,14 +689,240 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".addRule">
+        <h4 class="name" id=".addChild">
             
-            <span class="type-signature static">static</span>mkr.addRule<span class="signature">(selector, rules, <span class="optional">index</span>)</span>
+            <span class="type-signature static">static</span>mkr.addChild<span class="signature">(target, <span class="optional">parent</span>, <span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line569">line 569</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line593">line 593</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Adds an existing element to the specified parent
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                A string containing one or more CSS selectors separated by commas.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    document.body
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The ancestor element to search. Defaults to the document object</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Where in the parent to add the element. Defaults to the end.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            <td class="description last">The added element</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".addRule">
+            
+            <span class="type-signature static">static</span>mkr.addRule<span class="signature">(selector, rules, <span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line685">line 685</a>
         </div>
         
     </div>
@@ -784,6 +1086,35 @@
     
     
     
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        int
+                        
+                    
+            </td>
+            <td class="description last">The index of the newly inserted rule</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
     
     
 </dd>
@@ -799,7 +1130,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line649">line 649</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line779">line 779</a>
         </div>
         
     </div>
@@ -1006,6 +1337,368 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".clearListeners">
+            
+            <span class="type-signature static">static</span>mkr.clearListeners<span class="signature">()</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line487">line 487</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Removes all listeners managed by mkr across all mkr instances. Its a good idea to be sure that you want to do this.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".default">
+            
+            <span class="type-signature static">static</span>mkr.default<span class="signature">(value, value)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line621">line 621</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Examines provided value and returns the fallback if it is undefined
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The value to examine</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The fallback value</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        *
+                        
+                    
+            </td>
+            <td class="description last">returns value or the fallback if it is undefined</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".deleteRule">
+            
+            <span class="type-signature static">static</span>mkr.deleteRule<span class="signature">(<span class="optional">index</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line701">line 701</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        delete a css rule from mkr's global stylesheet.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The index the rule to delete.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".distance">
             
             <span class="type-signature static">static</span>mkr.distance<span class="signature">(x1, y1, x2, y2)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Number}</span>
@@ -1013,7 +1706,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line615">line 615</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line745">line 745</a>
         </div>
         
     </div>
@@ -1227,7 +1920,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line342">line 342</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line402">line 402</a>
         </div>
         
     </div>
@@ -1290,7 +1983,7 @@
                         
                     
                 
-                A selector string, Array, or object</td>
+                An single element, array of elements, or a css selector string.</td>
         </tr>
 	
 	
@@ -1406,7 +2099,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line462">line 462</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line546">line 546</a>
         </div>
         
     </div>
@@ -1544,151 +2237,6 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".get">
-            
-            <span class="type-signature static">static</span>mkr.get<span class="signature">(id)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line481">line 481</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        document.getElementById(id) shortcut
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                A case-sensitive string representing the unique ID of the element being sought</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Element
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
         <h4 class="name" id=".getDefault">
             
             <span class="type-signature static">static</span>mkr.getDefault<span class="signature">(target, key, value)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
@@ -1696,7 +2244,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line521">line 521</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line634">line 634</a>
         </div>
         
     </div>
@@ -1887,7 +2435,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line309">line 309</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line369">line 369</a>
         </div>
         
     </div>
@@ -1898,7 +2446,7 @@
     
     
     <div class="description">
-        Factory method for quickly creating creatives that conform to DC standards
+        Factory method for quickly creating creatives that conform to DCS standards
     </div>
     
 
@@ -2030,12 +2578,12 @@ The newly created creative
     <div class="nameContainer">
         <h4 class="name" id=".off">
             
-            <span class="type-signature static">static</span>mkr.off<span class="signature">(target, type, listener, <span class="optional">context</span>)</span>
+            <span class="type-signature static">static</span>mkr.off<span class="signature">(target, <span class="optional">type</span>, <span class="optional">listener</span>, <span class="optional">context</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line401">line 401</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line461">line 461</a>
         </div>
         
     </div>
@@ -2046,7 +2594,10 @@ The newly created creative
     
     
     <div class="description">
-        Remove a listener from one or many objects
+        Remove listeners from one or many objects. Behaves differently depending on the number of passed arguments.
+- 3+ arguments: Only removes the specified listener from the target
+	 ^ - First 2 arguments only: Removes all listeners of provdied event type
+- First argument only: Removes all listeners from the target
     </div>
     
 
@@ -2098,7 +2649,7 @@ The newly created creative
                         
                     
                 
-                A selector string, Array, or element</td>
+                An single element, array of elements, or a css selector string.</td>
         </tr>
 	
 	
@@ -2122,11 +2673,13 @@ The newly created creative
             <td class="description last">
                 
                     
+                        <span class="optional">optional</span>
+                    
                     
                         
                     
                 
-                A string representing the type of event the listener is associated with</td>
+                The event type. Excluding this this argu</td>
         </tr>
 	
 	
@@ -2150,11 +2703,13 @@ The newly created creative
             <td class="description last">
                 
                     
+                        <span class="optional">optional</span>
+                    
                     
                         
                     
                 
-                The function to be executed when the associated event is fired</td>
+                The listener to remove. Excluding this argument removes all listeners of the specified from the target</td>
         </tr>
 	
 	
@@ -2242,7 +2797,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line363">line 363</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line423">line 423</a>
         </div>
         
     </div>
@@ -2311,7 +2866,7 @@ The newly created creative
                         
                     
                 
-                A selector string, Array, or element</td>
+                An single element, array of elements, or a css selector string.</td>
         </tr>
 	
 	
@@ -2503,7 +3058,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line382">line 382</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line442">line 442</a>
         </div>
         
     </div>
@@ -2572,7 +3127,7 @@ The newly created creative
                         
                     
                 
-                A selector string, Array, or element</td>
+                An single element, array of elements, or a css selector string.</td>
         </tr>
 	
 	
@@ -2764,7 +3319,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line493">line 493</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line565">line 565</a>
         </div>
         
     </div>
@@ -2956,7 +3511,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line507">line 507</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line579">line 579</a>
         </div>
         
     </div>
@@ -3148,7 +3703,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line667">line 667</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line797">line 797</a>
         </div>
         
     </div>
@@ -3309,14 +3864,14 @@ The newly created creative
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".reveal">
+        <h4 class="name" id=".removeChild">
             
-            <span class="type-signature static">static</span>mkr.reveal<span class="signature">(target, <span class="optional">options</span>)</span>
+            <span class="type-signature static">static</span>mkr.removeChild<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line418">line 418</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line610">line 610</a>
         </div>
         
     </div>
@@ -3327,7 +3882,107 @@ The newly created creative
     
     
     <div class="description">
-        shortcut for revealing scrollable content. Created as a utility to assist with screenshotting
+        Removes an existing element from the DOM
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            <td class="description last">The removed element</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".reveal">
+            
+            <span class="type-signature static">static</span>mkr.reveal<span class="signature">(target, <span class="optional">options</span>, <span class="optional">parentOpts</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line497">line 497</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        shortcut for revealing scrollable content.
     </div>
     
 
@@ -3409,7 +4064,37 @@ The newly created creative
                         
                     
                 
-                An optional set of attributes and css properties to set on the element</td>
+                An optional set of attributes and css properties applied to the target</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>parentOpts</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                An optional set of attributes and css properties applied to every parent of the target</td>
         </tr>
 	
 	
@@ -3467,7 +4152,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line631">line 631</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line761">line 761</a>
         </div>
         
     </div>
@@ -3681,7 +4366,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line438">line 438</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line522">line 522</a>
         </div>
         
     </div>
@@ -3889,7 +4574,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line538">line 538</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line652">line 652</a>
         </div>
         
     </div>
@@ -4080,7 +4765,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line589">line 589</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line719">line 719</a>
         </div>
         
     </div>
@@ -4270,12 +4955,12 @@ The newly created creative
     <div class="nameContainer">
         <h4 class="name" id="add">
             
-            add<span class="signature">(element, <span class="optional">options</span>, <span class="optional">parent</span>, <span class="optional">ignore</span>)</span>
+            add<span class="signature">(target, <span class="optional">options</span>, <span class="optional">parent</span>, <span class="optional">save</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line199">line 199</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line251">line 251</a>
         </div>
         
     </div>
@@ -4286,7 +4971,7 @@ The newly created creative
     
     
     <div class="description">
-        Adds an existing element the mkr instance
+        Adds existing elements the mkr instance
     </div>
     
 
@@ -4319,13 +5004,13 @@ The newly created creative
 	
         <tr>
             
-                <td class="name"><code>element</code></td>
+                <td class="name"><code>target</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Element</span>
+<span class="param-type">*</span>
 
 
             
@@ -4344,7 +5029,7 @@ The newly created creative
                         
                     
                 
-                The element to add</td>
+                An single element, array of elements, or a css selector string.</td>
         </tr>
 	
 	
@@ -4419,213 +5104,7 @@ The newly created creative
 	
         <tr>
             
-                <td class="name"><code>ignore</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                Pass true to prevent mkr saving a reference to the element</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-
-The element
-
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="clone">
-            
-            clone<span class="signature">(target, <span class="optional">options</span>, <span class="optional">deep</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line167">line 167</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        clone a dom element with optional params
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>target</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                The object to be cloned</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                attributes a properties to set on the new obj</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>deep</code></td>
+                <td class="name"><code>save</code></td>
             
             
             <td class="type">
@@ -4654,7 +5133,7 @@ The element
                         
                     
                 
-                Whether children should also be cloned</td>
+                Pass false to prevent mkr saving a reference to the element @see save</td>
         </tr>
 	
 	
@@ -4715,11 +5194,303 @@ The element
             
             <td class="type">
             
-                        Element
+                        *
                         
                     
             </td>
-            <td class="description last"></td>
+            <td class="description last">The added element, or an array when multiple elements are targeted</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="batch">
+            
+            batch<span class="signature">(type, <span class="optional">options</span>, num, <span class="optional">parent</span>, <span class="optional">save</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line230">line 230</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a specified number of elements with the same parameters
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The type of element to create.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                A set of attributes and css properties used to create the elements</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>num</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The number of elements to produce</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The element to append the new elements. Can be an element or a css selector string</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>save</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Pass false to prevent mkr saving a references to the elements @see save</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Array
+                        
+                    
+            </td>
+            <td class="description last">An array containing the new elements</td>
         </tr>
     
     </tbody>
@@ -4736,12 +5507,12 @@ The element
     <div class="nameContainer">
         <h4 class="name" id="create">
             
-            create<span class="signature">(type, <span class="optional">options</span>, <span class="optional">parent</span>, <span class="optional">ignore</span>)</span>
+            create<span class="signature">(type, <span class="optional">options</span>, <span class="optional">parent</span>, <span class="optional">save</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line111">line 111</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line180">line 180</a>
         </div>
         
     </div>
@@ -4857,7 +5628,7 @@ The element
             <td class="type">
             
                 
-<span class="param-type">Element</span>
+<span class="param-type">*</span>
 
 
             
@@ -4878,20 +5649,20 @@ The element
                         
                     
                 
-                The Element to append the new element. Defaults to the instance container</td>
+                The element to append the new element. Can be an element or a css selector string</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>ignore</code></td>
+                <td class="name"><code>save</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">Boolean</span>
 
 
             
@@ -4900,7 +5671,7 @@ The element
             
                 <td class="default">
                 
-                    false
+                    true
                 
                 </td>
             
@@ -4914,7 +5685,7 @@ The element
                         
                     
                 
-                Pass true to prevent mkr from saving a reference to the element</td>
+                Pass false to prevent mkr saving a reference to the element @see save</td>
         </tr>
 	
 	
@@ -4961,9 +5732,29 @@ The element
     
 
 
-
-The new element
-
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            <td class="description last">The new element</td>
+        </tr>
+    
+    </tbody>
+</table>
 
     
     
@@ -4974,14 +5765,14 @@ The new element
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="killAllTweens">
+        <h4 class="name" id="kill">
             
-            killAllTweens<span class="signature">()</span>
+            kill<span class="signature">()</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line264">line 264</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line336">line 336</a>
         </div>
         
     </div>
@@ -4992,7 +5783,7 @@ The new element
     
     
     <div class="description">
-        Kills all tweens of this mkr's elements
+        Kills all tweens of this mkr's elements, and removes the container from the DOM
     </div>
     
 
@@ -5052,7 +5843,7 @@ The new element
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line82">line 82</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line105">line 105</a>
         </div>
         
     </div>
@@ -5196,85 +5987,14 @@ The new element
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="nuke">
-            
-            nuke<span class="signature">()</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line277">line 277</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Kills all tweens of this mkr's elements, and removes the container from the dom
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
         <h4 class="name" id="remove">
             
-            remove<span class="signature">(element, <span class="optional">killTweens</span>, <span class="optional">removeFromDom</span>)</span>
+            remove<span class="signature">(target, <span class="optional">killTweens</span>, <span class="optional">removeFromDOM</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line223">line 223</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line282">line 282</a>
         </div>
         
     </div>
@@ -5285,7 +6005,7 @@ The new element
     
     
     <div class="description">
-        Removes an element from the mkr instance
+        Removes elements from the mkr instance
     </div>
     
 
@@ -5318,13 +6038,13 @@ The new element
 	
         <tr>
             
-                <td class="name"><code>element</code></td>
+                <td class="name"><code>target</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Element</span>
+<span class="param-type">*</span>
 
 
             
@@ -5343,7 +6063,7 @@ The new element
                         
                     
                 
-                The element to add</td>
+                An single element, array of elements, or a css selector string.</td>
         </tr>
 	
 	
@@ -5386,7 +6106,7 @@ The new element
 	
         <tr>
             
-                <td class="name"><code>removeFromDom</code></td>
+                <td class="name"><code>removeFromDOM</code></td>
             
             
             <td class="type">
@@ -5462,9 +6182,29 @@ The new element
     
 
 
-
-The removed element
-
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        *
+                        
+                    
+            </td>
+            <td class="description last">The removed element, or an array when multiple elements are targeted</td>
+        </tr>
+    
+    </tbody>
+</table>
 
     
     
@@ -5482,7 +6222,7 @@ The removed element
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line288">line 288</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line348">line 348</a>
         </div>
         
     </div>
@@ -5546,14 +6286,14 @@ The removed element
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="saveElement">
+        <h4 class="name" id="save">
             
-            saveElement<span class="signature">(element, <span class="optional">options</span>)</span>
+            save<span class="signature">(target, <span class="optional">state</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line249">line 249</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line314">line 314</a>
         </div>
         
     </div>
@@ -5564,7 +6304,7 @@ The removed element
     
     
     <div class="description">
-        Creates a new html element
+        Associates an initial state with existing elements
     </div>
     
 
@@ -5595,13 +6335,13 @@ The removed element
 	
         <tr>
             
-                <td class="name"><code>element</code></td>
+                <td class="name"><code>target</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">*</span>
 
 
             
@@ -5616,14 +6356,14 @@ The removed element
                         
                     
                 
-                The type of element to save.</td>
+                An single element, array of elements, or a css selector string.</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>state</code></td>
             
             
             <td class="type">
@@ -5646,7 +6386,7 @@ The removed element
                         
                     
                 
-                A set of attributes and css properties used to create the element</td>
+                A set of attributes and styles representing the element's initial state</td>
         </tr>
 	
 	
@@ -5710,7 +6450,7 @@ The removed element
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Feb 24 2017 18:47:48 GMT-0500 (EST)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 28 2017 01:58:34 GMT-0500 (EST)
         </footer>
     </div>
 </div>

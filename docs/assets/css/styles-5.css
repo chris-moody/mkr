@@ -23,10 +23,10 @@ h5,
 h6 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  color: #17baef;
+  color: #CF6870;
 }
 a {
-  color: #17baef;
+  color: #CF6870;
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
@@ -34,7 +34,7 @@ a {
 }
 a:hover {
   text-decoration: underline;
-  color: #0e98c5;
+  color: #7c151D;
 }
 
 .promo a {color: #fff;}
@@ -58,34 +58,34 @@ a.btn:focus {
 }
 a.btn-cta-primary,
 .btn-cta-primary {
-  background: #074f66;
-  border: 1px solid #074f66;
+  background: #530006;
+  border: 1px solid #530006;
   color: #fff;
   font-weight: 600;
   text-transform: uppercase;
 }
 a.btn-cta-primary:hover,
 .btn-cta-primary:hover {
-  background: #053c4e;
-  border: 1px solid #053c4e;
+  background: #7c151d;
+  border: 1px solid #7c151d;
   color: #fff;
 }
 a.btn-cta-secondary,
 .btn-cta-secondary {
-  background: #eebf3f;
-  border: 1px solid #eebf3f;
-  color: #fff;
+  background: #dddddd;
+  border: 1px solid #dddddd;
+  color: #7c151d;
   font-weight: 600;
   text-transform: uppercase;
 }
 a.btn-cta-secondary:hover,
 .btn-cta-secondary:hover {
-  background: #ecb728;
-  border: 1px solid #ecb728;
-  color: #fff;
+  background: #fff;
+  border: 1px solid #fff;
+  color: #7c151d;
 }
 .text-highlight {
-  color: #074f66;
+  color: #530006;
 }
 .offset-header {
   padding-top: 90px;
@@ -96,7 +96,7 @@ pre code {
 /* ======= Header ======= */
 .header {
   padding: 10px 0;
-  background: #17baef;
+  background: #CF6870;
   color: #fff;
   position: fixed;
   width: 100%;
@@ -109,7 +109,7 @@ pre code {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 .header.navbar-fixed-top .logo a {
-  color: #17baef;
+  color: #7c151d;
 }
 .header.navbar-fixed-top .main-nav .nav .nav-item a {
   color: #666;
@@ -126,7 +126,7 @@ pre code {
   text-decoration: none;
 }
 .header .main-nav button {
-  background: #074f66;
+  background: #530006;
   color: #fff !important;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -152,11 +152,11 @@ pre code {
   font-family: 'Montserrat', sans-serif;
 }
 .header .main-nav .nav .nav-item.active a {
-  color: #17baef;
+  color: #CF6870;
   background: none;
 }
 .header .main-nav .nav .nav-item a {
-  color: #0a7396;
+  color: #530006;
   -webkit-transition: none;
   -moz-transition: none;
   -ms-transition: none;
@@ -165,7 +165,7 @@ pre code {
   padding: 15px 10px;
 }
 .header .main-nav .nav .nav-item a:hover {
-  color: #074f66;
+  color: #530006;
   background: none;
 }
 .header .main-nav .nav .nav-item a:focus {
@@ -177,24 +177,24 @@ pre code {
   background: none;
 }
 .header .main-nav .nav .nav-item.active {
-  color: #17baef;
+  color: #CF6870;
 }
 .header .main-nav .nav .nav-item.last {
   margin-right: 0;
 }
 /* ======= Promo Section ======= */
 .promo {
-  background: #17baef;
+  background: #CF6870;
   color: #fff;
   padding-top: 150px;
 }
 .promo .title {
   font-size: 98px;
-  color: #074f66;
+  color: #530006;
   margin-top: 0;
 }
 .promo .title .highlight {
-  color: #eebf3f;
+  color: #dddddd;
 }
 .promo .intro {
   font-size: 28px;
@@ -210,19 +210,19 @@ pre code {
 .promo .meta {
   margin-top: 120px;
   margin-bottom: 30px;
-  color: #0a7396;
+  color: #530006;
 }
 .promo .meta li {
   margin-right: 15px;
 }
 .promo .meta a {
-  color: #0a7396;
+  color: #530006;
 }
 .promo .meta a:hover {
-  color: #074f66;
+  color: #530006;
 }
 .promo .social-media {
-  background: #0c86ae;
+  background: #7c151d;
   padding: 10px 0;
   margin: 0 auto;
 }
@@ -237,10 +237,10 @@ pre code {
 /* ======= About Section ======= */
 .about {
   padding: 80px 0;
-  background: #f5f5f5;
+  background: #dddddd;
 }
 .about .title {
-  color: #074f66;
+  color: #530006;
   margin-top: 0;
   margin-bottom: 60px;
 }
@@ -260,54 +260,54 @@ pre code {
 }
 .about .item .icon-holder .fa {
   font-size: 24px;
-  color: #074f66;
+  color: #530006;
 }
 .about .item .content {
   padding-left: 60px;
 }
 .about .item .content .sub-title {
   margin-top: 0;
-  color: #074f66;
+  color: #530006;
   font-size: 18px;
 }
 /* ======= Features Section ======= */
 .features {
   padding: 80px 0;
-  background: #17baef;
+  background: #CF6870;
   color: #fff;
 }
 .features .title {
-  color: #074f66;
+  color: #530006;
   margin-top: 0;
   margin-bottom: 30px;
 }
 .features a {
-  color: #074f66;
+  color: #530006;
 }
 .features a:hover {
-  color: #042a36;
+  color: #530006;
 }
 .features .feature-list li {
   margin-bottom: 10px;
-  color: #074f66;
+  color: #530006;
 }
 .features .feature-list li .fa {
   margin-right: 5px;
-  color: #fff;
+  color: #ddd;
 }
 /* ======= Docs Section ======= */
 .docs {
   padding: 80px 0;
-  background: #f5f5f5;
+  background: #808080;
 }
 .docs .title {
-  color: #074f66;
+  color: #530006;
   margin-top: 0;
   margin-bottom: 30px;
 }
 .docs .docs-inner {
   max-width: 800px;
-  background: #fff;
+  background: #dddddd;
   padding: 30px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -338,12 +338,12 @@ pre code {
 /* ======= License Section ======= */
 .license {
   padding: 80px 0;
-  background: #f5f5f5;
+  background: #dddddd;
 }
 .license .title {
   margin-top: 0;
   margin-bottom: 60px;
-  color: #074f66;
+  color: #530006;
 }
 .license .license-inner {
   max-width: 800px;
@@ -377,8 +377,8 @@ pre code {
   background-clip: padding-box;
 }
 .license .cta-container .speech-bubble {
-  background: #d6f3fc;
-  color: #074f66;
+  background: #cF6870;
+  color: #530006;
   padding: 30px;
   margin-bottom: 30px;
   position: relative;
@@ -390,6 +390,7 @@ pre code {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  text-align: center;
 }
 .license .cta-container .speech-bubble:after {
   position: absolute;
@@ -402,7 +403,7 @@ pre code {
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #d6f3fc;
+  border-top: 10px solid #cF6870;
 }
 .license .cta-container .icon-holder {
   margin-bottom: 15px;
@@ -416,7 +417,7 @@ pre code {
 /* ======= Contact Section ======= */
 .contact {
   padding: 80px 0;
-  background: #17baef;
+  background: #CF6870;
   color: #fff;
 }
 .contact .contact-inner {
@@ -424,7 +425,7 @@ pre code {
   margin: 0 auto;
 }
 .contact .title {
-  color: #074f66;
+  color: #530006;
   margin-top: 0;
   margin-bottom: 30px;
 }
@@ -432,10 +433,10 @@ pre code {
   margin-bottom: 60px;
 }
 .contact a {
-  color: #074f66;
+  color: #530006;
 }
 .contact a:hover {
-  color: #042a36;
+  color: #530006;
 }
 .contact .author-message {
   position: relative;
@@ -460,8 +461,8 @@ pre code {
 }
 .contact .author-message .speech-bubble {
   margin-left: 155px;
-  background: #10b2e7;
-  color: #074f66;
+  background: #7c151d;
+  color: #ddd;
   padding: 30px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -474,7 +475,7 @@ pre code {
   position: relative;
 }
 .contact .author-message .speech-bubble .sub-title {
-  color: #074f66;
+  color: #ddd;
   font-size: 16px;
   margin-top: 0;
   margin-bottom: 30px;
@@ -492,19 +493,19 @@ pre code {
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right: 10px solid #10b2e7;
+  border-right: 10px solid #7c151d;
 }
 .contact .author-message .speech-bubble .source {
   margin-top: 30px;
 }
 .contact .author-message .speech-bubble .source a {
-  color: #074f66;
+  color: #fff;
 }
 .contact .author-message .speech-bubble .source .title {
-  color: #0c86ae;
+  color: #cF6870;
 }
 .contact .info .sub-title {
-  color: #0e98c5;
+  color: #fff;
   margin-bottom: 30px;
   margin-top: 0;
 }
@@ -523,7 +524,7 @@ pre code {
 }
 .contact .social-icons a {
   display: inline-block;
-  background: #0c86ae;
+  background: #7c151d;
   width: 48px;
   height: 48px;
   text-align: center;
@@ -540,7 +541,7 @@ pre code {
   float: left;
 }
 .contact .social-icons a:hover {
-  background: #e6ad14;
+  background: #ddd;
 }
 .contact .social-icons a .fa {
   color: #fff;
@@ -553,7 +554,7 @@ pre code {
 /* ======= Footer ======= */
 .footer {
   padding: 15px 0;
-  background: #042a36;
+  background: #530006;
   color: #fff;
 }
 .footer .copyright {
