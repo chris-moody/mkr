@@ -30,7 +30,7 @@
 	
 	/**
 	 * @class mkr
-	 * @description Initializes a new mkr instance. mkr leverages the power of {@link https://greensock.com/tweenmax} to make make animating on the web a cinch!
+	 * @description Initializes a new mkr instance. A lightweight companion library to the {@link https://greensock.com/ greensock animation platform}, mkr delivers a 100% javascript method of content creation
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance
