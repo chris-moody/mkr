@@ -1,4 +1,5 @@
-####[Full Documentation](https://chris-moody.github.io/mkr/)
+####[Fancy ReadMe](https://chris-moody.github.io/mkr/)
+####[Full Documentation](https://chris-moody.github.io/mkr/docs/mkr.html)
 ## What is mkr?
 
 mkr(/ˈmākər/) was originally designed for the development of digital advertisements and other simple animation projects where laying out and styling content in traditional markup can have a huge impact on tight timelines.
@@ -163,7 +164,8 @@ mkr uses the [greensock animation platform](https://greensock.com) to apply prop
     m2.tmln.staggerTo('.beta', .5, {alpha:1, yoyo:true, repeat:1}, .5);
     m2.tmln.play();
 
-####[Full Documentation](https://chris-moody.github.io/mkr/)
+####[Fancy ReadMe](https://chris-moody.github.io/mkr/)
+####[Full Documentation](https://chris-moody.github.io/mkr/docs/mkr.html)
 ####License
 mkr is developed and maintained by Christopher C. Moody and is 100% FREE under the MIT License
 
