@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.1.0
- * DATE: 2017-02-28
+ * VERSION: 0.1.1
+ * DATE: 2017-03-01
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -33,16 +33,16 @@
 	 * @description Initializes a new mkr instance. A lightweight companion library to the {@link https://greensock.com/ greensock animation platform}, mkr delivers a 100% javascript method of content creation
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
-	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance
+	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
 	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
-	 * @requires {@link https://greensock.com/tweenmax}
+	 * @requires {@link https://greensock.com/tweenmax TweenMax}
 	 */
 	var mkr = function(options) {
 		var id=_count;
 		_count++;
 		this._elements = [];
-		this._elDefaults = {};
+		this._states = {};
 		this._count=0;
 		this._tag = 'mkr-'+id+'-index';
 		options = options || {};
@@ -65,7 +65,8 @@
 		var _loadedImages = 0;
 
 		mkr.setDefault(options, 'attr', {});
-		'class' in options.attr ? options.attr.class += ' mkr-container' : options.attr.class = 'mkr-container';
+		var classes = 'mkr-container mkr-'+id;
+		'class' in options.attr ? options.attr.class += ' '+classes : options.attr.class = classes;
 
 		/**
 		 * @name mkr#container
@@ -210,8 +211,9 @@
 		}
 		else {
 			element = document.createElement(type);
-			options.css.position = options.css.position || "absolute";
-			mkr.setDefault(options, "force3d", true);
+			//options.css.position = options.css.position || "absolute";
+			mkr.setDefault(options.css, 'position', 'absolute');
+			mkr.setDefault(options, 'force3d', true);
 		}		
 
 		//var element = type==="svg"? document.createElementNS("http://www.w3.org/2000/svg", type) :document.createElement(type);
@@ -300,7 +302,7 @@
 			if(n > -1) { //can't remove what isn't there...
 				self._elements.splice(n, 1);
 				var mkrindex = el.getAttribute(self._tag);
-				delete self._elDefaults[mkrindex];
+				delete self._states[mkrindex];
 				el.removeAttribute(self._tag);
 
 				if(killTweens) TweenMax.killTweensOf(el);
@@ -329,7 +331,7 @@
 				self._elements.push(el);
 				self._count++;
 			}
-			self._elDefaults[mkrindex] = state;
+			self._states[mkrindex] = state;
 		});
 	};
 
@@ -337,11 +339,13 @@
 	 * @function kill
 	 * @memberof mkr.prototype
 	 * @public
-	 * @description Kills all tweens of this mkr's elements, and removes the container from the DOM
+	 * @description Kills this mkr's tweens, child tweens, and timeline. Removes all listeners and removes the container from the DOM
 	**/
 	mkr.prototype.kill = function() {
+		TweenMax.killTweensOf(this);
 		TweenMax.killTweensOf(this.container);
 		TweenMax.killChildTweensOf(this.container);
+		mkr.off('.mkr-'+this.id+' *');
 		mkr.removeChild(this.container);
 	};
 
@@ -357,11 +361,11 @@
 		for(var i = 0; i < len; i++) {
 			var el = this._elements[i];
 			var mkrindex = el.getAttribute(this._tag);
-			if(this._elDefaults[mkrindex]) {
+			if(this._states[mkrindex]) {
 				//console.log(mkrindex);
 				if(killTweens) TweenMax.killTweensOf(el);
 				TweenMax.to(el, 0, {clearProps:'all'});
-				TweenMax.set(el, this._elDefaults[mkrindex]);
+				TweenMax.set(el, this._states[mkrindex]);
 			}
 		}
 	};
@@ -686,33 +690,98 @@
 	 * @function addRule
 	 * @memberof mkr
 	 * @static
-	 * @description add a css rule to mkr's global stylesheet.
+	 * @description Adds a CSS rule to mkr's global stylesheet.
 	 * @param {String} selector - A selector string, that the rule should target
-	 * @param {String} rules - The rules to add
+	 * @param {Object} styles - The styles to add to the new rule
 	 * @param {int=} index - The index at which to insert the rule.
 	 * @returns {int} The index of the newly inserted rule
+	 * @requires {@link https://greensock.com/cssruleplugin CSSRulePlugin}
 	**/
-    mkr.addRule = function(selector, rules, index) {
-    	//var ruleString = JSON.stringify(rules).replace(/\"/g, '');
+    mkr.addRule = function(selector, styles, index) {
+    	//var ruleString = JSON.stringify(styles).replace(/\"/g, '');
     	index = index === undefined ? mkr.styles.cssRules.length : index;
-		return mkr.styles.insertRule(selector + "{" + rules + "}", index);
+		//mkr.styles.insertRule(selector + "{" + styles + "}", index);
+		//console.log(selector+"{}");
+		var rules = selector+"{}";
+		var n = -1;
+		try {
+			n = mkr.styles.insertRule(rules, index);
+			var rule = mkr.styles.cssRules[n].style;//CSSRulePlugin.getRule(selector);
+			TweenMax.set(rule, {cssRule:styles});
+		}
+		catch(e){};
+		return n;
+	};
+
+	/**
+	 * @function removeRule
+	 * @memberof mkr
+	 * @static
+	 * @description Traverses mkr's stylesheet and removes first rule to match the selector.
+	 * @param {String} selector - The selector text of the rule to remove.
+	**/
+    mkr.removeRule = function(selector) {
+    	var index = mkr.findRule(selector);
+    	if(index > -1) {
+    		mkr.styles.deleteRule(index);
+    	}
 	};
 
 	/**
 	 * @function deleteRule
 	 * @memberof mkr
 	 * @static
-	 * @description delete a css rule from mkr's global stylesheet.
-	 * @param {int=} index - The index the rule to delete.
+	 * @description Delete the CSS rule at the specified index.
+	 * @param {int=} index - The index the rule to remove.
 	**/
-    mkr.deleteRule = function(selector, rules, index) {
-    	//var ruleString = JSON.stringify(rules).replace(/\"/g, '');
-    	index = index === undefined ? mkr.styles.cssRules.length : index;
-		if("insertRule" in mkr.styles) {
-			mkr.styles.insertRule(selector + "{" + rules + "}", index);
-		}
-		else if("addRule" in mkr.styles) {
-			mkr.styles.addRule(selector, rules, index);
+    mkr.deleteRule = function(index) {
+		mkr.styles.deleteRule(index);
+	};
+
+	/**
+	 * @function findRule
+	 * @memberof mkr
+	 * @static
+	 * @description Traverses mkr's stylesheet and returns the index of the first rule to match the selector. Returns -1 if the rule is not found.
+	 * @param {String} selector - Selector used to search the stylesheet
+	 * @returns {int} index - The index of the rule or -1 if not found.
+	**/
+    mkr.findRule = function(selector) {
+    	var len = mkr.styles.cssRules.length;
+    	for(var i=0; i < len; i++) {
+    		if(selector === mkr.styles.cssRules[i].selectorText) {
+    			return i;
+    		}
+    	}
+    	return -1;
+	};
+
+	/**
+	 * @function getRule
+	 * @memberof mkr
+	 * @static
+	 * @description Alias for CSSRulePlugin.getRule. Returns the CSSRules that match the provided selector
+	 * @param {String} selector - A selector string by which to select rules
+	 * @returns {CSSStyleDeclaration} - The matched rule(s)
+	 * @requires {@link https://greensock.com/cssruleplugin CSSRulePlugin}
+	**/
+    mkr.getRule = function(selector) {
+    	return CSSRulePlugin.getRule(selector);
+	};
+
+	/**
+	 * @function setRule
+	 * @memberof mkr
+	 * @static
+	 * @description Updates the matched CSSRules with the provided styles
+	 * @param {String} selector - A selector string, that the rule should target
+	 * @param {Object} styles - The styles to set of the matched rules
+	 * @requires {@link https://greensock.com/cssruleplugin CSSRulePlugin}
+	**/
+    mkr.setRule = function(selector, styles, index) {
+    	var rule = CSSRulePlugin.getRule(selector);
+    	if(rule) {
+			TweenMax.set(rule, {cssRule:styles});
 		}
 	};
 
@@ -1090,7 +1159,7 @@
 	* @type String
 	* @description returns mkr's version number
 	**/
-	mkr.VERSION = '0.0.9';
+	mkr.VERSION = '0.1.1';
 
     scope[className] = mkr;
 	return mkr;
