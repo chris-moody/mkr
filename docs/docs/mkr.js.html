@@ -13,7 +13,7 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    <link type="text/css" rel="stylesheet" href="styles/mkr.css">
     
     
     <script>
@@ -79,7 +79,11 @@
             
                 <li data-name="mkr.extend"><a href="mkr.html#.extend">extend</a></li>
             
+                <li data-name="mkr.findRule"><a href="mkr.html#.findRule">findRule</a></li>
+            
                 <li data-name="mkr.getDefault"><a href="mkr.html#.getDefault">getDefault</a></li>
+            
+                <li data-name="mkr.getRule"><a href="mkr.html#.getRule">getRule</a></li>
             
                 <li data-name="mkr.makeDC"><a href="mkr.html#.makeDC">makeDC</a></li>
             
@@ -97,6 +101,8 @@
             
                 <li data-name="mkr.removeChild"><a href="mkr.html#.removeChild">removeChild</a></li>
             
+                <li data-name="mkr.removeRule"><a href="mkr.html#.removeRule">removeRule</a></li>
+            
                 <li data-name="mkr.reveal"><a href="mkr.html#.reveal">reveal</a></li>
             
                 <li data-name="mkr.rotation"><a href="mkr.html#.rotation">rotation</a></li>
@@ -106,6 +112,8 @@
                 <li data-name="mkr.setDefault"><a href="mkr.html#.setDefault">setDefault</a></li>
             
                 <li data-name="mkr.setPolyPath"><a href="mkr.html#.setPolyPath">setPolyPath</a></li>
+            
+                <li data-name="mkr.setRule"><a href="mkr.html#.setRule">setRule</a></li>
             
                 <li data-name="mkr#add"><a href="mkr.html#add">add</a></li>
             
@@ -140,8 +148,8 @@
     <section>
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*!
- * VERSION: 0.1.0
- * DATE: 2017-02-28
+ * VERSION: 0.1.2
+ * DATE: 2017-03-02
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -174,16 +182,16 @@
 	 * @description Initializes a new mkr instance. A lightweight companion library to the {@link https://greensock.com/ greensock animation platform}, mkr delivers a 100% javascript method of content creation
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
-	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
 	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
-	 * @requires {@link https://greensock.com/tweenmax}
+	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
+	 * @requires {@link https://greensock.com/tweenmax TweenMax}
 	 */
 	var mkr = function(options) {
 		var id=_count;
 		_count++;
 		this._elements = [];
-		this._elDefaults = {};
+		this._states = {};
 		this._count=0;
 		this._tag = 'mkr-'+id+'-index';
 		options = options || {};
@@ -206,7 +214,8 @@
 		var _loadedImages = 0;
 
 		mkr.setDefault(options, 'attr', {});
-		'class' in options.attr ? options.attr.class += ' mkr-container' : options.attr.class = 'mkr-container';
+		var classes = 'mkr-container mkr-'+id;
+		'class' in options.attr ? options.attr.class += ' '+classes : options.attr.class = classes;
 
 		/**
 		 * @name mkr#container
@@ -270,6 +279,44 @@
 				this._images[i].img.src = this._images[i].src;
 			}
 		};
+	};
+
+	/**
+	 * @function makeDC
+	 * @memberof mkr
+	 * @static
+	 * @description Factory method for quickly creating creatives that conform to DCS standards
+	 * @param {Number} width - The width of the creative
+	 * @param {Number} height - The height of the creative
+	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
+	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
+	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
+	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
+	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
+	 * @returns The newly created creative
+	**/
+	mkr.makeDC = function(width, height, options) {
+		options = options || {};
+		mkr.setDefault(options, 'attr', {});
+		mkr.setDefault(options, 'css', {});
+		mkr.setDefault(options.css, 'width', width);
+		mkr.setDefault(options.css, 'height', height);
+		mkr.setDefault(options.css, 'top', '0px');
+		mkr.setDefault(options.css, 'left', '0px');
+		mkr.setDefault(options.css, 'zIndex', 1);
+		mkr.setDefault(options.css, 'overflow', 'hidden');
+
+		var dc = new mkr(options);
+		//dc.width = width;
+		//dc.height = height;
+		dc.border = document.createElement('div');
+		TweenMax.set(dc.border, {attr:{class:'mkr-border'},
+			css:{position:'absolute', pointerEvents:'none', zIndex:'1000',
+			left:'0px', top:'0px', border:'1px solid #666666', width:width-2, height:height-2
+		}});
+		dc.container.appendChild(dc.border);
+
+		return dc;
 	};
 
 	/**
@@ -351,8 +398,9 @@
 		}
 		else {
 			element = document.createElement(type);
-			options.css.position = options.css.position || "absolute";
-			mkr.setDefault(options, "force3d", true);
+			//options.css.position = options.css.position || "absolute";
+			mkr.setDefault(options.css, 'position', 'absolute');
+			mkr.setDefault(options, 'force3d', true);
 		}		
 
 		//var element = type==="svg"? document.createElementNS("http://www.w3.org/2000/svg", type) :document.createElement(type);
@@ -441,7 +489,7 @@
 			if(n > -1) { //can't remove what isn't there...
 				self._elements.splice(n, 1);
 				var mkrindex = el.getAttribute(self._tag);
-				delete self._elDefaults[mkrindex];
+				delete self._states[mkrindex];
 				el.removeAttribute(self._tag);
 
 				if(killTweens) TweenMax.killTweensOf(el);
@@ -470,7 +518,7 @@
 				self._elements.push(el);
 				self._count++;
 			}
-			self._elDefaults[mkrindex] = state;
+			self._states[mkrindex] = state;
 		});
 	};
 
@@ -478,11 +526,13 @@
 	 * @function kill
 	 * @memberof mkr.prototype
 	 * @public
-	 * @description Kills all tweens of this mkr's elements, and removes the container from the DOM
+	 * @description Kills this mkr's tweens, child tweens, and timeline. Removes all listeners and removes the container from the DOM
 	**/
 	mkr.prototype.kill = function() {
+		TweenMax.killTweensOf(this);
 		TweenMax.killTweensOf(this.container);
 		TweenMax.killChildTweensOf(this.container);
+		mkr.off('.mkr-'+this.id+' *');
 		mkr.removeChild(this.container);
 	};
 
@@ -498,46 +548,13 @@
 		for(var i = 0; i &lt; len; i++) {
 			var el = this._elements[i];
 			var mkrindex = el.getAttribute(this._tag);
-			if(this._elDefaults[mkrindex]) {
+			if(this._states[mkrindex]) {
 				//console.log(mkrindex);
 				if(killTweens) TweenMax.killTweensOf(el);
 				TweenMax.to(el, 0, {clearProps:'all'});
-				TweenMax.set(el, this._elDefaults[mkrindex]);
+				TweenMax.set(el, this._states[mkrindex]);
 			}
 		}
-	};
-
-	/**
-	 * @function makeDC
-	 * @memberof mkr
-	 * @static
-	 * @description Factory method for quickly creating creatives that conform to DCS standards
-	 * @param {Number} width - The width of the creative
-	 * @param {Number} height - The height of the creative
-	 * @returns The newly created creative
-	**/
-	mkr.makeDC = function(width, height, options) {
-		options = options || {};
-		mkr.setDefault(options, 'attr', {});
-		mkr.setDefault(options, 'css', {});
-		mkr.setDefault(options.css, 'width', width);
-		mkr.setDefault(options.css, 'height', height);
-		mkr.setDefault(options.css, 'top', '0px');
-		mkr.setDefault(options.css, 'left', '0px');
-		mkr.setDefault(options.css, 'zIndex', 1);
-		mkr.setDefault(options.css, 'overflow', 'hidden');
-
-		var dc = new mkr(options);
-		//dc.width = width;
-		//dc.height = height;
-		dc.border = document.createElement('div');
-		TweenMax.set(dc.border, {attr:{class:'mkr-border'},
-			css:{position:'absolute', pointerEvents:'none', zIndex:'1000',
-			left:'0px', top:'0px', border:'1px solid #666666', width:width-2, height:height-2
-		}});
-		dc.container.appendChild(dc.border);
-
-		return dc;
 	};
 
     /**
@@ -568,15 +585,15 @@
 	 * @description Add a listener to one or many objects
 	 * @param {*} target - An single element, array of elements, or a css selector string.
 	 * @param {String} type - A string representing the type of event the listener is associated with
-	 * @param {Function} listener - The function to be executed when the associated event is fired
-	 * @param {Object=} context - Context on which the listener is executed (object that should represent the `this` variable inside listener function)
-	 * @param {Number} [priority=0] - Affects listener execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion
+	 * @param {Function} callback - The function to be executed when the associated event is fired
+	 * @param {Object=} context - Context on which the callback is executed (object that should represent the `this` variable inside callback function)
+	 * @param {Number} [priority=0] - Affects callback execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion
 	**/
-	mkr.on = function(target, type, listener, context, priority) {
+	mkr.on = function(target, type, callback, context, priority) {
 		mkr.each(target, function(el) {
 			var cxt = mkr.default(context, el);
-			mkr._triggerMatrix.add(el, type, listener, cxt, priority);
-			//el.addEventListener(eventType, listener, false);
+			mkr._triggerMatrix.add(el, type, callback, cxt, priority);
+			//el.addEventListener(eventType, callback, false);
 		});
 	};
 
@@ -587,15 +604,15 @@
 	 * @description Add a listener to one or many objects that only executes once per object
 	 * @param {*} target - An single element, array of elements, or a css selector string.
 	 * @param {String} type - A string representing the type of event the listener is associated with
-	 * @param {Function} listener - The function to be executed when the associated event is fired
-	 * @param {Object=} context - Context on which the listener is executed (object that should represent the `this` variable inside listener function)
-	 * @param {Number} [priority=0] - Affects listener execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion
+	 * @param {Function} callback - The function to be executed when the associated event is fired
+	 * @param {Object=} context - Context on which the callback is executed (object that should represent the `this` variable inside callback function)
+	 * @param {Number} [priority=0] - Affects callback execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion
 	**/
-	mkr.once = function(target, type, listener, context, priority) {
+	mkr.once = function(target, type, callback, context, priority) {
 		mkr.each(target, function(el) {
 			var cxt = mkr.default(context, el);
-			mkr._triggerMatrix.addOnce(el, type, listener, cxt, priority);
-			//el.addEventListener(eventType, listener, false);
+			mkr._triggerMatrix.addOnce(el, type, callback, cxt, priority);
+			//el.addEventListener(eventType, callback, false);
 		});
 	};
 
@@ -609,19 +626,19 @@
 	 * - First argument only: Removes all listeners from the target
 	 * @param {*} target - An single element, array of elements, or a css selector string.
 	 * @param {String=} type - The event type. Excluding this this argu
-	 * @param {Function=} listener - The listener to remove. Excluding this argument removes all listeners of the specified from the target
-	 * @param {Object=} context - Context on which the listener is executed (object that should represent the `this` variable inside listener function)
+	 * @param {Function=} callback - The callback to remove. Excluding this argument removes all listeners of the specified from the target
+	 * @param {Object=} context - Context on which the callback is executed (object that should represent the `this` variable inside callback function)
 	**/
-	mkr.off = function(target, type, listener, context) {
+	mkr.off = function(target, type, callback, context) {
 		var func;
 		if(type === undefined) func = mkr._triggerMatrix.delete.bind(mkr._triggerMatrix);
-		else if(listener === undefined) func = mkr._triggerMatrix.removeAll.bind(mkr._triggerMatrix);
+		else if(callback === undefined) func = mkr._triggerMatrix.removeAll.bind(mkr._triggerMatrix);
 		else func = mkr._triggerMatrix.remove.bind(mkr._triggerMatrix);
 
 		mkr.each(target, function(el) {
 			var cxt = mkr.default(context, el);
-			func(el, type, listener, cxt);
-			//el.removeEventListener(eventType, listener, false);
+			func(el, type, callback, cxt);
+			//el.removeEventListener(eventType, callback, false);
 		});
 	};
 
@@ -827,33 +844,97 @@
 	 * @function addRule
 	 * @memberof mkr
 	 * @static
-	 * @description add a css rule to mkr's global stylesheet.
+	 * @description Adds a CSS rule to mkr's global stylesheet.
 	 * @param {String} selector - A selector string, that the rule should target
-	 * @param {String} rules - The rules to add
+	 * @param {Object} styles - The styles to add to the new rule
 	 * @param {int=} index - The index at which to insert the rule.
 	 * @returns {int} The index of the newly inserted rule
+	 * @requires {@link https://greensock.com/cssruleplugin CSSRulePlugin}
 	**/
-    mkr.addRule = function(selector, rules, index) {
-    	//var ruleString = JSON.stringify(rules).replace(/\"/g, '');
+    mkr.addRule = function(selector, styles, index) {
+    	//var ruleString = JSON.stringify(styles).replace(/\"/g, '');
     	index = index === undefined ? mkr.styles.cssRules.length : index;
-		return mkr.styles.insertRule(selector + "{" + rules + "}", index);
+		//mkr.styles.insertRule(selector + "{" + styles + "}", index);
+		var rules = selector+"{}";
+		var n = -1;
+		try {
+			n = mkr.styles.insertRule(rules, index);
+			var rule = mkr.styles.cssRules[n].style;//CSSRulePlugin.getRule(selector);
+			TweenMax.set(rule, {cssRule:styles});
+		}
+		catch(e){console.warn(e)};
+		return n;
+	};
+
+	/**
+	 * @function removeRule
+	 * @memberof mkr
+	 * @static
+	 * @description Traverses mkr's stylesheet and removes first rule to match the selector.
+	 * @param {String} selector - The selector text of the rule to remove.
+	**/
+    mkr.removeRule = function(selector) {
+    	var index = mkr.findRule(selector);
+    	if(index > -1) {
+    		mkr.styles.deleteRule(index);
+    	}
 	};
 
 	/**
 	 * @function deleteRule
 	 * @memberof mkr
 	 * @static
-	 * @description delete a css rule from mkr's global stylesheet.
-	 * @param {int=} index - The index the rule to delete.
+	 * @description Delete the CSS rule at the specified index.
+	 * @param {int=} index - The index the rule to remove.
 	**/
-    mkr.deleteRule = function(selector, rules, index) {
-    	//var ruleString = JSON.stringify(rules).replace(/\"/g, '');
-    	index = index === undefined ? mkr.styles.cssRules.length : index;
-		if("insertRule" in mkr.styles) {
-			mkr.styles.insertRule(selector + "{" + rules + "}", index);
-		}
-		else if("addRule" in mkr.styles) {
-			mkr.styles.addRule(selector, rules, index);
+    mkr.deleteRule = function(index) {
+		mkr.styles.deleteRule(index);
+	};
+
+	/**
+	 * @function findRule
+	 * @memberof mkr
+	 * @static
+	 * @description Traverses mkr's stylesheet and returns the index of the first rule to match the selector. Returns -1 if the rule is not found.
+	 * @param {String} selector - Selector used to search the stylesheet
+	 * @returns {int} index - The index of the rule or -1 if not found.
+	**/
+    mkr.findRule = function(selector) {
+    	var len = mkr.styles.cssRules.length;
+    	for(var i=0; i &lt; len; i++) {
+    		if(selector === mkr.styles.cssRules[i].selectorText) {
+    			return i;
+    		}
+    	}
+    	return -1;
+	};
+
+	/**
+	 * @function getRule
+	 * @memberof mkr
+	 * @static
+	 * @description Alias for CSSRulePlugin.getRule. Returns the CSSRules that match the provided selector
+	 * @param {String} selector - A selector string by which to select rules
+	 * @returns {CSSStyleDeclaration} - The matched rule(s)
+	 * @requires {@link https://greensock.com/cssruleplugin CSSRulePlugin}
+	**/
+    mkr.getRule = function(selector) {
+    	return CSSRulePlugin.getRule(selector);
+	};
+
+	/**
+	 * @function setRule
+	 * @memberof mkr
+	 * @static
+	 * @description Updates the matched CSSRules with the provided styles
+	 * @param {String} selector - A selector string, that the rule should target
+	 * @param {Object} styles - The styles to set of the matched rules
+	 * @requires {@link https://greensock.com/cssruleplugin CSSRulePlugin}
+	**/
+    mkr.setRule = function(selector, styles, index) {
+    	var rule = CSSRulePlugin.getRule(selector);
+    	if(rule) {
+			TweenMax.set(rule, {cssRule:styles});
 		}
 	};
 
@@ -1231,7 +1312,7 @@
 	* @type String
 	* @description returns mkr's version number
 	**/
-	mkr.VERSION = '0.0.9';
+	mkr.VERSION = '0.1.2';
 
     scope[className] = mkr;
 	return mkr;
@@ -1256,11 +1337,11 @@ f})(this);</code></pre>
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 28 2017 02:47:38 GMT-0500 (EST)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 03 2017 03:49:32 GMT-0500 (EST)
         </footer>
     </div>
 </div>
 <script>prettyPrint();</script>
-<script src="scripts/jaguar.js"></script>
+<script src="scripts/mkr-jsdoc.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    <link type="text/css" rel="stylesheet" href="styles/mkr.css">
     
     
     <script>
@@ -79,7 +79,11 @@
             
                 <li data-name="mkr.extend"><a href="mkr.html#.extend">extend</a></li>
             
+                <li data-name="mkr.findRule"><a href="mkr.html#.findRule">findRule</a></li>
+            
                 <li data-name="mkr.getDefault"><a href="mkr.html#.getDefault">getDefault</a></li>
+            
+                <li data-name="mkr.getRule"><a href="mkr.html#.getRule">getRule</a></li>
             
                 <li data-name="mkr.makeDC"><a href="mkr.html#.makeDC">makeDC</a></li>
             
@@ -97,6 +101,8 @@
             
                 <li data-name="mkr.removeChild"><a href="mkr.html#.removeChild">removeChild</a></li>
             
+                <li data-name="mkr.removeRule"><a href="mkr.html#.removeRule">removeRule</a></li>
+            
                 <li data-name="mkr.reveal"><a href="mkr.html#.reveal">reveal</a></li>
             
                 <li data-name="mkr.rotation"><a href="mkr.html#.rotation">rotation</a></li>
@@ -106,6 +112,8 @@
                 <li data-name="mkr.setDefault"><a href="mkr.html#.setDefault">setDefault</a></li>
             
                 <li data-name="mkr.setPolyPath"><a href="mkr.html#.setPolyPath">setPolyPath</a></li>
+            
+                <li data-name="mkr.setRule"><a href="mkr.html#.setRule">setRule</a></li>
             
                 <li data-name="mkr#add"><a href="mkr.html#add">add</a></li>
             
@@ -280,40 +288,6 @@
 	
         <tr>
             
-                <td class="name"><code>tmln</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                options passed to the built-in TimelineMax instance</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
                 <td class="name"><code>preload</code></td>
             
             
@@ -383,6 +357,40 @@
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>tmln</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                options passed to the built-in TimelineMax instance.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
             </td>
@@ -443,7 +451,7 @@
         <h3 class="subsection-title">Requires</h3>
         
         <ul>
-            <li><a target="_blank" href="https://greensock.com/tweenmax">https://greensock.com/tweenmax</a></li>
+            <li><a target="_blank" href="https://greensock.com/tweenmax">TweenMax</a></li>
         </ul>
     
     
@@ -696,7 +704,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line593">line 593</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line602">line 602</a>
         </div>
         
     </div>
@@ -917,12 +925,12 @@
     <div class="nameContainer">
         <h4 class="name" id=".addRule">
             
-            <span class="type-signature static">static</span>mkr.addRule<span class="signature">(selector, rules, <span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
+            <span class="type-signature static">static</span>mkr.addRule<span class="signature">(selector, styles, <span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line685">line 685</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line694">line 694</a>
         </div>
         
     </div>
@@ -933,7 +941,7 @@
     
     
     <div class="description">
-        add a css rule to mkr's global stylesheet.
+        Adds a CSS rule to mkr's global stylesheet.
     </div>
     
 
@@ -992,13 +1000,13 @@
 	
         <tr>
             
-                <td class="name"><code>rules</code></td>
+                <td class="name"><code>styles</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
             
@@ -1013,7 +1021,7 @@
                         
                     
                 
-                The rules to add</td>
+                The styles to add to the new rule</td>
         </tr>
 	
 	
@@ -1130,7 +1138,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line779">line 779</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line852">line 852</a>
         </div>
         
     </div>
@@ -1344,7 +1352,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line487">line 487</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line496">line 496</a>
         </div>
         
     </div>
@@ -1415,7 +1423,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line621">line 621</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line630">line 630</a>
         </div>
         
     </div>
@@ -1583,7 +1591,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line701">line 701</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line734">line 734</a>
         </div>
         
     </div>
@@ -1594,7 +1602,7 @@
     
     
     <div class="description">
-        delete a css rule from mkr's global stylesheet.
+        Delete the CSS rule at the specified index.
     </div>
     
 
@@ -1648,7 +1656,7 @@
                         
                     
                 
-                The index the rule to delete.</td>
+                The index the rule to remove.</td>
         </tr>
 	
 	
@@ -1706,7 +1714,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line745">line 745</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line818">line 818</a>
         </div>
         
     </div>
@@ -1920,7 +1928,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line402">line 402</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line411">line 411</a>
         </div>
         
     </div>
@@ -2099,7 +2107,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line546">line 546</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line555">line 555</a>
         </div>
         
     </div>
@@ -2237,6 +2245,151 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".findRule">
+            
+            <span class="type-signature static">static</span>mkr.findRule<span class="signature">(selector)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{int}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line745">line 745</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Traverses mkr's stylesheet and returns the index of the first rule to match the selector. Returns -1 if the rule is not found.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                Selector used to search the stylesheet</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        int
+                        
+                    
+            </td>
+            <td class="description last">index - The index of the rule or -1 if not found.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".getDefault">
             
             <span class="type-signature static">static</span>mkr.getDefault<span class="signature">(target, key, value)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
@@ -2244,7 +2397,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line634">line 634</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line643">line 643</a>
         </div>
         
     </div>
@@ -2428,14 +2581,159 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id=".makeDC">
+        <h4 class="name" id=".getRule">
             
-            <span class="type-signature static">static</span>mkr.makeDC<span class="signature">(width, height)</span>
+            <span class="type-signature static">static</span>mkr.getRule<span class="signature">(selector)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{CSSStyleDeclaration}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line369">line 369</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line763">line 763</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Alias for CSSRulePlugin.getRule. Returns the CSSRules that match the provided selector
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                A selector string by which to select rules</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        CSSStyleDeclaration
+                        
+                    
+            </td>
+            <td class="description last">- The matched rule(s)</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id=".makeDC">
+            
+            <span class="type-signature static">static</span>mkr.makeDC<span class="signature">(width, height, options)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line135">line 135</a>
         </div>
         
     </div>
@@ -2520,6 +2818,195 @@
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    document.body
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Element the mkr instance container is appended to</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>preload</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                When true, delays loading img elements until the instance's load function in called</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>imgDir</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    ""
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Relative path from the doc root specifiying the location of images</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tmln</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                options passed to the built-in TimelineMax instance.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2578,12 +3065,12 @@ The newly created creative
     <div class="nameContainer">
         <h4 class="name" id=".off">
             
-            <span class="type-signature static">static</span>mkr.off<span class="signature">(target, <span class="optional">type</span>, <span class="optional">listener</span>, <span class="optional">context</span>)</span>
+            <span class="type-signature static">static</span>mkr.off<span class="signature">(target, <span class="optional">type</span>, <span class="optional">callback</span>, <span class="optional">context</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line461">line 461</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line470">line 470</a>
         </div>
         
     </div>
@@ -2686,7 +3173,7 @@ The newly created creative
 	
         <tr>
             
-                <td class="name"><code>listener</code></td>
+                <td class="name"><code>callback</code></td>
             
             
             <td class="type">
@@ -2709,7 +3196,7 @@ The newly created creative
                         
                     
                 
-                The listener to remove. Excluding this argument removes all listeners of the specified from the target</td>
+                The callback to remove. Excluding this argument removes all listeners of the specified from the target</td>
         </tr>
 	
 	
@@ -2739,7 +3226,7 @@ The newly created creative
                         
                     
                 
-                Context on which the listener is executed (object that should represent the `this` variable inside listener function)</td>
+                Context on which the callback is executed (object that should represent the `this` variable inside callback function)</td>
         </tr>
 	
 	
@@ -2792,12 +3279,12 @@ The newly created creative
     <div class="nameContainer">
         <h4 class="name" id=".on">
             
-            <span class="type-signature static">static</span>mkr.on<span class="signature">(target, type, listener, <span class="optional">context</span>, <span class="optional">priority</span>)</span>
+            <span class="type-signature static">static</span>mkr.on<span class="signature">(target, type, callback, <span class="optional">context</span>, <span class="optional">priority</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line423">line 423</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line432">line 432</a>
         </div>
         
     </div>
@@ -2905,7 +3392,7 @@ The newly created creative
 	
         <tr>
             
-                <td class="name"><code>listener</code></td>
+                <td class="name"><code>callback</code></td>
             
             
             <td class="type">
@@ -2964,7 +3451,7 @@ The newly created creative
                         
                     
                 
-                Context on which the listener is executed (object that should represent the `this` variable inside listener function)</td>
+                Context on which the callback is executed (object that should represent the `this` variable inside callback function)</td>
         </tr>
 	
 	
@@ -3000,7 +3487,7 @@ The newly created creative
                         
                     
                 
-                Affects listener execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion</td>
+                Affects callback execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion</td>
         </tr>
 	
 	
@@ -3053,12 +3540,12 @@ The newly created creative
     <div class="nameContainer">
         <h4 class="name" id=".once">
             
-            <span class="type-signature static">static</span>mkr.once<span class="signature">(target, type, listener, <span class="optional">context</span>, <span class="optional">priority</span>)</span>
+            <span class="type-signature static">static</span>mkr.once<span class="signature">(target, type, callback, <span class="optional">context</span>, <span class="optional">priority</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line442">line 442</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line451">line 451</a>
         </div>
         
     </div>
@@ -3166,7 +3653,7 @@ The newly created creative
 	
         <tr>
             
-                <td class="name"><code>listener</code></td>
+                <td class="name"><code>callback</code></td>
             
             
             <td class="type">
@@ -3225,7 +3712,7 @@ The newly created creative
                         
                     
                 
-                Context on which the listener is executed (object that should represent the `this` variable inside listener function)</td>
+                Context on which the callback is executed (object that should represent the `this` variable inside callback function)</td>
         </tr>
 	
 	
@@ -3261,7 +3748,7 @@ The newly created creative
                         
                     
                 
-                Affects listener execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion</td>
+                Affects callback execution order. Higher priority listeners are executed before those with lower priority. Listeners of the same priority are executed in order of insertion</td>
         </tr>
 	
 	
@@ -3319,7 +3806,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line565">line 565</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line574">line 574</a>
         </div>
         
     </div>
@@ -3511,7 +3998,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line579">line 579</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line588">line 588</a>
         </div>
         
     </div>
@@ -3703,7 +4190,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line797">line 797</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line870">line 870</a>
         </div>
         
     </div>
@@ -3871,7 +4358,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line610">line 610</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line619">line 619</a>
         </div>
         
     </div>
@@ -3964,6 +4451,122 @@ The newly created creative
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".removeRule">
+            
+            <span class="type-signature static">static</span>mkr.removeRule<span class="signature">(selector)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line720">line 720</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Traverses mkr's stylesheet and removes first rule to match the selector.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The selector text of the rule to remove.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".reveal">
             
             <span class="type-signature static">static</span>mkr.reveal<span class="signature">(target, <span class="optional">options</span>, <span class="optional">parentOpts</span>)</span>
@@ -3971,7 +4574,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line497">line 497</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line506">line 506</a>
         </div>
         
     </div>
@@ -4152,7 +4755,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line761">line 761</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line834">line 834</a>
         </div>
         
     </div>
@@ -4366,7 +4969,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line522">line 522</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line531">line 531</a>
         </div>
         
     </div>
@@ -4574,7 +5177,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line652">line 652</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line661">line 661</a>
         </div>
         
     </div>
@@ -4765,7 +5368,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line719">line 719</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line792">line 792</a>
         </div>
         
     </div>
@@ -4953,6 +5556,145 @@ The newly created creative
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".setRule">
+            
+            <span class="type-signature static">static</span>mkr.setRule<span class="signature">(selector, styles)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line776">line 776</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Updates the matched CSSRules with the provided styles
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>selector</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                A selector string, that the rule should target</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>styles</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The styles to set of the matched rules</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="add">
             
             add<span class="signature">(target, <span class="optional">options</span>, <span class="optional">parent</span>, <span class="optional">save</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
@@ -4960,7 +5702,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line251">line 251</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line291">line 291</a>
         </div>
         
     </div>
@@ -5220,7 +5962,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line230">line 230</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line270">line 270</a>
         </div>
         
     </div>
@@ -5512,7 +6254,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line180">line 180</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line219">line 219</a>
         </div>
         
     </div>
@@ -5772,7 +6514,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line336">line 336</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line376">line 376</a>
         </div>
         
     </div>
@@ -5783,7 +6525,7 @@ The newly created creative
     
     
     <div class="description">
-        Kills all tweens of this mkr's elements, and removes the container from the DOM
+        Kills this mkr's tweens, child tweens, and timeline. Removes all listeners and removes the container from the DOM
     </div>
     
 
@@ -5843,7 +6585,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line105">line 105</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line106">line 106</a>
         </div>
         
     </div>
@@ -5994,7 +6736,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line282">line 282</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line322">line 322</a>
         </div>
         
     </div>
@@ -6222,7 +6964,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line348">line 348</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line390">line 390</a>
         </div>
         
     </div>
@@ -6293,7 +7035,7 @@ The newly created creative
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line314">line 314</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line354">line 354</a>
         </div>
         
     </div>
@@ -6450,11 +7192,11 @@ The newly created creative
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 28 2017 02:47:38 GMT-0500 (EST)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Mar 03 2017 03:49:32 GMT-0500 (EST)
         </footer>
     </div>
 </div>
 <script>prettyPrint();</script>
-<script src="scripts/jaguar.js"></script>
+<script src="scripts/mkr-jsdoc.js"></script>
 </body>
 </html>

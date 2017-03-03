@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/chris-moody/admkr/issues"
   },
-  "homepage": "https://github.com/chris-moody/admkr#readme"
+  "homepage": "https://github.com/chris-moody/admkr#readme",
+  "devDependencies": {
+    "bookshelf-jsdoc-theme": "^0.1.2",
+    "minami": "^1.1.1",
+    "postman-jsdoc-theme": "0.0.2"
+  }
 }
