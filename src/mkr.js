@@ -30,12 +30,16 @@
 	
 	/**
 	 * @class mkr
-	 * @description Initializes a new mkr instance. A lightweight companion library to the {@link https://greensock.com/ greensock animation platform}, mkr delivers a 100% javascript method of content creation
-	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
+	 * @description Initializes a new mkr instance. <ul><li>creates a div container, and appends it to the specified parent<li><li>creates a TimelineMax instance</li></ul>.
+	 * @classdesc A lightweight companion library to the {@link https://greensock.com/ greensock animation platform}, mkr delivers a 100% javascript method of content creation
+	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
-	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
+	 * @param {Object=} options.css - CSS properties to apply to the container element.
+	 * @param {Object=} options.attr - Attributes to apply to the container element.
+	 * @param {String} [options.attr.class='mkr-container'] - Class string applied to the container element. Applied classes will always include 'mkr-container'
 	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
+	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
 	 * @requires {@link https://greensock.com/tweenmax TweenMax}
 	 */
 	var mkr = function(options) {
@@ -136,18 +140,55 @@
 	 * @function makeDC
 	 * @memberof mkr
 	 * @static
-	 * @description Factory method for quickly creating creatives that conform to DCS standards
+	 * @description Factory method for quickly creating creatives that conform to DCS standards. Differs from the standard constructor in that it adds a border to the container, and sets a few default properties documented below.
 	 * @param {Number} width - The width of the creative
 	 * @param {Number} height - The height of the creative
-	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properities and overrides are documented below.
+	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties and default values are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
-	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
+	 * @param {Object=} [options.border] - A set of attributes and css properties used to create the border
+
+	 * @param {Object=} options.border.attr - Attributes to apply to the border element.
+	 * @param {String} [options.border.attr.class='mkr.border'] - Class string applied to the border element. Applied classes will always include 'mkr-border'
+	 * @param {Object=} options.border.css - CSS properties to apply to the border element.
+	 * @param {*} [options.css.left=0] - CSS left property
+	 * @param {*} [options.css.right=0] - CSS right property
+	 * @param {int} [options.css.zIndex=1] - CSS z-index property
+	 * @param {String} [options.css.overflow='hidden'] - CSS overflow property
+	 * @param {Object=} options.attr - Attributes to apply to the container element.
 	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
+	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
 	 * @returns The newly created creative
 	**/
 	mkr.makeDC = function(width, height, options) {
 		options = options || {};
+
+		mkr.setDefault(options, 'border', {});
+		mkr.setDefault(options.border, 'css', {});
+		mkr.setDefault(options.border, 'strokeWidth', 1);
+		mkr.setDefault(options.border.css, 'width', width-options.border.strokeWidth*2);
+		mkr.setDefault(options.border.css, 'height', height-options.border.strokeWidth*2);
+		mkr.setDefault(options.border.css, 'top', '0px');
+		mkr.setDefault(options.border.css, 'left', '0px');
+		mkr.setDefault(options.border.css, 'zIndex', 1000);
+		mkr.setDefault(options.border.css, 'position', 'absolute');
+		mkr.setDefault(options.border.css, 'pointerEvents', 'none');
+		mkr.setDefault(options.border.css, 'borderWidth', options.border.strokeWidth+'px');
+		mkr.setDefault(options.border.css, 'borderStyle', 'solid');
+		mkr.setDefault(options.border.css, 'borderColor', '#666666');
+
+		mkr.setDefault(options.border, 'attr', {});
+		var classes = 'mkr-border';
+		'class' in options.border.attr ? options.border.attr.class += ' '+classes : options.border.attr.class = classes;
+
+		var border = document.createElement('div');
+		TweenMax.set(border, options.border);
+		/*TweenMax.set(dc.border, {attr:{class:'mkr-border'},
+			css:{position:'absolute', pointerEvents:'none', zIndex:'1000',
+			left:'0px', top:'0px', border:'1px solid #666666', width:width-2, height:height-2
+		}});*/
+		delete options.border;
+
 		mkr.setDefault(options, 'attr', {});
 		mkr.setDefault(options, 'css', {});
 		mkr.setDefault(options.css, 'width', width);
@@ -160,11 +201,7 @@
 		var dc = new mkr(options);
 		//dc.width = width;
 		//dc.height = height;
-		dc.border = document.createElement('div');
-		TweenMax.set(dc.border, {attr:{class:'mkr-border'},
-			css:{position:'absolute', pointerEvents:'none', zIndex:'1000',
-			left:'0px', top:'0px', border:'1px solid #666666', width:width-2, height:height-2
-		}});
+		dc.border = border;
 		dc.container.appendChild(dc.border);
 
 		return dc;
@@ -223,6 +260,8 @@
 	 * @description Creates a new html element
 	 * @param {String} type - The type of element to create.
 	 * @param {Object=} options - A set of attributes and css properties used to create the element
+	 * @param {Object=} options.css - CSS properties to apply to the new object.
+	 * @param {Object=} options.attr - Attributes to apply to the new object.
 	 * @param {*=} parent - The element to append the new element. Can be an element or a css selector string
 	 * @param {Boolean} [save=true] - Pass false to prevent mkr saving a reference to the element @see save
 	 * @returns {Element} The new element
@@ -476,7 +515,7 @@
 	 ^ - First 2 arguments only: Removes all listeners of provdied event type
 	 * - First argument only: Removes all listeners from the target
 	 * @param {*} target - An single element, array of elements, or a css selector string.
-	 * @param {String=} type - The event type. Excluding this this argu
+	 * @param {String=} type - The event type. Excluding this this argument removes all listeners from the target regardless of type.
 	 * @param {Function=} callback - The callback to remove. Excluding this argument removes all listeners of the specified from the target
 	 * @param {Object=} context - Context on which the callback is executed (object that should represent the `this` variable inside callback function)
 	**/
@@ -534,14 +573,15 @@
 	 * @static
 	 * @description Tweens the scrollable area of targets at the specified speed in px/s. Can target multiple objects
 	 * @param {*} target - A selector string, Array, or element
-	 * @param {*} speed - The speed of the tween in px/s
+	 * @param {Number} [speed=14] - The speed of the tween in px/s
 	 * @param {Object=} options - Additional properties passed to the tween
 	 * @returns {Array} An array of tweens created to facilitate the animation
 	**/
     mkr.scroll = function(target, speed, options) {
-
+    	options = options || {};
 		mkr.setDefault(options, 'scrollTo', 'max');
 		mkr.setDefault(options, 'ease', Power0.easeNone);
+		speed = mkr.default(speed, 14);
 
 		var tweens = [];
 		mkr.each(target, function(el) {

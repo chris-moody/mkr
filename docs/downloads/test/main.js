@@ -129,9 +129,9 @@ function setup() {
 
     //every mkr is created with a TimelineMax instance. pass properties
     //to it by supplying a 'tmln' field of the construction options.
-    var m2 = new mkr({
+    var m2 = mkr.makeDC(300, 600, {
         tmln:{paused:true, repeat:2},
-        css:{x:300, width:300, height:600, background:'#17baef'}
+        css:{x:300, background:'#17baef'}
     });
 
     m2.create('img', {attr:{class:'beta', src:"beta-box.png"},   css:{alpha:0, x:75, y:10}});
@@ -139,6 +139,9 @@ function setup() {
     m2.create('img', {attr:{class:'beta', src:"beta-king.png"},  css:{alpha:0, x:75, y:260}});
     m2.create('img', {attr:{class:'beta', src:"beta-mail.png"},  css:{alpha:0, x:75, y:430}});
     m2.create('img', {attr:{class:'beta', src:"beta-pencil.png"}, css:{alpha:0, x:105, y:200}});
+
+    isi = m2.create('div', {css:{y:400, width:m2.width, height:200, overflowY:'scroll', background:'white'}, text:mkr.query('.content-src').innerHTML});
+    mkr.scroll(isi);
 
     m2.tmln.staggerTo('.beta', .5, {alpha:1, yoyo:true, repeat:1}, .5);
     m2.tmln.play();
