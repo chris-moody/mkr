@@ -131,6 +131,7 @@ function setup() {
     //to it by supplying a 'tmln' field of the construction options.
     var m2 = mkr.makeDC(300, 600, {
         tmln:{paused:true, repeat:2},
+        //border:{css:{borderWidth:'10px'}},
         css:{x:300, background:'#17baef'}
     });
 
@@ -142,6 +143,13 @@ function setup() {
 
     isi = m2.create('div', {css:{y:400, width:m2.width, height:200, overflowY:'scroll', background:'white'}, text:mkr.query('.content-src').innerHTML});
     mkr.scroll(isi);
+
+    console.log(mkr.unitless('100px'), mkr.unitless('100%'));
+    console.log(mkr.unitize('100', 'px'));
+    console.log(mkr.unitize('100px', 'em'));
+    console.log(mkr.unitize('100px', 'em', false));
+    console.log(mkr.unit('100em'));
+    console.log(mkr.unitize('100', 'px', true), mkr.unitize('100px', '%', false));
 
     m2.tmln.staggerTo('.beta', .5, {alpha:1, yoyo:true, repeat:1}, .5);
     m2.tmln.play();

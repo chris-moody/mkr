@@ -23,6 +23,10 @@
     }
 })();
 $(function() {
+    var reg = /(\@see) ([A-z]?(\.)?[A-z](\w)*)+/g;
+    var content = $('#wrap > .main').html().replace(reg, '<a href="#$2">See $2</a>');
+    $('#wrap > .main').html(content);
+
 	var classSelector = '.navigation > ul.list > li.item';
     $(classSelector).each(function() {
         var className = $(this).data('name');

@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.1.2
- * DATE: 2017-03-02
+ * VERSION: 0.1.3
+ * DATE: 2017-03-03
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -30,7 +30,11 @@
 	
 	/**
 	 * @class mkr
-	 * @description Initializes a new mkr instance. <ul><li>creates a div container, and appends it to the specified parent<li><li>creates a TimelineMax instance</li></ul>.
+	 * @description Initializes a new mkr instance.
+	 	<ul>
+	 		<li>creates a div container, and appends it to the specified parent. @see container</li>
+	 		<li>creates a TimelineMax instance</li>
+	 	</ul>
 	 * @classdesc A lightweight companion library to the {@link https://greensock.com/ greensock animation platform}, mkr delivers a 100% javascript method of content creation
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
@@ -41,6 +45,7 @@
 	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
 	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
 	 * @requires {@link https://greensock.com/tweenmax TweenMax}
+	 * @returns {mkr} A new mkr instance.
 	 */
 	var mkr = function(options) {
 		var id=_count;
@@ -151,14 +156,10 @@
 	 * @param {Object=} options.border.attr - Attributes to apply to the border element.
 	 * @param {String} [options.border.attr.class='mkr.border'] - Class string applied to the border element. Applied classes will always include 'mkr-border'
 	 * @param {Object=} options.border.css - CSS properties to apply to the border element.
-	 * @param {*} [options.css.left=0] - CSS left property
-	 * @param {*} [options.css.right=0] - CSS right property
-	 * @param {int} [options.css.zIndex=1] - CSS z-index property
-	 * @param {String} [options.css.overflow='hidden'] - CSS overflow property
-	 * @param {Object=} options.attr - Attributes to apply to the container element.
-	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
-	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
-	 * @returns The newly created creative
+	 * @param {*} [options.border.css.left=0] - CSS left property
+	 * @param {*} [options.border.css.right=0] - CSS right property
+	 * @param {int} [options.border.css.zIndex=1000] - CSS z-index property
+	 * @returns {mkr} The new mkr instance
 	**/
 	mkr.makeDC = function(width, height, options) {
 		options = options || {};
@@ -166,16 +167,18 @@
 		mkr.setDefault(options, 'border', {});
 		mkr.setDefault(options.border, 'css', {});
 		mkr.setDefault(options.border, 'strokeWidth', 1);
-		mkr.setDefault(options.border.css, 'width', width-options.border.strokeWidth*2);
-		mkr.setDefault(options.border.css, 'height', height-options.border.strokeWidth*2);
+		
 		mkr.setDefault(options.border.css, 'top', '0px');
 		mkr.setDefault(options.border.css, 'left', '0px');
 		mkr.setDefault(options.border.css, 'zIndex', 1000);
 		mkr.setDefault(options.border.css, 'position', 'absolute');
 		mkr.setDefault(options.border.css, 'pointerEvents', 'none');
-		mkr.setDefault(options.border.css, 'borderWidth', options.border.strokeWidth+'px');
+		mkr.setDefault(options.border.css, 'borderWidth', '1px');
 		mkr.setDefault(options.border.css, 'borderStyle', 'solid');
 		mkr.setDefault(options.border.css, 'borderColor', '#666666');
+		var borderWidth = mkr.unitless(options.border.css.borderWidth);
+		mkr.setDefault(options.border.css, 'width', width-borderWidth*2);
+		mkr.setDefault(options.border.css, 'height', height-borderWidth*2);
 
 		mkr.setDefault(options.border, 'attr', {});
 		var classes = 'mkr-border';
@@ -829,6 +832,53 @@
 		}
 	};
 
+	mkr._units = /(\-?\d+(\.\d+)?)([A-z%]*)/gi;
+	/**
+	 * @function unit
+	 * @memberof mkr
+	 * @static
+	 * @description Evaluates the provided value and returns the unit suffix it implements
+	 * @param {*} value - The value to evaluate
+	 * @returns {String} The unit suffix
+	**/
+    mkr.unit = function(value) {
+    	return String(value).replace(mkr._units, '$3');
+	};
+
+	/**
+	 * @function unitless
+	 * @memberof mkr
+	 * @static
+	 * @description Evaluates the provided value and returns a number without a unit suffix
+	 * @param {*} value - The value to evaluate
+	 * @returns {Number} The numerical value without the unit suffix
+	**/
+    mkr.unitless = function(value) {
+    	return String(value).replace(mkr._units, '$1');
+	};
+
+	/**
+	 * @function unitize
+	 * @memberof mkr
+	 * @static
+	 * @description Evaluates the provided value and returns a string appended with the unit suffix
+	 * @param {*} value - The value to evaluate
+	 * @param {String} [unit='px'] - The unit suffix to append
+	 * @param {Boolean} [override=true] - Whether to replace an existing unit suffix
+	 * @returns {String} The provided value appended with the unit suffix
+	**/
+    mkr.unitize = function(value, unit, override) {
+    	unit = mkr.default(unit, 'px');
+    	override = mkr.default(override, true);
+
+    	if(override) return String(value).replace(mkr._units, '$1'+unit);
+
+    	var parts = String(value).replace(mkr._units, '$1 $3').split(' ');
+    	//console.log(parts);
+    	unit = (parts[1] && parts[1].length > 0) ? parts[1] : unit;
+    	return parts[0]+unit;
+	};
+
 	/**
 	 * @function setPolyPath
 	 * @memberof mkr
@@ -1203,7 +1253,7 @@
 	* @type String
 	* @description returns mkr's version number
 	**/
-	mkr.VERSION = '0.1.2';
+	mkr.VERSION = '0.1.3';
 
     scope[className] = mkr;
 	return mkr;
