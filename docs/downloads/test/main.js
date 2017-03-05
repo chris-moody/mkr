@@ -139,17 +139,19 @@ function setup() {
     m2.create('img', {attr:{class:'beta', src:"beta-cloud.png"}, css:{alpha:0, x:75, y:110}});
     m2.create('img', {attr:{class:'beta', src:"beta-king.png"},  css:{alpha:0, x:75, y:260}});
     m2.create('img', {attr:{class:'beta', src:"beta-mail.png"},  css:{alpha:0, x:75, y:430}});
-    m2.create('img', {attr:{class:'beta', src:"beta-pencil.png"}, css:{alpha:0, x:105, y:200}});
+    m2.create('img', {attr:{class:'beta beta-0', src:"beta-pencil.png"}, css:{alpha:0, x:105, y:200}});
 
     isi = m2.create('div', {css:{y:400, width:m2.width, height:200, overflowY:'scroll', background:'white'}, text:mkr.query('.content-src').innerHTML});
     mkr.scroll(isi);
 
-    console.log(mkr.unitless('100px'), mkr.unitless('100%'));
+    //mkr.remove('.beta')
+
+    /*console.log(mkr.unitless('100px'), mkr.unitless('100%'));
     console.log(mkr.unitize('100', 'px'));
     console.log(mkr.unitize('100px', 'em'));
     console.log(mkr.unitize('100px', 'em', false));
     console.log(mkr.unit('100em'));
-    console.log(mkr.unitize('100', 'px', true), mkr.unitize('100px', '%', false));
+    console.log(mkr.unitize('100', 'px', true), mkr.unitize('100px', '%', false));*/
 
     m2.tmln.staggerTo('.beta', .5, {alpha:1, yoyo:true, repeat:1}, .5);
     m2.tmln.play();
