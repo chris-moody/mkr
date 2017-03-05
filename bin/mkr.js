@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.1.3
- * DATE: 2017-03-03
+ * VERSION: 0.2.0
+ * DATE: 2017-03-05
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -89,7 +89,6 @@
 		var _imageLoaded = function() {
 			_loadedImages++;
 			var self = _instances[id];
-			//console.log('image loaded!', _loadedImages);
 			if(_loadedImages == self._images.length) {
 				if(self._loadCallback) {
 					self._loadCallback.apply(self._loadContext);
@@ -156,20 +155,24 @@
 	 * @param {Object=} options.border.attr - Attributes to apply to the border element.
 	 * @param {String} [options.border.attr.class='mkr.border'] - Class string applied to the border element. Applied classes will always include 'mkr-border'
 	 * @param {Object=} options.border.css - CSS properties to apply to the border element.
-	 * @param {*} [options.border.css.left=0] - CSS left property
-	 * @param {*} [options.border.css.right=0] - CSS right property
+	 * @param {Number} [options.border.css.left=0] - CSS left property
+	 * @param {Number} [options.border.css.top=0] - CSS top property
 	 * @param {int} [options.border.css.zIndex=1000] - CSS z-index property
+	 * @param {String} [options.border.css.borderWidth='1px'] - CSS border-width property
+	 * @param {String} [options.border.css.borderStyle='solid'] - CSS border-style property
+	 * @param {String} [options.border.css.borderColor='#666666'] - CSS border-color
+	 * @param {String} [options.border.css.pointerEvents='none'] - CSS pointer-events
+	 * @param {Number} [options.border.css.width=widh-2] - CSS width
+	 * @param {Number} [options.border.css.height=height-2] - CSS height
 	 * @returns {mkr} The new mkr instance
 	**/
 	mkr.makeDC = function(width, height, options) {
 		options = options || {};
 
 		mkr.setDefault(options, 'border', {});
-		mkr.setDefault(options.border, 'css', {});
-		mkr.setDefault(options.border, 'strokeWidth', 1);
-		
-		mkr.setDefault(options.border.css, 'top', '0px');
-		mkr.setDefault(options.border.css, 'left', '0px');
+		mkr.setDefault(options.border, 'css', {});		
+		mkr.setDefault(options.border.css, 'top', 0);
+		mkr.setDefault(options.border.css, 'left', 0);
 		mkr.setDefault(options.border.css, 'zIndex', 1000);
 		mkr.setDefault(options.border.css, 'position', 'absolute');
 		mkr.setDefault(options.border.css, 'pointerEvents', 'none');
@@ -265,22 +268,22 @@
 	 * @param {Object=} options - A set of attributes and css properties used to create the element
 	 * @param {Object=} options.css - CSS properties to apply to the new object.
 	 * @param {Object=} options.attr - Attributes to apply to the new object.
-	 * @param {*=} parent - The element to append the new element. Can be an element or a css selector string
-	 * @param {Boolean} [save=true] - Pass false to prevent mkr saving a reference to the element @see save
+	 * @param {*} [parent=this.container] - The element to append the new element. Can be an element or a css selector string
 	 * @returns {Element} The new element
 	**/
-	mkr.prototype.create = function(type, options, parent, save) {
+	mkr.prototype.create = function(type, options, parent) {
 		var t = type.toLowerCase();
 		options = options || {};
 		options.css = options.css || {};
 		options.attr = options.attr || {};
+		parent = mkr.default(parent, this.container);
+		if(typeof parent === 'string') parent = mkr.query(parent);
 
 		var xlnkns = 'http://www.w3.org/1999/xlink'
 		var svgns = 'http://www.w3.org/2000/svg';
 		var svgTags = ['svg', 'defs', 'use', 'image', 'g', 'mask', 'clippath', 'lineargradient', 'radialgradient', 'stop', 'text', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path'];
 		var element;
 		if(svgTags.indexOf(t) >= 0) {
-			//console.log(t, type);
 			element = document.createElementNS(svgns, type);
 			if(type == 'svg') options.css.position = options.css.position || "absolute";
 
@@ -304,7 +307,8 @@
 			}
 		}
 
-		this.add(element, options, parent, save);
+		TweenMax.set(element, options);
+		mkr.add(element, parent);
 	
 		return element;
 	};
@@ -318,102 +322,16 @@
 	 * @param {Object=} options - A set of attributes and css properties used to create the elements
 	 * @param {Number} num - The number of elements to produce
 	 * @param {*=} parent - The element to append the new elements. Can be an element or a css selector string
-	 * @param {Boolean} [save=true] - Pass false to prevent mkr saving a references to the elements @see save
 	 * @returns {Array} An array containing the new elements
 	**/
-	mkr.prototype.batch = function(type, options, num, parent, save) {
+	mkr.prototype.batch = function(type, options, num, parent) {
 		var elements = [];
 		var n = num;
 		while(n--) {
-			elements.push(mkr.create(type, options, parent, save));
+			elements.push(mkr.create(type, options, parent));
 		}
 		return elements;
 	}
-
-	/**
-	 * @function add
-	 * @memberof mkr.prototype
-	 * @public
-	 * @description Adds existing elements the mkr instance
-	 * @param {*} target - An single element, array of elements, or a css selector string.
-	 * @param {Object=} options - The element's default options
-	 * @param {Element=} parent - The parent element. Defaults to the instance container
-	 * @param {Boolean} [save=true] - Pass false to prevent mkr saving a reference to the element @see save
-	 * @returns {*} The added element, or an array when multiple elements are targeted
-	**/
-	mkr.prototype.add = function(target, options, parent, save) {
-		parent = (parent==null || parent === undefined) ? this.container : parent;
-		if(typeof parent === 'string') parent = mkr.query(parent);
-
-		save = save === undefined ? true : save;
-
-		var self = _instances[this.id];
-		var targets = [];
-		mkr.each(target, function(el) {
-			TweenMax.set(el, options);
-
-			if(parent) parent.appendChild(el);
-			if(!save) {
-				self.save(el, options);
-			}
-			targets.push(el);
-		});
-		return targets;
-	};
-
-	/**
-	 * @function remove
-	 * @memberof mkr.prototype
-	 * @public
-	 * @description Removes elements from the mkr instance
-	 * @param {*} target - An single element, array of elements, or a css selector string.
-	 * @param {Boolean} [killTweens=true] -  Whether to kill the element's tweens
-	 * @param {Boolean} [removeFromDOM=true] - Whether to remove element from DOM
-	 * @returns {*} The removed element, or an array when multiple elements are targeted
-	**/
-	mkr.prototype.remove = function(target, killTweens, removeFromDOM) {
-		killTweens = mkr.default(killTweens, true);
-		removeFromDOM = removeFromDOM === undefined ? true : removeFromDOM;
-
-		var self = _instances[this.id];
-		var targets = [];
-		mkr.each(target, function(el) {
-			var n = self._elements.indexOf(el);
-			if(n > -1) { //can't remove what isn't there...
-				self._elements.splice(n, 1);
-				var mkrindex = el.getAttribute(self._tag);
-				delete self._states[mkrindex];
-				el.removeAttribute(self._tag);
-
-				if(killTweens) TweenMax.killTweensOf(el);
-				if(removeFromDOM) mkr.removeChild(el);
-				targets.push(el);
-			}
-		});
-		return targets.length == 1 ? targets[0] : targets;
-	};
-
-	/**
-	 * @function save
-	 * @memberof mkr.prototype
-	 * @public
-	 * @description Associates an initial state with existing elements
-	 * @param {*} target - An single element, array of elements, or a css selector string.
-	 * @param {Object=} state - A set of attributes and styles representing the element's initial state
-	**/
-	mkr.prototype.save = function(target, state) {
-		var self = _instances[this.id];
-		mkr.each(target, function(el) {
-			var mkrindex = el.hasAttribute(self._tag) ? el.getAttribute(self._tag) : -1;
-			if(mkrindex == -1) {
-				el.setAttribute(self._tag, self._count);
-				mkrindex = self._count;
-				self._elements.push(el);
-				self._count++;
-			}
-			self._states[mkrindex] = state;
-		});
-	};
 
 	/**
 	 * @function kill
@@ -426,28 +344,7 @@
 		TweenMax.killTweensOf(this.container);
 		TweenMax.killChildTweensOf(this.container);
 		mkr.off('.mkr-'+this.id+' *');
-		mkr.removeChild(this.container);
-	};
-
-	/**
-	 * @function reset
-	 * @memberof mkr.prototype
-	 * @public
-	 * @description Resets all of this mkr's elements to their default attribute/css values
-	**/
-	mkr.prototype.reset = function(killTweens) {
-		var len = this._elements.length;
-		killTweens = killTweens === undefined ? true : killTweens;
-		for(var i = 0; i < len; i++) {
-			var el = this._elements[i];
-			var mkrindex = el.getAttribute(this._tag);
-			if(this._states[mkrindex]) {
-				//console.log(mkrindex);
-				if(killTweens) TweenMax.killTweensOf(el);
-				TweenMax.to(el, 0, {clearProps:'all'});
-				TweenMax.set(el, this._states[mkrindex]);
-			}
-		}
+		mkr.remove(this.container);
 	};
 
     /**
@@ -484,6 +381,7 @@
 	**/
 	mkr.on = function(target, type, callback, context, priority) {
 		mkr.each(target, function(el) {
+			//console.log(el, type);
 			var cxt = mkr.default(context, el);
 			mkr._triggerMatrix.add(el, type, callback, cxt, priority);
 			//el.addEventListener(eventType, callback, false);
@@ -643,31 +541,42 @@
 	};
 
 	/**
-	 * @function addChild
+	 * @function add
 	 * @memberof mkr
 	 * @static
 	 * @description Adds an existing element to the specified parent
-	 * @param {String} target - A string containing one or more CSS selectors separated by commas.
+	 * @param {String} target - An single element, array of elements, or a css selector string.
 	 * @param {Element} [parent=document.body] - The ancestor element to search. Defaults to the document object
 	 * @param {int=} index - Where in the parent to add the element. Defaults to the end.
-	 * @returns {Element} The added element
+	 * @returns {*} The added element, or array of eleements
 	**/
-	mkr.addChild = function(target, parent, index) {
+	mkr.add = function(target, parent, index) {
 		parent = mkr.default(parent, document.body);
+		if(typeof parent === 'string') parent = mkr.query(parent);
 		index = mkr.default(index, parent.childNodes.length-1);
 
-		return parent.insertBefore(target, parent.childNodes[index]);
+		var targets = [];
+		mkr.each(target, function(el) {
+			parent.insertBefore(el, parent.childNodes[index]);
+			targets.push(el);
+		});
+		return targets.length > 1 ? targets : targets[0];
 	};
 
 	/**
-	 * @function removeChild
+	 * @function remove
 	 * @memberof mkr
 	 * @static
 	 * @description Removes an existing element from the DOM
-	 * @returns {Element} The removed element
+	 * @param {String} target - An single element, array of elements, or a css selector string.
+	 * @returns {Element} The removed  element, or array of eleements
 	**/
-	mkr.removeChild = function(target) {
-		return target.parentNode.removeChild(target);
+	mkr.remove = function(target) {
+		var targets = [];
+		mkr.each(target, function(el) {
+			targets.push(el.parentNode.removeChild(el));
+		});
+		return targets.length > 1 ? targets : targets[0];
 	};
 
 	/**
@@ -712,10 +621,6 @@
 	 * @returns {*} The value of target[key]
 	**/
 	mkr.setDefault = function(target, key, value) {
-		/*if(!(key in target)) {
-			target[key] = value;
-		}
-		return target[key];*/
 		target[key] = mkr.default(target[key], value);
 		return target[key];
 	};
@@ -874,7 +779,6 @@
     	if(override) return String(value).replace(mkr._units, '$1'+unit);
 
     	var parts = String(value).replace(mkr._units, '$1 $3').split(' ');
-    	//console.log(parts);
     	unit = (parts[1] && parts[1].length > 0) ? parts[1] : unit;
     	return parts[0]+unit;
 	};
@@ -953,7 +857,6 @@
 	**/
 	mkr.angle = function(x1, y1, x2, y2) {
 		var ang = mkr.rotation(x1, y1, x2, y2)*mkr.DEG;
-		//console.log(x1, y1, x2, y2, ang);
 		return ang;
 	};
 
@@ -1253,7 +1156,7 @@
 	* @type String
 	* @description returns mkr's version number
 	**/
-	mkr.VERSION = '0.1.3';
+	mkr.VERSION = '0.2.0';
 
     scope[className] = mkr;
 	return mkr;
