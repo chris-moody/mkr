@@ -18,6 +18,7 @@
   "homepage": "https://github.com/chris-moody/admkr#readme",
   "devDependencies": {
     "bookshelf-jsdoc-theme": "^0.1.2",
+    "jasmine": "^2.5.3",
     "minami": "^1.1.1",
     "postman-jsdoc-theme": "0.0.2"
   }

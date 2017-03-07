@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>main.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>main.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>create a new mkr instance…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> m1 = <span class="hljs-keyword">new</span> mkr();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>…with options. mkr uses GSAP’s TweenLite behind the scenes
+for property assignment Element properties passed to the 
+contructor are applied to the instances container</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> m = <span class="hljs-keyword">new</span> mkr({
+	<span class="hljs-attr">css</span>:{<span class="hljs-attr">width</span>:<span class="hljs-number">300</span>, <span class="hljs-attr">height</span>:<span class="hljs-number">600</span>, <span class="hljs-attr">background</span>:<span class="hljs-string">'antiquewhite'</span>}
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>The .create method is for creating elements.
+Just provide the element tag name and options</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>m.create(<span class="hljs-string">'div'</span>, {<span class="hljs-attr">className</span>:<span class="hljs-string">'box'</span>,
+	<span class="hljs-attr">attr</span>:{<span class="hljs-attr">id</span>:<span class="hljs-string">'redBox'</span>},
+	<span class="hljs-attr">css</span>:{<span class="hljs-attr">width</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">height</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">background</span>:<span class="hljs-string">'red'</span>}
+});
+
+m.create(<span class="hljs-string">'div'</span>, {
+	<span class="hljs-attr">attr</span>:{<span class="hljs-attr">id</span>:<span class="hljs-string">'greenBox'</span>, <span class="hljs-attr">class</span>:<span class="hljs-string">'box'</span>}, 
+	<span class="hljs-attr">css</span>:{<span class="hljs-attr">x</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">y</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">width</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">height</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">background</span>:<span class="hljs-string">'green'</span>}
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>.create returns a reference to the new element…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> blue = m.create(<span class="hljs-string">'div'</span>, {
+	<span class="hljs-attr">attr</span>:{<span class="hljs-attr">id</span>:<span class="hljs-string">'blueBox'</span>, <span class="hljs-attr">class</span>:<span class="hljs-string">'box'</span>}, 
+	<span class="hljs-attr">css</span>:{<span class="hljs-attr">x</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">y</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">width</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">height</span>:<span class="hljs-number">100</span>, <span class="hljs-attr">background</span>:<span class="hljs-string">'blue'</span>}
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>…which can be passed as the optional 3rd argument
+of .create to have the new object added
+to it instead of the instances container</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>m.create(<span class="hljs-string">'p'</span>, {
+	<span class="hljs-attr">text</span>:<span class="hljs-string">'Hello, world.'</span>, <span class="hljs-comment">//requires GSAP TextPlugin to be effective</span>
+	css:{<span class="hljs-attr">textAlign</span>:<span class="hljs-string">'center'</span>, <span class="hljs-attr">color</span>:<span class="hljs-string">'white'</span>}
+}, blue);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>.create’s third argument can also be a css selector</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>m.create(<span class="hljs-string">'p'</span>, {
+	<span class="hljs-attr">text</span>:<span class="hljs-string">'Hello again!'</span>,
+	<span class="hljs-attr">css</span>:{<span class="hljs-attr">y</span>:<span class="hljs-number">50</span>, <span class="hljs-attr">textAlign</span>:<span class="hljs-string">'center'</span>, <span class="hljs-attr">color</span>:<span class="hljs-string">'white'</span>}
+}, <span class="hljs-string">'#blueBox'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>event management with mkr is easy!
+Define some event handlers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">redHandler</span>(<span class="hljs-params">e</span>) </span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'red'</span>, <span class="hljs-keyword">this</span>.id);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">greenHandler</span>(<span class="hljs-params">e</span>) </span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'green'</span>, <span class="hljs-keyword">this</span>.id);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">blueHandler</span>(<span class="hljs-params">e</span>) </span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'blue'</span>, <span class="hljs-keyword">this</span>.id);
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">omniHandler</span>(<span class="hljs-params">e</span>) </span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'box'</span>, <span class="hljs-keyword">this</span>.id);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>mkr’s static mkr.on function is for adding persistent listeners</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.on(blue, <span class="hljs-string">'click'</span>, blueHandler);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>mkr sets the listener context to the target object by default, this can be
+overridden bye passing a fourth argument to .on or .once</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.on(<span class="hljs-string">'#greenBox'</span>, <span class="hljs-string">'click'</span>, greenHandler, blue);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>mkr.once adds a listener that removes itself after its first trigger</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.once(<span class="hljs-string">'#redBox'</span>, <span class="hljs-string">'click'</span>, redHandler);
+mkr.once(<span class="hljs-string">'#redBox'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mkr.once works very well with anonymous callbacks!'</span>);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>get a reference any object with selectors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> red = mkr.query(<span class="hljs-string">'#redBox'</span>);
+<span class="hljs-keyword">var</span> green = mkr.query(<span class="hljs-string">'#greenBox'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Note that you can pass a css selector string or
+array to the target argument of mkr’s event functions
+to attach/detach a listener to multiple objects</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.on([blue, red, green], <span class="hljs-string">'click'</span>, omniHandler);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>mkr.off is for removing listeners.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.off(green, <span class="hljs-string">'click'</span>, greenHandler);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>oh wait, that didn’t work! If  a listener context is overriden
+it must be provided to .off to successfuly remove it!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.off(green, <span class="hljs-string">'click'</span>, greenHandler, blue);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Note that the below line of code
+removes omniHandler from the red, green and blue boxes since they
+each have the ‘box’ class</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.off(<span class="hljs-string">'.box'</span>, <span class="hljs-string">'click'</span>, omniHandler);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>dropping the listener arg removes all click listeners from targets</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.off(<span class="hljs-string">'.box'</span>, <span class="hljs-string">'click'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>dropping the listener AND type arguments removes
+all listeners of any type from targets</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.off(<span class="hljs-string">'.box'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>mkr.clearListeners removes any and all listeners managed by mkr</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>mkr.clearListeners();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>ANIMATION</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>every mkr is created with a TimelineMax instance. pass properties
+to it by supplying a ‘tmln’ field of the construction options.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> m2 = mkr.makeDC(<span class="hljs-number">300</span>, <span class="hljs-number">600</span>, {
+    <span class="hljs-attr">tmln</span>:{<span class="hljs-attr">paused</span>:<span class="hljs-literal">true</span>, <span class="hljs-attr">repeat</span>:<span class="hljs-number">2</span>},
+    <span class="hljs-attr">css</span>:{<span class="hljs-attr">x</span>:<span class="hljs-number">300</span>, <span class="hljs-attr">background</span>:<span class="hljs-string">'#17baef'</span>}
+});
+
+m2.create(<span class="hljs-string">'img'</span>, {<span class="hljs-attr">attr</span>:{<span class="hljs-attr">class</span>:<span class="hljs-string">'beta'</span>, <span class="hljs-attr">src</span>:<span class="hljs-string">"beta-box.png"</span>},   <span class="hljs-attr">css</span>:{<span class="hljs-attr">alpha</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">x</span>:<span class="hljs-number">75</span>, <span class="hljs-attr">y</span>:<span class="hljs-number">10</span>}});
+m2.create(<span class="hljs-string">'img'</span>, {<span class="hljs-attr">attr</span>:{<span class="hljs-attr">class</span>:<span class="hljs-string">'beta'</span>, <span class="hljs-attr">src</span>:<span class="hljs-string">"beta-cloud.png"</span>}, <span class="hljs-attr">css</span>:{<span class="hljs-attr">alpha</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">x</span>:<span class="hljs-number">75</span>, <span class="hljs-attr">y</span>:<span class="hljs-number">110</span>}});
+m2.create(<span class="hljs-string">'img'</span>, {<span class="hljs-attr">attr</span>:{<span class="hljs-attr">class</span>:<span class="hljs-string">'beta'</span>, <span class="hljs-attr">src</span>:<span class="hljs-string">"beta-king.png"</span>},  <span class="hljs-attr">css</span>:{<span class="hljs-attr">alpha</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">x</span>:<span class="hljs-number">75</span>, <span class="hljs-attr">y</span>:<span class="hljs-number">260</span>}});
+m2.create(<span class="hljs-string">'img'</span>, {<span class="hljs-attr">attr</span>:{<span class="hljs-attr">class</span>:<span class="hljs-string">'beta'</span>, <span class="hljs-attr">src</span>:<span class="hljs-string">"beta-mail.png"</span>},  <span class="hljs-attr">css</span>:{<span class="hljs-attr">alpha</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">x</span>:<span class="hljs-number">75</span>, <span class="hljs-attr">y</span>:<span class="hljs-number">430</span>}});
+m2.create(<span class="hljs-string">'img'</span>, {<span class="hljs-attr">attr</span>:{<span class="hljs-attr">class</span>:<span class="hljs-string">'beta beta-0'</span>, <span class="hljs-attr">src</span>:<span class="hljs-string">"beta-pencil.png"</span>}, <span class="hljs-attr">css</span>:{<span class="hljs-attr">alpha</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">x</span>:<span class="hljs-number">105</span>, <span class="hljs-attr">y</span>:<span class="hljs-number">200</span>}});
+
+isi = m2.create(<span class="hljs-string">'div'</span>, {<span class="hljs-attr">css</span>:{<span class="hljs-attr">y</span>:<span class="hljs-number">400</span>, <span class="hljs-attr">width</span>:m2.width, <span class="hljs-attr">height</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">overflowY</span>:<span class="hljs-string">'scroll'</span>, <span class="hljs-attr">background</span>:<span class="hljs-string">'white'</span>}, <span class="hljs-attr">text</span>:mkr.query(<span class="hljs-string">'.content-src'</span>).innerHTML});
+mkr.scroll(isi);
+
+mkr.remove(<span class="hljs-string">'.beta'</span>)
+
+<span class="hljs-comment">/*console.log(mkr.unitless('100px'), mkr.unitless('100%'));
+console.log(mkr.unitize('100', 'px'));
+console.log(mkr.unitize('100px', 'em'));
+console.log(mkr.unitize('100px', 'em', false));
+console.log(mkr.unit('100em'));
+console.log(mkr.unitize('100', 'px', true), mkr.unitize('100px', '%', false));*/</span>
+
+m2.tmln.staggerTo(<span class="hljs-string">'.beta'</span>, <span class="hljs-number">.5</span>, {<span class="hljs-attr">alpha</span>:<span class="hljs-number">1</span>, <span class="hljs-attr">yoyo</span>:<span class="hljs-literal">true</span>, <span class="hljs-attr">repeat</span>:<span class="hljs-number">1</span>}, <span class="hljs-number">.5</span>);
+m2.tmln.play();
+
+<span class="hljs-comment">/*preloading preloader 
+*/</span>
+<span class="hljs-comment">/*m.load(loadComplete);*/</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

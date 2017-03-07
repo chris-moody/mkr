@@ -1,0 +1,4 @@
+#!/bin/bash
+# publishing script
+
+Docco ./docs/downloads/test/main.js -o ./docs/docco
