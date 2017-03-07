@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.0
- * DATE: 2017-03-05
+ * VERSION: 0.2.1
+ * DATE: 2017-03-07
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -25,7 +25,7 @@
  * @author: Christopher C. Moody, chris@moodydigital.com
  */
 
-(function(className, scope){
+(function(global, className){
 	var _instances={}, _count=0;
 	
 	/**
@@ -98,8 +98,7 @@
 		}
 
 		/**
-		 * @alias mkr.id
-		 * @memberof mkr
+		 * @name mkr#id
 		 * @public
 		 * @readonly
 		 * @type int
@@ -214,8 +213,7 @@
 	};
 
 	/**
-	 * @alias mkr.tmln
-	 * @memberof mkr.prototype
+	 * @name mkr#tmln
 	 * @public
 	 * @type TimelineMax
 	 * @description reference to this mkr's built-in TimelineMax instance
@@ -227,8 +225,7 @@
 	});
 
 	/**
-	 * @alias mkr.width
-	 * @memberof mkr.prototype
+	 * @name mkr#width
 	 * @public
 	 * @type Number
 	 * @description pixel height of this mkr's container
@@ -244,8 +241,7 @@
 	});
 
 	/**
-	 * @alias mkr.height
-	 * @memberof mkr.prototype
+	 * @name mkr#height
 	 * @public
 	 * @type Number
 	 * @description pixel width of this mkr's container
@@ -274,8 +270,8 @@
 	mkr.prototype.create = function(type, options, parent) {
 		var t = type.toLowerCase();
 		options = options || {};
-		options.css = options.css || {};
-		options.attr = options.attr || {};
+		options = mkr.merge(options, mkr.defaults);
+
 		parent = mkr.default(parent, this.container);
 		if(typeof parent === 'string') parent = mkr.query(parent);
 
@@ -285,7 +281,7 @@
 		var element;
 		if(svgTags.indexOf(t) >= 0) {
 			element = document.createElementNS(svgns, type);
-			if(type == 'svg') options.css.position = options.css.position || "absolute";
+			//if(type == 'svg') options.css.position = options.css.position || "absolute";
 
 			if('xlink:href' in options.attr) {
 				element.setAttributeNS(xlnkns, 'href', options.attr['xlink:href']);
@@ -295,8 +291,8 @@
 		else {
 			element = document.createElement(type);
 			//options.css.position = options.css.position || "absolute";
-			mkr.setDefault(options.css, 'position', 'absolute');
-			mkr.setDefault(options, 'force3d', true);
+			/*mkr.setDefault(options.css, 'position', 'absolute');
+			mkr.setDefault(options, 'force3d', true);*/
 		}		
 
 		//var element = type==="svg"? document.createElementNS("http://www.w3.org/2000/svg", type) :document.createElement(type);
@@ -737,6 +733,47 @@
 		}
 	};
 
+	/**
+	 * @function merge
+	 * @memberof mkr
+	 * @static
+	 * @description Merges one object into another, optionally overwriting overlapping keys. This utility method should only be used on objects holding primitive values!
+	 * @param {Object} base - the base object
+	 * @param {Object} merger - The styles to set of the matched rules
+	 * @param {Boolean} [overwrite=false] - Whether to overwrite overlapping values
+	 * @returns {Object} The resulting merge
+	**/
+	mkr.merge = function(base, merger, overwrite) {
+		overwrite = mkr.default(overwrite, false);
+		var res = mkr.clone(base);
+
+		for(var key in merger) {
+			if(base[key] !== undefined) {//if key is defined
+				if(typeof base[key] === 'object') {//if both values are objects
+					if(typeof merger[key] === 'object')
+						res[key] = mkr.merge(base[key], mkr.clone(merger[key]), overwrite);//set value to their merge
+					else if(override) res[key] = merger[key]
+				}
+				else if(!overwrite) {continue;}
+				else res[key] = merger[key];
+			}
+			else res[key] = merger[key];
+		}
+		return res;
+	};
+
+	/**
+	 * @function clone
+	 * @memberof mkr
+	 * @static
+	 * @description Clones an object. This utility method should only be used on objects holding primitive values!
+	 * @param {Object} base - The object to clone
+	 * @returns {Object} The clone
+	**/
+	mkr.clone = function(base) {
+		return JSON.parse(JSON.stringify(base));
+	};
+
 	mkr._units = /(\-?\d+(\.\d+)?)([A-z%]*)/gi;
 	/**
 	 * @function unit
@@ -893,18 +930,26 @@
 	mkr.DEG = 180/Math.PI;
 
     /**
-	 * @alias mkr.styles
+	 * @name mkr.styles
 	 * @memberof mkr
 	 * @static
+	 * @readonly
 	 * @type StyleSheet
 	 * @description mkr's dynamic stylesheet. Used by mkr.addRule
 	**/
-	mkr.styles = createStyleSheet();
+	Object.defineProperty(mkr, 'styles', {
+	    get: function() {
+	      return mkr._styles;
+	    }
+	});
+
+	mkr._styles = createStyleSheet();
 
 	/**
-	 * @alias mkr.rules
+	 * @name mkr.rules
 	 * @memberof mkr
 	 * @static
+	 * @readonly
 	 * @type CSSRuleList
 	 * @description mkr's dynamic stylesheet rules.
 	**/
@@ -913,6 +958,29 @@
 	      return mkr.styles.cssRules;
 	    }
 	});
+
+	/**
+	 * @name mkr.defaults
+	 * @memberof mkr
+	 * @static
+	 * @readonly
+	 * @type Object
+	 * @property {Boolean} [force3d=true] - force3d true for all elements by default, Smooths transforms.
+	 * @property {Object} [attr={}] - attributes applied to all created elements
+	 * @property {Object} [css={}] - styles applied to all created elements
+	 * @property {String} [css.position='absolute'] - All elements created my mkr are positioned absolutely by default
+	 * @description Default css and attributes applied to HTMLElements and SVGs. Set keys to change defaults settings for created elements
+	**/
+	Object.defineProperty(mkr, 'defaults', {
+	    get: function() {
+	      return mkr._defaults;
+	    }
+	});
+	mkr._defaults = {
+		force3d:true,
+		css:{position:'absolute'},
+		attr:{}
+	};
 
     (function(className, scope) {
 	    var SignalManager = function (options) {
@@ -1153,14 +1221,30 @@
 	* @alias mkr.VERSION
 	* @memberof mkr
 	* @static
+	* @readonly
 	* @type String
 	* @description returns mkr's version number
 	**/
-	mkr.VERSION = '0.2.0';
+	Object.defineProperty(mkr, 'VERSION', {
+	    get: function() {
+	      return '0.2.1';
+	    }
+	});
 
-    scope[className] = mkr;
-	return mkr;
-})('mkr', window);
+	//exports to multiple environments
+    if(typeof define === 'function' && define.amd){ //AMD
+        define(function () { return mkr; });
+    } else if (typeof module !== 'undefined' && module.exports){ //node
+        module.exports = mkr;
+    } else { //browser
+        //use string because of Google closure compiler ADVANCED_MODE
+        /*jslint sub:true */
+        global[className] = mkr;
+    }
+
+    //scope[className] = mkr;
+	//return mkr;
+})(this, 'mkr');
 
 /*!JS Signals <http://millermedeiros.github.com/js-signals/> @license Released under the MIT license Author: Miller MedeirosVersion: 1.0.0 - Build: 268 (2012/11/29 05:48 PM)*/
 (function(i){function h(a,b,c,d,e){this._listener=b;this._isOnce=c;this.context=d;this._signal=a;this._priority=e||0}function g(a,b){if(typeof a!=="function")throw Error("listener is a required param of {fn}() and should be a Function.".replace("{fn}",b));}function e(){this._bindings=[];this._prevParams=null;var a=this;this.dispatch=function(){e.prototype.dispatch.apply(a,arguments)}}h.prototype={active:!0,params:null,execute:function(a){var b;this.active&&this._listener&&(a=this.params?this.params.concat(a):
