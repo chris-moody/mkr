@@ -360,8 +360,14 @@
 		if(typeof target === 'string') targets = mkr.queryAll(target);
 		else if(Array.isArray(target)) targets = target;
 		else targets = [target];
+		console.log(targets);
+		forEach(targets, callback, context);
+    };
 
-		targets.forEach(callback, context);
+    var forEach = function(arrayLike, callback, context) {
+    	for(var i = 0; i < arrayLike.length; i++) {
+    		callback.call(context, arrayLike[i], i)
+    	}
     };
 
 	/**
@@ -548,14 +554,22 @@
 	**/
 	mkr.add = function(target, parent, index) {
 		parent = mkr.default(parent, document.body);
-		if(typeof parent === 'string') parent = mkr.query(parent);
-		index = mkr.default(index, parent.childNodes.length-1);
-
 		var targets = [];
-		mkr.each(target, function(el) {
-			parent.insertBefore(el, parent.childNodes[index]);
-			targets.push(el);
-		});
+
+		if(!parent) {
+			mkr.each(target, function(el) {
+				targets.push(el);
+			});
+		}
+		else {
+			if(typeof parent === 'string') parent = mkr.query(parent);
+			index = mkr.default(index, parent.childNodes.length-1);
+
+			mkr.each(target, function(el) {
+				parent.insertBefore(el, parent.childNodes[index]);
+				targets.push(el);
+			});
+		}
 		return targets.length > 1 ? targets : targets[0];
 	};
 
