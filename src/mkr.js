@@ -360,7 +360,7 @@
 		if(typeof target === 'string') targets = mkr.queryAll(target);
 		else if(Array.isArray(target)) targets = target;
 		else targets = [target];
-		console.log(targets);
+		//console.log(targets);
 		forEach(targets, callback, context);
     };
 
