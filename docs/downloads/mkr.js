@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.21
- * DATE: 2017-03-08
+ * VERSION: 0.2.22
+ * DATE: 2017-03-13
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -268,34 +268,10 @@
 	 * @returns {Element} The new element
 	**/
 	mkr.prototype.create = function(type, options, parent) {
-		var t = type.toLowerCase();
 		options = options || {};
-		options = mkr.merge(options, mkr.defaults);
 
 		parent = mkr.default(parent, this.container);
-		if(typeof parent === 'string') parent = mkr.query(parent);
 
-		var xlnkns = 'http://www.w3.org/1999/xlink'
-		var svgns = 'http://www.w3.org/2000/svg';
-		var svgTags = ['svg', 'defs', 'use', 'image', 'g', 'mask', 'clippath', 'lineargradient', 'radialgradient', 'stop', 'text', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path'];
-		var element;
-		if(svgTags.indexOf(t) >= 0) {
-			element = document.createElementNS(svgns, type);
-			//if(type == 'svg') options.css.position = options.css.position || "absolute";
-
-			if('xlink:href' in options.attr) {
-				element.setAttributeNS(xlnkns, 'href', options.attr['xlink:href']);
-				delete options.attr['xlink:href'];
-			}
-		}
-		else {
-			element = document.createElement(type);
-			//options.css.position = options.css.position || "absolute";
-			/*mkr.setDefault(options.css, 'position', 'absolute');
-			mkr.setDefault(options, 'force3d', true);*/
-		}		
-
-		//var element = type==="svg"? document.createElementNS("http://www.w3.org/2000/svg", type) :document.createElement(type);
 		if(type === 'img' && this._preload) {
 			if(options.attr && options.attr.src) {
 				this._images.push({img:element, src:options.attr.src});
@@ -303,10 +279,7 @@
 			}
 		}
 
-		TweenMax.set(element, options);
-		mkr.add(element, parent);
-	
-		return element;
+		return mkr.create(type, options, parent);
 	};
 
 	/**
@@ -540,6 +513,49 @@
 	mkr.queryAll = function(selectors, baseElement) {
 		baseElement = baseElement || document;
 		return baseElement["querySelectorAll"](selectors);
+	};
+
+	/**
+	 * @function create
+	 * @memberof mkr
+	 * @static
+	 * @description Creates a new html element
+	 * @param {String} type - The type of element to create.
+	 * @param {Object=} options - A set of attributes and css properties used to create the element
+	 * @param {Object=} options.css - CSS properties to apply to the new object.
+	 * @param {Object=} options.attr - Attributes to apply to the new object.
+	 * @param {*} [parent=null] - The element to append the new element. Can be an element or a css selector string
+	 * @returns {Element} The new element
+	**/
+	mkr.create = function(type, options, parent) {
+		var t = type.toLowerCase();
+		options = options || {};
+		options = mkr.merge(options, mkr.defaults);
+
+		parent = mkr.default(parent, null);
+		if(typeof parent === 'string') parent = mkr.query(parent);
+
+		var xlnkns = 'http://www.w3.org/1999/xlink'
+		var svgns = 'http://www.w3.org/2000/svg';
+		var svgTags = ['svg', 'defs', 'use', 'image', 'g', 'mask', 'clippath', 'lineargradient', 'radialgradient', 'stop', 'text', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path'];
+		var element;
+		if(svgTags.indexOf(t) >= 0) {
+			element = document.createElementNS(svgns, type);
+			//if(type == 'svg') options.css.position = options.css.position || "absolute";
+
+			if('xlink:href' in options.attr) {
+				element.setAttributeNS(xlnkns, 'href', options.attr['xlink:href']);
+				delete options.attr['xlink:href'];
+			}
+		}
+		else {
+			element = document.createElement(type);
+		}
+
+		TweenMax.set(element, options);
+		mkr.add(element, parent);
+	
+		return element;
 	};
 
 	/**
@@ -1241,7 +1257,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.21';
+	      return '0.2.22';
 	    }
 	});
 

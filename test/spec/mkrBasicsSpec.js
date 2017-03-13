@@ -1,4 +1,4 @@
-describe("mkr basics", function() {
+describe("mkr basics v"+mkr.VERSION, function() {
   var m;// = new mkr({css:{width:300, height:300}});
 
   beforeAll(function() {
