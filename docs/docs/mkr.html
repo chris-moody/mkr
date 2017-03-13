@@ -81,6 +81,8 @@
             
                 <li data-name="mkr.clone"><a href="mkr.html#.clone">clone</a></li>
             
+                <li data-name="mkr.create"><a href="mkr.html#.create">create</a></li>
+            
                 <li data-name="mkr.default"><a href="mkr.html#.default">default</a></li>
             
                 <li data-name="mkr.deleteRule"><a href="mkr.html#.deleteRule">deleteRule</a></li>
@@ -1312,7 +1314,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line545">line 545</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line561">line 561</a>
         </div>
         
     </div>
@@ -1538,7 +1540,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line652">line 652</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line668">line 668</a>
         </div>
         
     </div>
@@ -1746,7 +1748,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line897">line 897</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line913">line 913</a>
         </div>
         
     </div>
@@ -1960,7 +1962,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line438">line 438</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line411">line 411</a>
         </div>
         
     </div>
@@ -2031,7 +2033,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line779">line 779</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line795">line 795</a>
         </div>
         
     </div>
@@ -2169,6 +2171,314 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".create">
+            
+            <span class="type-signature static">static</span>mkr.create<span class="signature">(type, <span class="optional">options</span>, <span class="optional">parent</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line518">line 518</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a new html element
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The type of element to create.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                A set of attributes and css properties used to create the element
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>css</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                CSS properties to apply to the new object.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>attr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Attributes to apply to the new object.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The element to append the new element. Can be an element or a css selector string</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            <td class="description last">The new element</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".default">
             
             <span class="type-signature static">static</span>mkr.default<span class="signature">(value, value)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
@@ -2176,7 +2486,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line592">line 592</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line608">line 608</a>
         </div>
         
     </div>
@@ -2344,7 +2654,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line692">line 692</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line708">line 708</a>
         </div>
         
     </div>
@@ -2467,7 +2777,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line863">line 863</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line879">line 879</a>
         </div>
         
     </div>
@@ -2681,7 +2991,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line346">line 346</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line319">line 319</a>
         </div>
         
     </div>
@@ -2860,7 +3170,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line498">line 498</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line471">line 471</a>
         </div>
         
     </div>
@@ -3005,7 +3315,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line703">line 703</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line719">line 719</a>
         </div>
         
     </div>
@@ -3150,7 +3460,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line605">line 605</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line621">line 621</a>
         </div>
         
     </div>
@@ -3341,7 +3651,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line721">line 721</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line737">line 737</a>
         </div>
         
     </div>
@@ -4297,7 +4607,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line750">line 750</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line766">line 766</a>
         </div>
         
     </div>
@@ -4521,7 +4831,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line412">line 412</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line385">line 385</a>
         </div>
         
     </div>
@@ -4735,7 +5045,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line373">line 373</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line346">line 346</a>
         </div>
         
     </div>
@@ -4996,7 +5306,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line393">line 393</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line366">line 366</a>
         </div>
         
     </div>
@@ -5257,7 +5567,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line517">line 517</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line490">line 490</a>
         </div>
         
     </div>
@@ -5449,7 +5759,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line531">line 531</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line504">line 504</a>
         </div>
         
     </div>
@@ -5641,7 +5951,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line914">line 914</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line930">line 930</a>
         </div>
         
     </div>
@@ -5809,7 +6119,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line576">line 576</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line592">line 592</a>
         </div>
         
     </div>
@@ -5954,7 +6264,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line678">line 678</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line694">line 694</a>
         </div>
         
     </div>
@@ -6070,7 +6380,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line448">line 448</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line421">line 421</a>
         </div>
         
     </div>
@@ -6251,7 +6561,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line879">line 879</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line895">line 895</a>
         </div>
         
     </div>
@@ -6465,7 +6775,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line473">line 473</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line446">line 446</a>
         </div>
         
     </div>
@@ -6691,7 +7001,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line623">line 623</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line639">line 639</a>
         </div>
         
     </div>
@@ -6882,7 +7192,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line837">line 837</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line853">line 853</a>
         </div>
         
     </div>
@@ -7077,7 +7387,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line734">line 734</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line750">line 750</a>
         </div>
         
     </div>
@@ -7216,7 +7526,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line792">line 792</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line808">line 808</a>
         </div>
         
     </div>
@@ -7361,7 +7671,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line816">line 816</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line832">line 832</a>
         </div>
         
     </div>
@@ -7589,7 +7899,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line804">line 804</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line820">line 820</a>
         </div>
         
     </div>
@@ -7734,7 +8044,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line312">line 312</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line285">line 285</a>
         </div>
         
     </div>
@@ -8280,7 +8590,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line332">line 332</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line305">line 305</a>
         </div>
         
     </div>
@@ -8508,7 +8818,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Mar 08 2017 12:56:18 GMT-0500 (EST)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Mar 13 2017 13:00:24 GMT-0400 (EDT)
         </footer>
     </div>
 </div>
