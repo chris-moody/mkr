@@ -161,8 +161,8 @@
 	 * @param {String} [options.border.css.borderStyle='solid'] - CSS border-style property
 	 * @param {String} [options.border.css.borderColor='#666666'] - CSS border-color
 	 * @param {String} [options.border.css.pointerEvents='none'] - CSS pointer-events
-	 * @param {Number} [options.border.css.width=widh-2] - CSS width
-	 * @param {Number} [options.border.css.height=height-2] - CSS height
+	 * @param {Number} [options.border.css.width=width] - CSS width
+	 * @param {Number} [options.border.css.height=height] - CSS height
 	 * @returns {mkr} The new mkr instance
 	**/
 	mkr.makeDC = function(width, height, options) {
@@ -178,9 +178,9 @@
 		mkr.setDefault(options.border.css, 'borderWidth', '1px');
 		mkr.setDefault(options.border.css, 'borderStyle', 'solid');
 		mkr.setDefault(options.border.css, 'borderColor', '#666666');
-		var borderWidth = mkr.unitless(options.border.css.borderWidth);
-		mkr.setDefault(options.border.css, 'width', width-borderWidth*2);
-		mkr.setDefault(options.border.css, 'height', height-borderWidth*2);
+		// var borderWidth = mkr.unitless(options.border.css.borderWidth);
+		mkr.setDefault(options.border.css, 'width', width/*-borderWidth*2*/);
+		mkr.setDefault(options.border.css, 'height', height/*-borderWidth*2*/);
 
 		mkr.setDefault(options.border, 'attr', {});
 		var classes = 'mkr-border';
@@ -279,7 +279,7 @@
 			delete options.attr.src;
 			el = mkr.create(type, options, parent);
 			img.img = el;
-
+			this._images.push(img);
 			return el;
 		}
 
