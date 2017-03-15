@@ -1,5 +1,5 @@
 /*!
- * VERSION: 0.2.23
+ * VERSION: 0.2.24
  * DATE: 2017-03-15
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
@@ -272,11 +272,15 @@
 
 		parent = mkr.default(parent, this.container);
 
-		if(type === 'img' && this._preload) {
-			if(options.attr && options.attr.src) {
-				this._images.push({img:element, src:options.attr.src});
-				delete options.attr.src;
-			}
+		var el;
+
+		if(type === 'img' && this._preload && options.attr && options.attr.src) {
+			var img = {src:options.attr.src}
+			delete options.attr.src;
+			el = mkr.create(type, options, parent);
+			img.img = el;
+
+			return el;
 		}
 
 		return mkr.create(type, options, parent);
@@ -1257,23 +1261,24 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.23';
+	      return '0.2.24';
 	    }
 	});
 
-	//exports to multiple environments
+	mkr._constructs = {};
+	Object.defineProperty(mkr, 'constructs', {
+	    get: function() {
+	      mkr._constructs;
+	    }
+	});
+
     if(typeof define === 'function' && define.amd){ //AMD
         define(function () { return mkr; });
     } else if (typeof module !== 'undefined' && module.exports){ //node
         module.exports = mkr;
     } else { //browser
-        //use string because of Google closure compiler ADVANCED_MODE
-        /*jslint sub:true */
         global[className] = mkr;
     }
-
-    //scope[className] = mkr;
-	//return mkr;
 })(this, 'mkr');
 
 /*!JS Signals <http://millermedeiros.github.com/js-signals/> @license Released under the MIT license Author: Miller MedeirosVersion: 1.0.0 - Build: 268 (2012/11/29 05:48 PM)*/
