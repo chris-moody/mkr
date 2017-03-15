@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.22
- * DATE: 2017-03-13
+ * VERSION: 0.2.23
+ * DATE: 2017-03-15
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -579,7 +579,7 @@
 		}
 		else {
 			if(typeof parent === 'string') parent = mkr.query(parent);
-			index = mkr.default(index, parent.childNodes.length-1);
+			index = mkr.default(index, parent.childNodes.length);
 
 			mkr.each(target, function(el) {
 				parent.insertBefore(el, parent.childNodes[index]);
@@ -1257,7 +1257,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.22';
+	      return '0.2.23';
 	    }
 	});
 
