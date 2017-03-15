@@ -579,7 +579,7 @@
 		}
 		else {
 			if(typeof parent === 'string') parent = mkr.query(parent);
-			index = mkr.default(index, parent.childNodes.length-1);
+			index = mkr.default(index, parent.childNodes.length);
 
 			mkr.each(target, function(el) {
 				parent.insertBefore(el, parent.childNodes[index]);
