@@ -1,4 +1,4 @@
-(function(global, className) {
+(function(className) {
     var _instances = {};
     var _count=0;
 
@@ -31,28 +31,20 @@
         this._svg = options.svg || mkr.create('svg', {attr:{id:id, class:'arc-svg', width:d, height:d}, css:{overflow:'visible'}}, this._parent);
 
         this._start = mkr.setDefault(options, 'start', 0);
-
-        if('end' in options) {
-            this._end = options.end;
-            this._length = this._end - this._start;
-        }
-        else {
-            this._length = mkr.setDefault(options, 'length', 0);
-            this._end = this._start + this._length;
-        }    
+        
+        this._length = arc.normalize(mkr.setDefault(options, 'length', 0));
+        this._end = this._start + this._length;
 
         this._cx = mkr.setDefault(options, 'cx', this._radius);
         this._cy = mkr.setDefault(options, 'cy', this._radius);
         this._rotation = mkr.setDefault(options, 'rotation', 0);
         this._sweepFlag = mkr.setDefault(options, 'sweepFlag', 0);
 
-        //this.update(false);
         mkr.setDefault(options.path.attr, 'd', this.path);    
         mkr.setDefault(options.outline.attr, 'd', this.outline);    
 
-
-        this._outline = mkr.create('path', options.outline, this._svg);
-        this._path = mkr.create('path', options.path, this._svg);	
+        //this._outline = mkr.create('path', options.outline, this._svg);
+        this._path = mkr.create('path', options.path, this._svg);   
 
         _instances[id] = this;
     };
@@ -73,20 +65,19 @@
             this._radius = value;
             this.update();
         },
+        get end() {return this._start+this._length;},
+        set end(value) {
+            this._end = value;
+            this.length = value-this._start;
+        },
         get start() {return this._start;},
         set start(value) {
             this._start = value;
             this.update();
         },
-        get end() {return this._end;},
-        set end(value) {
-            this._end = value;
-            this.update();
-        },
-        get length() {return this._end - this._start;},
+        get length() {return this._length;},
         set length(value) {
             this._length = value;
-            this._end = this._start+this._length;
             this.update();
         },
         get rotation() {return this._rotation;},
@@ -101,19 +92,23 @@
             this.update();
         },
         get path() {
-            return this.calculatePath(this.cx, this.cy, this.radius, this.start, this.end);
+            return this.calculatePath(this.cx, this.cy, this.radius, this.start, this.length);
         },
         get outline() {
-            return this.calculatePath(this.cx, this.cy, this.radius, 0, 359.999);
+            return this.calculatePath(this.cx, this.cy, this.radius, 0, 360);
         },
-        calculatePath: function(cx, cy, r, start, end) {
+        calculatePath: function(cx, cy, r, start, length) {
+            length = arc.normalize(length);
+            if(length < 0) length+= 360;
+            var end = start + length;
+            
             var rad1 = (end-90)*(Math.PI/180.0);
             var rad2 = (start-90)*(Math.PI/180.0);
             var x1 = cx+(r*Math.cos(rad1));
             var y1 = cy+(r*Math.sin(rad1));
             var x2 = cx+(r*Math.cos(rad2));
             var y2 = cy+(r*Math.sin(rad2));
-            var largeArcFlag = (end - start) <= 180 ? '0' : '1';
+            var largeArcFlag = length <= 180 ? 0 : 1;
             var sweepFlag = this.sweepFlag;
 
             return [
@@ -127,10 +122,13 @@
         },
         draw: function() {
             TweenMax.set(this._path, {attr:{d:this.path}});
-            TweenMax.set(this._outline, {attr:{d:this.outline}});
+            //TweenMax.set(this._outline, {attr:{d:this.outline}});
         }
     };
-
+    arc.normalize = function(value) {
+        if(value%360 == 0 && value != 0) value+= 359.999*(value/Math.abs(value));
+        return value%360;
+    };
     arc.getInstance = function(id) {
         return _instances[id];
     };
@@ -138,11 +136,6 @@
         return _instances[el.id];
     };
 
-    if(typeof define === 'function' && define.amd){ //AMD
-        define(function () { return arc; });
-    } else if (typeof module !== 'undefined' && module.exports){ //node
-        module.exports = arc;
-    } else { //browser
-        global[className] = arc;
-    }
-})(mkr.constructs, 'arc');
+    window[className] = arc;
+    return arc;
+})('arc');

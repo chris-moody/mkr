@@ -1268,7 +1268,7 @@
 	mkr._constructs = {};
 	Object.defineProperty(mkr, 'constructs', {
 	    get: function() {
-	      mkr._constructs;
+	      return mkr._constructs;
 	    }
 	});
 

@@ -1,3 +1,4 @@
+console.log(mkr.VERSION);
 (function(global, className) {
     var _instances = {};
     var _count=0;
@@ -106,7 +107,7 @@
             this.end();
             var points = Array.from(arguments);
             var pts = '';
-            for(var i=0, i<points.length; i++) {
+            for(var i=0; i<points.length; i++) {
                 pts = points[i]+(i%2==0 ? ',' : ' ');
             }
             console.log(pts);
