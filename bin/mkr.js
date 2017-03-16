@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.22
- * DATE: 2017-03-13
+ * VERSION: 0.2.24
+ * DATE: 2017-03-15
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -161,8 +161,8 @@
 	 * @param {String} [options.border.css.borderStyle='solid'] - CSS border-style property
 	 * @param {String} [options.border.css.borderColor='#666666'] - CSS border-color
 	 * @param {String} [options.border.css.pointerEvents='none'] - CSS pointer-events
-	 * @param {Number} [options.border.css.width=widh-2] - CSS width
-	 * @param {Number} [options.border.css.height=height-2] - CSS height
+	 * @param {Number} [options.border.css.width=width] - CSS width
+	 * @param {Number} [options.border.css.height=height] - CSS height
 	 * @returns {mkr} The new mkr instance
 	**/
 	mkr.makeDC = function(width, height, options) {
@@ -178,9 +178,9 @@
 		mkr.setDefault(options.border.css, 'borderWidth', '1px');
 		mkr.setDefault(options.border.css, 'borderStyle', 'solid');
 		mkr.setDefault(options.border.css, 'borderColor', '#666666');
-		var borderWidth = mkr.unitless(options.border.css.borderWidth);
-		mkr.setDefault(options.border.css, 'width', width-borderWidth*2);
-		mkr.setDefault(options.border.css, 'height', height-borderWidth*2);
+		// var borderWidth = mkr.unitless(options.border.css.borderWidth);
+		mkr.setDefault(options.border.css, 'width', width/*-borderWidth*2*/);
+		mkr.setDefault(options.border.css, 'height', height/*-borderWidth*2*/);
 
 		mkr.setDefault(options.border, 'attr', {});
 		var classes = 'mkr-border';
@@ -272,11 +272,15 @@
 
 		parent = mkr.default(parent, this.container);
 
-		if(type === 'img' && this._preload) {
-			if(options.attr && options.attr.src) {
-				this._images.push({img:element, src:options.attr.src});
-				delete options.attr.src;
-			}
+		var el;
+
+		if(type === 'img' && this._preload && options.attr && options.attr.src) {
+			var img = {src:options.attr.src}
+			delete options.attr.src;
+			el = mkr.create(type, options, parent);
+			img.img = el;
+			this._images.push(img);
+			return el;
 		}
 
 		return mkr.create(type, options, parent);
@@ -1257,23 +1261,24 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.22';
+	      return '0.2.24';
 	    }
 	});
 
-	//exports to multiple environments
+	mkr._constructs = {};
+	Object.defineProperty(mkr, 'constructs', {
+	    get: function() {
+	      mkr._constructs;
+	    }
+	});
+
     if(typeof define === 'function' && define.amd){ //AMD
         define(function () { return mkr; });
     } else if (typeof module !== 'undefined' && module.exports){ //node
         module.exports = mkr;
     } else { //browser
-        //use string because of Google closure compiler ADVANCED_MODE
-        /*jslint sub:true */
         global[className] = mkr;
     }
-
-    //scope[className] = mkr;
-	//return mkr;
 })(this, 'mkr');
 
 /*!JS Signals <http://millermedeiros.github.com/js-signals/> @license Released under the MIT license Author: Miller MedeirosVersion: 1.0.0 - Build: 268 (2012/11/29 05:48 PM)*/
