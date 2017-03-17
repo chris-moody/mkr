@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.24
- * DATE: 2017-03-15
+ * VERSION: 0.2.25
+ * DATE: 2017-03-16
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -156,7 +156,7 @@
 	 * @param {Object=} options.border.css - CSS properties to apply to the border element.
 	 * @param {Number} [options.border.css.left=0] - CSS left property
 	 * @param {Number} [options.border.css.top=0] - CSS top property
-	 * @param {int} [options.border.css.zIndex=1000] - CSS z-index property
+	 * @param {int} [options.border.css.zIndex=10] - CSS z-index property
 	 * @param {String} [options.border.css.borderWidth='1px'] - CSS border-width property
 	 * @param {String} [options.border.css.borderStyle='solid'] - CSS border-style property
 	 * @param {String} [options.border.css.borderColor='#666666'] - CSS border-color
@@ -172,7 +172,7 @@
 		mkr.setDefault(options.border, 'css', {});		
 		mkr.setDefault(options.border.css, 'top', 0);
 		mkr.setDefault(options.border.css, 'left', 0);
-		mkr.setDefault(options.border.css, 'zIndex', 1000);
+		mkr.setDefault(options.border.css, 'zIndex', 10);
 		mkr.setDefault(options.border.css, 'position', 'absolute');
 		mkr.setDefault(options.border.css, 'pointerEvents', 'none');
 		mkr.setDefault(options.border.css, 'borderWidth', '1px');
@@ -1127,9 +1127,97 @@
 	    return SignalManager;
 	})('SignalManager', mkr);
 
+	(function(global, className){
+		var _instances={}, _count=-1, _uid=-1;
+		
+		var map = function() {
+			Object.defineProperty(this, '_id', {
+				enumerable: false,
+				value: ++_count
+			});
+			
+			this._dict = {};
+			this._keys = {};
+			
+			_instances[this._id] = this;
+		};
+		
+		map.prototype = {
+			get: function(key) {
+				if(typeof key === 'string') {
+					return this._dict[key];
+				}
+				if(key._mkrmapid === undefined) {
+					return undefined;
+				}
+				return this._dict[key._mkrmapid];
+			},
+			set: function(key, value) {
+				if(typeof key === 'string') {
+					this._dict[key] = value;
+				}
+				else {
+					if(key._mkrmapid === undefined) {
+						Object.defineProperty(key, '_mkrmapid', {
+							enumerable: false,
+							value: ++_uid,
+							configurable: true
+						});
+					}
+					this._keys[key._mkrmapid] = key;
+					this._dict[key._mkrmapid] = value;
+				}
+				
+				return this;
+			},
+			has: function(key) {
+				if(typeof key === 'string') {
+					return (key in this._dict);
+				}
+				if(key._mkrmapid === undefined) {
+					return false;
+				}
+				return  (key._mkrmapid in this._dict);
+			},
+			delete: function(key) {
+				var flag = this.has(key);
+				
+				if(typeof key === 'string') {
+					delete this._dict[key];
+				}
+				if(key._mkrmapid === undefined) {
+					return false;
+				}
+				delete this._keys[key._mkrmapid];
+				delete this._dict[key._mkrmapid];
+				delete key._mkrmapid;
+				
+				return flag;
+			},
+			clear: function() {
+				for(var key in this._dict) {
+					if(key in this._keys) {
+						this.delete(this._keys[key]);
+						continue;
+					}
+					this.delete(key);
+				}
+			},
+			forEach: function(callback, context) {
+				for(var key in this._dict) {
+					var target = (key in this._keys) ? this._keys[key] : key;
+					callback.apply(context, [this._dict[key], target, this]);
+				}
+			}
+		}
+		
+		global[className] = map;
+		return map;
+	})(mkr, 'map');
+
 	(function(className, scope) {
 	  	var matrix = function(options) {
-	    	this._mngrs = new Map();
+	    	this._mngrs = new mkr.map();
 	    	
 	    	//add a listener
 			this.add = function(target, type, listener, context, priority, isOnce) {
@@ -1231,7 +1319,7 @@
 		  	//clear the entire matrix of listeners
 		  	this.clear = function() {
 		  		var self = this;
-		  		this._mngrs.forEach(function(mngr, target) {
+		  		this._mngrs.forEach(function(value, target, map) {
 		  			self.delete(target);
 		  		});
 		  	}
@@ -1261,14 +1349,14 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.24';
+	      return '0.2.25';
 	    }
 	});
 
 	mkr._constructs = {};
 	Object.defineProperty(mkr, 'constructs', {
 	    get: function() {
-	      mkr._constructs;
+	      return mkr._constructs;
 	    }
 	});
 
