@@ -81,6 +81,8 @@
             
                 <li data-name="mkr.clone"><a href="mkr.html#.clone">clone</a></li>
             
+                <li data-name="mkr.construct"><a href="mkr.html#.construct">construct</a></li>
+            
                 <li data-name="mkr.create"><a href="mkr.html#.create">create</a></li>
             
                 <li data-name="mkr.default"><a href="mkr.html#.default">default</a></li>
@@ -140,6 +142,8 @@
                 <li data-name="mkr.unitless"><a href="mkr.html#.unitless">unitless</a></li>
             
                 <li data-name="mkr#batch"><a href="mkr.html#batch">batch</a></li>
+            
+                <li data-name="mkr#construct"><a href="mkr.html#construct">construct</a></li>
             
                 <li data-name="mkr#create"><a href="mkr.html#create">create</a></li>
             
@@ -1280,7 +1284,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line562">line 562</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line608">line 608</a>
         </div>
         
     </div>
@@ -1506,7 +1510,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line669">line 669</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line715">line 715</a>
         </div>
         
     </div>
@@ -1714,7 +1718,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line929">line 929</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line975">line 975</a>
         </div>
         
     </div>
@@ -1928,7 +1932,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line412">line 412</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line430">line 430</a>
         </div>
         
     </div>
@@ -1999,7 +2003,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line811">line 811</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line857">line 857</a>
         </div>
         
     </div>
@@ -2137,6 +2141,328 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id=".construct">
+            
+            <span class="type-signature static">static</span>mkr.construct<span class="signature">(type, <span class="optional">options</span>, <span class="optional">parent</span>, <span class="optional">instance</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line587">line 587</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a new instance of a mkr construct
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The type of construct to create.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                A set of attributes, css, and other properties used to create the construct
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>css</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                CSS properties to apply to the new construct.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>attr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Attributes to apply to the new construct.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The element to append the new construct. Can be an element or a css selector string</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>instance</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="mkr.html">mkr</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The mkr instance, if any, to associate with the new construct.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        *
+                        
+                    
+            </td>
+            <td class="description last">The new construct</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id=".create">
             
             <span class="type-signature static">static</span>mkr.create<span class="signature">(type, <span class="optional">options</span>, <span class="optional">parent</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
@@ -2144,7 +2470,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line519">line 519</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line537">line 537</a>
         </div>
         
     </div>
@@ -2452,7 +2778,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line609">line 609</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line655">line 655</a>
         </div>
         
     </div>
@@ -2620,7 +2946,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line724">line 724</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line770">line 770</a>
         </div>
         
     </div>
@@ -2743,7 +3069,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line895">line 895</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line941">line 941</a>
         </div>
         
     </div>
@@ -2957,7 +3283,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line320">line 320</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line338">line 338</a>
         </div>
         
     </div>
@@ -3136,7 +3462,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line472">line 472</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line490">line 490</a>
         </div>
         
     </div>
@@ -3281,7 +3607,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line735">line 735</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line781">line 781</a>
         </div>
         
     </div>
@@ -3426,7 +3752,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line622">line 622</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line668">line 668</a>
         </div>
         
     </div>
@@ -3617,7 +3943,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line753">line 753</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line799">line 799</a>
         </div>
         
     </div>
@@ -3762,7 +4088,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line709">line 709</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line755">line 755</a>
         </div>
         
     </div>
@@ -4712,7 +5038,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line782">line 782</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line828">line 828</a>
         </div>
         
     </div>
@@ -4936,7 +5262,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line386">line 386</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line404">line 404</a>
         </div>
         
     </div>
@@ -5150,7 +5476,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line347">line 347</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line365">line 365</a>
         </div>
         
     </div>
@@ -5411,7 +5737,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line367">line 367</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line385">line 385</a>
         </div>
         
     </div>
@@ -5672,7 +5998,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line491">line 491</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line509">line 509</a>
         </div>
         
     </div>
@@ -5864,7 +6190,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line505">line 505</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line523">line 523</a>
         </div>
         
     </div>
@@ -6056,7 +6382,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line946">line 946</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line992">line 992</a>
         </div>
         
     </div>
@@ -6224,7 +6550,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line593">line 593</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line639">line 639</a>
         </div>
         
     </div>
@@ -6369,7 +6695,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line695">line 695</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line741">line 741</a>
         </div>
         
     </div>
@@ -6485,7 +6811,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line422">line 422</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line440">line 440</a>
         </div>
         
     </div>
@@ -6666,7 +6992,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line911">line 911</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line957">line 957</a>
         </div>
         
     </div>
@@ -6880,7 +7206,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line447">line 447</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line465">line 465</a>
         </div>
         
     </div>
@@ -7106,7 +7432,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line640">line 640</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line686">line 686</a>
         </div>
         
     </div>
@@ -7297,7 +7623,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line869">line 869</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line915">line 915</a>
         </div>
         
     </div>
@@ -7492,7 +7818,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line766">line 766</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line812">line 812</a>
         </div>
         
     </div>
@@ -7631,7 +7957,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line824">line 824</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line870">line 870</a>
         </div>
         
     </div>
@@ -7776,7 +8102,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line848">line 848</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line894">line 894</a>
         </div>
         
     </div>
@@ -8004,7 +8330,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line836">line 836</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line882">line 882</a>
         </div>
         
     </div>
@@ -8149,7 +8475,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line286">line 286</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line304">line 304</a>
         </div>
         
     </div>
@@ -8380,6 +8706,314 @@
             
 <dt>
     <div class="nameContainer">
+        <h4 class="name" id="construct">
+            
+            construct<span class="signature">(type, <span class="optional">options</span>, <span class="optional">parent</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{*}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line285">line 285</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a new instance of a mkr construct
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                    
+                        
+                    
+                
+                The type of construct to create.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                A set of attributes, css, and other properties used to create the construct
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>css</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                CSS properties to apply to the new construct.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>attr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Attributes to apply to the new construct.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    this.container
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The element to append the new construct. Can be an element or a css selector string</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        *
+                        
+                    
+            </td>
+            <td class="description last">The new construct</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
         <h4 class="name" id="create">
             
             create<span class="signature">(type, <span class="optional">options</span>, <span class="optional">parent</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
@@ -8536,7 +9170,7 @@
                         
                     
                 
-                CSS properties to apply to the new object.</td>
+                CSS properties to apply to the new element.</td>
         </tr>
 	
 	
@@ -8566,7 +9200,7 @@
                         
                     
                 
-                Attributes to apply to the new object.</td>
+                Attributes to apply to the new element.</td>
         </tr>
 	
 	
@@ -8695,7 +9329,7 @@
     
         
         <div class="tag-source">
-            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line306">line 306</a>
+            <a href="mkr.js.html">mkr.js</a>, <a href="mkr.js.html#line324">line 324</a>
         </div>
         
     </div>
@@ -8923,7 +9557,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Mar 28 2017 14:44:57 GMT-0400 (EDT)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Mar 30 2017 19:16:45 GMT-0400 (EDT)
         </footer>
     </div>
 </div>

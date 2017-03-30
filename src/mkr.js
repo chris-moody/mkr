@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.26
- * DATE: 2017-03-28
+ * VERSION: 0.2.27
+ * DATE: 2017-03-30
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody

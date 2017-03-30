@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.26
- * DATE: 2017-03-28
+ * VERSION: 0.2.27
+ * DATE: 2017-03-30
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -259,14 +259,13 @@
 	 * @description Creates a new html element
 	 * @param {String} type - The type of element to create.
 	 * @param {Object=} options - A set of attributes and css properties used to create the element
-	 * @param {Object=} options.css - CSS properties to apply to the new object.
-	 * @param {Object=} options.attr - Attributes to apply to the new object.
+	 * @param {Object=} options.css - CSS properties to apply to the new element.
+	 * @param {Object=} options.attr - Attributes to apply to the new element.
 	 * @param {*} [parent=this.container] - The element to append the new element. Can be an element or a css selector string
 	 * @returns {Element} The new element
 	**/
 	mkr.prototype.create = function(type, options, parent) {
 		options = options || {};
-
 		parent = mkr.default(parent, this.container);
 
 		var el;
@@ -282,6 +281,25 @@
 
 		return mkr.create(type, options, parent);
 	};
+
+	/**
+	 * @function construct
+	 * @memberof mkr.prototype
+	 * @public
+	 * @description Creates a new instance of a mkr construct
+	 * @param {String} type - The type of construct to create.
+	 * @param {Object=} options - A set of attributes, css, and other properties used to create the construct
+	 * @param {Object=} options.css - CSS properties to apply to the new construct.
+	 * @param {Object=} options.attr - Attributes to apply to the new construct.
+	 * @param {*} [parent=this.container] - The element to append the new construct. Can be an element or a css selector string
+	 * @returns {*} The new construct
+	**/
+	mkr.prototype.construct = function(type, options, parent) {
+		options = options || {};
+		parent = mkr.default(parent, this.container);
+
+		return mkr.construct(type, options, parent, this);
+	}
 
 	/**
 	 * @function batch
@@ -558,6 +576,34 @@
 	
 		return element;
 	};
+
+	mkr._constructs = {};
+	Object.defineProperty(mkr, 'constructs', {
+	    get: function() {
+	      return mkr._constructs;
+	    }
+	});
+
+	/**
+	 * @function construct
+	 * @memberof mkr
+	 * @static
+	 * @description Creates a new instance of a mkr construct
+	 * @param {String} type - The type of construct to create.
+	 * @param {Object=} options - A set of attributes, css, and other properties used to create the construct
+	 * @param {Object=} options.css - CSS properties to apply to the new construct.
+	 * @param {Object=} options.attr - Attributes to apply to the new construct.
+	 * @param {*=} parent - The element to append the new construct. Can be an element or a css selector string
+	 * @param {mkr=} instance - The mkr instance, if any, to associate with the new construct.
+	 * @returns {*} The new construct
+	**/
+	mkr.construct = function(type, options, parent, instance) {
+		if(type in mkr._constructs) {
+			return new mkr._constructs[type](options, parent, instance);
+		}
+		console.warn(type, 'not found!');
+		return null;
+	}
 
 	/**
 	 * @function add
@@ -1361,14 +1407,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.26';
-	    }
-	});
-
-	mkr._constructs = {};
-	Object.defineProperty(mkr, 'constructs', {
-	    get: function() {
-	      return mkr._constructs;
+	      return '0.2.27';
 	    }
 	});
 
