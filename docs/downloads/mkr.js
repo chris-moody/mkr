@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.25
- * DATE: 2017-03-16
+ * VERSION: 0.2.26
+ * DATE: 2017-03-28
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -43,7 +43,6 @@
 	 * @param {Object=} options.attr - Attributes to apply to the container element.
 	 * @param {String} [options.attr.class='mkr-container'] - Class string applied to the container element. Applied classes will always include 'mkr-container'
 	 * @param {Object=} options.tmln - options passed to the built-in TimelineMax instance.
-	 * @param {String} [options.imgDir=""] - Relative path from the doc root specifiying the location of images
 	 * @requires {@link https://greensock.com/tweenmax TweenMax}
 	 * @returns {mkr} A new mkr instance.
 	 */
@@ -58,8 +57,6 @@
 		options.tmln = options.tmln || {};
 		this._tmln = new TimelineMax(options.tmln);
 		delete options.tmln;
-		this._imgDir = mkr.getDefault(options, 'imgDir', '');
-		delete options.imgDir;
 
 		var parent = mkr.getDefault(options, 'parent', document.body);
 		delete options.parent;
@@ -178,9 +175,9 @@
 		mkr.setDefault(options.border.css, 'borderWidth', '1px');
 		mkr.setDefault(options.border.css, 'borderStyle', 'solid');
 		mkr.setDefault(options.border.css, 'borderColor', '#666666');
-		// var borderWidth = mkr.unitless(options.border.css.borderWidth);
-		mkr.setDefault(options.border.css, 'width', width/*-borderWidth*2*/);
-		mkr.setDefault(options.border.css, 'height', height/*-borderWidth*2*/);
+		var borderWidth = mkr.unitless(options.border.css.borderWidth);
+		mkr.setDefault(options.border.css, 'width', width-borderWidth*2);
+		mkr.setDefault(options.border.css, 'height', height-borderWidth*2);
 
 		mkr.setDefault(options.border, 'attr', {});
 		var classes = 'mkr-border';
@@ -235,7 +232,7 @@
 	      return this.container.offsetWidth;
 	    },
 	    set: function(value) {
-	      this.container.offsetWidth = this.value;
+	      this.container.offsetWidth = value;
 	    }
 
 	});
@@ -251,7 +248,7 @@
 	      return this.container.offsetHeight;
 	    },
 	    set: function(value) {
-	      this.container.offsetHeight = this.value;
+	      this.container.offsetHeight = value;
 	    }
 	});
 
@@ -301,7 +298,7 @@
 		var elements = [];
 		var n = num;
 		while(n--) {
-			elements.push(mkr.create(type, options, parent));
+			elements.push(this.create(type, options, parent));
 		}
 		return elements;
 	}
@@ -710,6 +707,21 @@
 	};
 
 	/**
+	 * @function hasClass
+	 * @memberof mkr
+	 * @static
+	 * @description Tests whether the target element has the indicated class assigned
+	 * @param {*} target - An single element, or a css selector string.
+	 * @param {String} className - A string representing the class to search for.
+	**/
+    mkr.hasClass = function(target, className) {
+    	if(typeof target === 'string') target = mkr.query(target);
+    	if(!target) return false;
+
+    	return target.className.split(' ').indexOf(className); 
+	};
+
+	/**
 	 * @function deleteRule
 	 * @memberof mkr
 	 * @static
@@ -760,7 +772,7 @@
 	 * @param {Object} styles - The styles to set of the matched rules
 	 * @requires {@link https://greensock.com/cssruleplugin CSSRulePlugin}
 	**/
-    mkr.setRule = function(selector, styles, index) {
+    mkr.setRule = function(selector, styles) {
     	var rule = CSSRulePlugin.getRule(selector);
     	if(rule) {
 			TweenMax.set(rule, {cssRule:styles});
@@ -1115,7 +1127,7 @@
 	            _signals[signalId].removeAll();
 	        };
 
-	        this.destroy = function (signalId) {
+	        this.destroy = function () {
 	            for(sigId in _signals) {
 	                _signals[sigId].dispose();
 	                delete _signals[sigId];
@@ -1349,7 +1361,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.25';
+	      return '0.2.26';
 	    }
 	});
 
