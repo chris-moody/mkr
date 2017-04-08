@@ -18,8 +18,14 @@
   "homepage": "https://github.com/chris-moody/admkr#readme",
   "devDependencies": {
     "bookshelf-jsdoc-theme": "^0.1.2",
+    "cz-conventional-changelog": "^2.0.0",
     "jasmine": "^2.5.3",
     "minami": "^1.1.1",
     "postman-jsdoc-theme": "0.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
