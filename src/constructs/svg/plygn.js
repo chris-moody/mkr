@@ -24,78 +24,83 @@
  * 
  * @author: Christopher C. Moody, chris@moodydigital.com
  */
-
+ 
 (function(global, className) {
     var _instances = {}, _count=-1;
 
-    var clp = function(options, parent) {
+    var plygn = function(options) {
 		_count++;
         var id = this._id = options.id || className+'-'+_count;
+		
 		var parent = this._parent = mkr.getDefault(options, 'parent', document.body);
 		
 		options = options || {};
-		var clips = mkr.default(options.clips, []); //objects
-		var targets = mkr.default(options.targets, []); //
+		
+		this._x = mkr.default(options.x, 0); 
+		this._y = mkr.default(options.y, 0); 
 		mkr.setDefault(options, 'svg', {});
 		mkr.setDefault(options, 'css', {});
-		mkr.setDefault(options, 'attr', {});
+		var attr = mkr.setDefault(options, 'attr', {});
+		var points = this._points = mkr.default(attr.points, ''); 
 		mkr.setDefault(options.attr, 'id', id);
 		
-		var s = this._svg = options.svgRoot || mkr.create('svg', options.svg, parent)
-			var d = mkr.query('defs', s) || mkr.create('defs', {}, s)
-				var clip = this._clip = mkr.create('clipPath', {attr:options.attr, css:options.css}, d)
-					for(var i=0; i<clips.length; i++) {
-						var c = clips[i];
-						if(c.length < 1) c.push('rect');
-						if(c.length < 2) c.push({});
-						this.addClip(c[0], c[1]);
-					}
-			for(var i=0; i<targets.length; i++) {
-				var target = targets[i];
-				if(target.length < 1) target.push('div');
-				if(target.length < 2) target.push({});
-				this.addTarget(target[0], target[1], s);
-			}
+		//var s = this._svg = options.svgRoot || mkr.create('svg', options.svg, parent)
+		var poly = this._poly = mkr.create('polygon', {attr:options.attr, css:options.css}, parent)
 		
 		_instances[id] = this;
 	};
 	
-	clp.prototype.addClip = function(type, options) {
-		return mkr.create(type, options, this._clip);
+	plygn.prototype = {
+		get x() {
+			return this._x;
+		},
+		set x(value) {
+			this._x = value;
+			this.update();
+		},
+		get y() {
+			return this._y;
+		},
+		set y(value) {
+			this._y = value;
+			this.update();
+		},
+		get poly() {
+			return this._poly;
+		},
 	};
 	
-	clp.prototype.addTarget = function(typeOrTarget, options) {
-		if(typeof typeOrTarget === 'string') {
-			mkr.setDefault(options, 'css', {});
-			options.css.clipPath = 'url(#'+this._id+')';
-
-			return mkr.create(typeOrTarget, options, this._svg);
+	plygn.prototype.update = function() {
+		var points = this._points.split(',');
+		var newPts = '';
+		for(var i=0; i<points.length; i++) {
+			var xy = points[i].replace(/^ /g,'').split(' ');
+			xy[0] = Number(xy[0]) + this._x;
+			xy[1] = Number(xy[1]) + this._y;
+			newPts += (i>0?', ':'')+xy.join(' ');
 		}
-		else {
-			mkr.add(typeOrTarget, this._svg)
-			TweenMax.set(typeOrTarget, {css:{clipPath:'url(#'+this._id+')'}});
-		}
+		TweenMax.set(this._poly, {attr:{points:newPts}})
 	};
 	
 	/**
-    * @alias clp.VERSION
-    * @memberof clp
+    * @alias plygn.VERSION
+    * @memberof plygn
     * @static
     * @readonly
     * @type String
-    * @description returns clp's version number
+    * @description returns plygn's version number
     **/
-    Object.defineProperty(clp, 'VERSION', {
+    Object.defineProperty(plygn, 'VERSION', {
         get: function() {
           return '0.0.1';
         }
     });
 
     if(typeof define === 'function' && define.amd){ //AMD
-        define(function () { return clp; });
+        define(function () { return plygn; });
     } else if (typeof module !== 'undefined' && module.exports){ //node
-        module.exports = clp;
+        module.exports = plygn;
     } else { //browser
-        global[className] = clp;
+        global[className] = plygn;
     }
-})(mkr._constructs, 'clp');
+})(mkr._constructs, 'plygn');

@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.0.1
- * DATE: 2017-03-30
+ * DATE: 2017-03-31
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -42,7 +42,7 @@
 		mkr.setDefault(options.attr, 'id', id);
 		
 		var s = this._svg = options.svgRoot || mkr.create('svg', options.svg, parent)
-			var d = mkr.create('defs', {}, s)
+			var d = mkr.query('defs', s) || mkr.create('defs', {}, s)
 				var mask = this._mask = mkr.create('mask', {attr:options.attr, css:options.css}, d)
 					for(var i=0; i<masks.length; i++) {
 						var m = masks[i];
@@ -65,11 +65,17 @@
 		return mkr.create(type, options, this._mask);
 	};
 	
-	msk.prototype.addTarget = function(type, options) {
-		mkr.setDefault(options, 'attr', {});
-		options.attr.mask = 'url(#'+this._id+')';
-		
-		return mkr.create(type, options, this._svg);
+	msk.prototype.addTarget = function(typeOrTarget, options) {
+		if(typeof typeOrTarget === 'string') {
+			mkr.setDefault(options, 'attr', {});
+			options.attr.mask = 'url(#'+this._id+')';
+
+			return mkr.create(typeOrTarget, options, this._svg);
+		}
+		else {
+			mkr.add(typeOrTarget, this._svg)
+			TweenMax.set(typeOrTarget, {attr:{mask:'url(#'+this._id+')'}});
+		}
 	};
 	
 	/**
