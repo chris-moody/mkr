@@ -1,21 +1,21 @@
 {
-  "name": "admkr",
+  "name": "mkr",
   "version": "0.3.0",
-  "description": "admkr!",
+  "description": "mkr!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chris-moody/admkr.git"
+    "url": "git+https://github.com/chris-moody/mkr.git"
   },
   "author": "Christopher C. Moody chris@moodydigital.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chris-moody/admkr/issues"
+    "url": "https://github.com/chris-moody/mkr/issues"
   },
-  "homepage": "https://github.com/chris-moody/admkr#readme",
+  "homepage": "https://github.com/chris-moody/mkr#readme",
   "devDependencies": {
     "bookshelf-jsdoc-theme": "^0.1.2",
     "cz-conventional-changelog": "^2.0.0",
