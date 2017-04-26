@@ -1,21 +1,26 @@
 {
-  "name": "mkr",
+  "name": "mkrjs",
   "version": "0.3.0",
-  "description": "mkr!",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "dist/mkr.min.js",
+  "description": "Lightweight library focused on javascript-based content creation",
+  "homepage": "https://chris-moody.github.io/mkr/",
+  "keywords": ["mkr", "mkrjs", "dom", "manipulation"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chris-moody/mkr.git"
   },
   "author": "Christopher C. Moody chris@moodydigital.com",
   "license": "MIT",
+  "files": [
+    "dist", "docs", "lib", "scripts"
+  ],
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "bugs": {
     "url": "https://github.com/chris-moody/mkr/issues"
   },
-  "homepage": "https://github.com/chris-moody/mkr#readme",
   "devDependencies": {
     "bookshelf-jsdoc-theme": "^0.1.2",
     "cz-conventional-changelog": "^2.0.0",

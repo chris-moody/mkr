@@ -1,10 +1,10 @@
 #!/bin/bash
 # publishing script
 
-uglifyjs ./src/mkr.js -c -o ./bin/mkr.min.js --comments
+uglifyjs ./lib/mkr.js -c -o ./dist/mkr.min.js --comments
 
-cp ./src/mkr.js ./bin
+cp ./lib/mkr.js ./dist
 
-cp ./bin/{mkr.js,mkr.min.js} ./docs/downloads
+cp ./dist/{mkr.js,mkr.min.js} ./docs/downloads
 
-gzip -c ./bin/mkr.min.js | wc -c
+gzip -c ./dist/mkr.min.js | wc -c

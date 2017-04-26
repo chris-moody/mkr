@@ -1,4 +1,4 @@
 #!/bin/bash
 # doc script
 
-jsdoc ./src/ -r -t ./mkr-jsdoc -d ./docs/docs
+jsdoc ./lib/ -r -t ./docs/mkr-jsdoc -d ./docs/docs
