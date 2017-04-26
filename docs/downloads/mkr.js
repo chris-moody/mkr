@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.2.27
- * DATE: 2017-03-30
+ * VERSION: 0.3.0
+ * DATE: 2017-04-07
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -1406,7 +1406,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.2.27';
+	      return '0.3.0';
 	    }
 	});
 
