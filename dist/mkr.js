@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.3.0
- * DATE: 2017-04-07
+ * VERSION: 0.3.01
+ * DATE: 2017-05-01
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -30,12 +30,12 @@
 	
 	/**
 	 * @class mkr
+	 * @classdesc Lightweight library focused on javascript-based content creation
 	 * @description Initializes a new mkr instance.
 	 	<ul>
 	 		<li>creates a div container, and appends it to the specified parent. @see container</li>
 	 		<li>creates a TimelineMax instance</li>
 	 	</ul>
-	 * @classdesc A lightweight companion library to the {@link https://greensock.com/ greensock animation platform}, mkr delivers a 100% javascript method of content creation
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
@@ -212,6 +212,7 @@
 	/**
 	 * @name mkr#tmln
 	 * @public
+	 * @readonly
 	 * @type TimelineMax
 	 * @description reference to this mkr's built-in TimelineMax instance
 	**/
@@ -272,6 +273,25 @@
 	}
 
 	/**
+	 * @function clone
+	 * @memberof mkr.prototype
+	 * @public
+	 * @description clone a dom element using cloneNode and apply with optional params
+	 * @param {*} target - A selector string, Array, or element
+	 * @param {Object=} options - A set of attributes and css properties used to create the element
+	 * @param {Object=} options.css - CSS properties to apply to the new object
+	 * @param {Object=} options.attr - Attributes to apply to the new object
+	 * @param {Object=} cloneOpts - Options used to fine-tune the behavior of the clone operation
+	 * @param {Boolean} [cloneOpts.children=true] - Whether children should also be cloned(sets cloneNodes deep parameter)
+	 * @param {*} [parent=this.container] - The element which to append the new element. Can be an element or a css selector string
+	 * @returns {*} The added element, or array of elements
+	**/
+	mkr.prototype.clone = function(target, options, cloneOpts, parent) {
+		parent = parent || this.container;		
+		return mkr.clone(target, options, cloneOpts, parent);
+	};
+
+	/**
 	 * @function create
 	 * @memberof mkr.prototype
 	 * @public
@@ -280,7 +300,7 @@
 	 * @param {Object=} options - A set of attributes and css properties used to create the element
 	 * @param {Object=} options.css - CSS properties to apply to the new element.
 	 * @param {Object=} options.attr - Attributes to apply to the new element.
-	 * @param {*} [parent=this.container] - The element to append the new element. Can be an element or a css selector string
+	 * @param {*} [parent=this.container] - The element which to append the new element. Can be an element or a css selector string
 	 * @returns {Element} The new element
 	**/
 	mkr.prototype.create = function(type, options, parent) {
@@ -447,18 +467,26 @@
 	 * @param {Object=} parentOpts - An optional set of attributes and css properties applied to every parent of the target
 	**/
     mkr.reveal = function(target, options, parentOpts) {
-    	if(options) TweenMax.set(target, options);
+    	options = options || {};
+    	mkr.setDefault(options, 'overflowY', 'visible');
+    	TweenMax.set(target, options);
+
     	parentOpts = parentOpts || {};
     	mkr.setDefault(parentOpts, 'overflowY', 'visible');
 
 		mkr.each(target, function(el) {
-			var parent = el.parentNode;
-			while(parent) {
-				parentOpts.height = parent.scrollHeight+1;
+			var parent = el.parentNode, lastParent = el.parentNode;
+			while(parent && parent !== window.document) {
+				console.log(parent);
+				parentOpts.height = el.scrollHeight+(el._gsTransform?el._gsTransform.y:0);
 				TweenMax.set(parent, parentOpts);
 				//TweenMax.set(parent, {overflowY:'visible', height:parent.scrollHeight+1});
+				lastParent = parent;
 				parent = parent.parentNode;
 			}
+			/*if(lastParent && el._gsTransform) {
+				TweenMax.set(lastParent, {height:'+='+el._gsTransform.y});
+			}*/
 		});
     };
     
@@ -562,6 +590,39 @@
 	});
 
 	/**
+	 * @function clone
+	 * @memberof mkr
+	 * @static
+	 * @description clone a dom element using cloneNode and apply with optional params
+	 * @param {*} target - A selector string, Array, or element
+	 * @param {Object=} options - A set of attributes and css properties used to create the element
+	 * @param {Object=} options.css - CSS properties to apply to the new object
+	 * @param {Object=} options.attr - Attributes to apply to the new object
+	 * @param {Object=} cloneOpts - Options used to fine-tune the behavior of the clone operation
+	 * @param {Boolean} [cloneOpts.children=true] - Whether children should also be cloned(sets cloneNodes deep parameter)
+	 * @param {*} [parent=null] - The element which to append the new element. Can be an element or a css selector string
+	 * @returns {*} The added element, or array of elements
+	**/
+	mkr.clone = function(target, options, cloneOpts, parent) {
+		options = options || {};
+		options = mkr.merge(options, mkr.defaults);
+
+		cloneOpts = cloneOpts || {};
+		mkr.setDefault(cloneOpts, 'children', true);
+
+		var clone, clones = [];
+		mkr.each(target, function(el) {
+			clone = el.cloneNode(cloneOpts.children);
+			delete clone.id;
+			TweenLite.set(clone, options);
+			mkr.add(clone, parent);
+			clones.push(clone);
+		});
+		
+		return clones.length > 1 ? clones : clones[0];
+	};
+
+	/**
 	 * @function create
 	 * @memberof mkr
 	 * @static
@@ -570,7 +631,7 @@
 	 * @param {Object=} options - A set of attributes and css properties used to create the element
 	 * @param {Object=} options.css - CSS properties to apply to the new object.
 	 * @param {Object=} options.attr - Attributes to apply to the new object.
-	 * @param {*} [parent=null] - The element to append the new element. Can be an element or a css selector string
+	 * @param {*} [parent=null] - The element which to append the new element. Can be an element or a css selector string
 	 * @returns {Element} The new element
 	**/
 	mkr.create = function(type, options, parent) {
@@ -612,7 +673,7 @@
 	 * @param {String} target - An single element, array of elements, or a css selector string.
 	 * @param {Element} [parent=document.body] - The ancestor element to search. Defaults to the document object
 	 * @param {int=} index - Where in the parent to add the element. Defaults to the end.
-	 * @returns {*} The added element, or array of eleements
+	 * @returns {*} The added element, or array of elements
 	**/
 	mkr.add = function(target, parent, index) {
 		parent = mkr.default(parent, document.body);
@@ -641,7 +702,7 @@
 	 * @static
 	 * @description Removes an existing element from the DOM
 	 * @param {String} target - An single element, array of elements, or a css selector string.
-	 * @returns {Element} The removed  element, or array of eleements
+	 * @returns {Element} The removed  element, or array of elements
 	**/
 	mkr.remove = function(target) {
 		var targets = [];
@@ -829,20 +890,20 @@
 	 * @memberof mkr
 	 * @static
 	 * @description Merges one object into another, optionally overwriting overlapping keys. This utility method should only be used on objects holding primitive values!
-	 * @param {Object} base - the base object
+	 * @param {Object} src - the source object
 	 * @param {Object} merger - The styles to set of the matched rules
 	 * @param {Boolean} [overwrite=false] - Whether to overwrite overlapping values
 	 * @returns {Object} The resulting merge
 	**/
-	mkr.merge = function(base, merger, overwrite) {
+	mkr.merge = function(src, merger, overwrite) {
 		overwrite = mkr.default(overwrite, false);
-		var res = mkr.clone(base);
+		var res = mkr.copy(src);
 
 		for(var key in merger) {
-			if(base[key] !== undefined) {//if key is defined
-				if(typeof base[key] === 'object') {//if both values are objects
+			if(src[key] !== undefined) {//if key is defined
+				if(typeof src[key] === 'object') {//if both values are objects
 					if(typeof merger[key] === 'object')
-						res[key] = mkr.merge(base[key], mkr.clone(merger[key]), overwrite);//set value to their merge
+						res[key] = mkr.merge(src[key], mkr.copy(merger[key]), overwrite);//set value to their merge
 					else if(override) res[key] = merger[key]
 				}
 				else if(!overwrite) {continue;}
@@ -854,15 +915,15 @@
 	};
 
 	/**
-	 * @function clone
+	 * @function copy
 	 * @memberof mkr
 	 * @static
-	 * @description Clones an object. This utility method should only be used on objects holding primitive values!
-	 * @param {Object} base - The object to clone
-	 * @returns {Object} The clone
+	 * @description Copies an object. This utility method should only be used on objects holding primitive values!
+	 * @param {Object} src - The object to copy
+	 * @returns {Object} The copy
 	**/
-	mkr.clone = function(base) {
-		return JSON.parse(JSON.stringify(base));
+	mkr.copy = function(src) {
+		return JSON.parse(JSON.stringify(src));
 	};
 
 	mkr._units = /(\-?\d+(\.\d+)?)([A-z%]*)/gi;
@@ -1406,7 +1467,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.3.0';
+	      return '0.3.01';
 	    }
 	});
 
