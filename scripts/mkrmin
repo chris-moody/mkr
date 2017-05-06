@@ -1,10 +1,31 @@
 #!/bin/bash
 # publishing script
 
-uglifyjs ./lib/mkr.js -c -o ./dist/mkr.min.js --comments
+function unglifymkr {
+	#echo "LOOP: $1"
+	for f in "$1"/*; do
+		if [ -d "$f" ]; then
+			unglifymkr "$f"
+		elif [[ $f = *.js ]]; then
+			dir=$(dirname "$f")
+			fullname="${f##*/}"
+			name="${fullname%.*}"
+			#echo $name $ext
+			path="./dist${dir#./lib}"
+			dest="./dist${dir#./lib}/${name}.min.js"
+			#echo $f "$dest"
+			uglifyjs $f -c -o "$dest" --comments
+			cp $f "$path"
+		fi
+	done
+}
 
-cp ./lib/mkr.js ./dist
+unglifymkr ./lib
 
-cp ./dist/{mkr.js,mkr.min.js} ./docs/downloads
+#uglifyjs ./lib/mkr.js -c -o ./dist/mkr.min.js --comments
+
+#cp ./lib/mkr.js ./dist
+
+cp -R ./dist/. ./docs/downloads
 
 gzip -c ./dist/mkr.min.js | wc -c
