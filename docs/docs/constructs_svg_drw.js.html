@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Source: constructs/svg/arc.js</title>
+    <title>Source: constructs/svg/drw.js</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -430,7 +430,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="constructs_svg_arc.js.html">Source: constructs/svg/arc.js</h1>
+        <h1 class="page-title" data-filename="constructs_svg_drw.js.html">Source: constructs/svg/drw.js</h1>
         
 
 
@@ -463,93 +463,62 @@
  * 
  * @author: Christopher C. Moody, chris@moodydigital.com
  */
-
+ 
 (function(global, className) {
     var _instances = {}, _count=-1;
-    
+
     /**
-     * @class arc
-     * @classdesc A customizable and animatable SVG arc
-     * @description Initializes a new arc instance.
-     * @param {Object} options - Options used to customize the arc
-     * @param {*} [options.parent=document.body] - Element which the arc's svgRoot is appended
+     * @class drw
+     * @classdesc A tool for drawing and animating SVG paths
+     * @description Initializes a new drw instance.
+     * @param {Object} options - Options used to customize the drw instance
+     * @param {*} [options.parent=document.body] - Element which the drw's svgRoot is appended
      * @param {String=} options.id - The id of the instance. Auto-generated when not provided
-     * @param {Number} [options.radius=50] - The radius of the arc
-     * @param {Number} [options.cx=this.radius] - The center of the arc along the x-axis
-     * @param {Number} [options.cy=this.radius] - The center of the arc along the y-axis
-     * @param {Number} [options.start=0] - The starting point of the arc along its circle in degrees
-     * @param {Number} [options.length=0] - The length of the arc along in degrees
-     * @param {Number} [options.rotation=0] - The rotation of the arc in degrees
-     * @param {Number} [options.sweepFlag=0] - The sweepFlag value used in the svg drawing command to produce the arc
-     * @param {*=} options.svgRoot - svg element which to append the arc. Can be a selector string or element. It is auto-generated and added to options.parent when not provided
+     * @param {*=} options.svgRoot - svg element which to append the drw. Can be a selector string or element. It is auto-generated and added to options.parent when not provided
+     * @param {String} [options.fill='transparent'] - The default fill color
+     * @param {String} [options.stroke='#000000'] - The default stroke color
+     * @param {Number} [options.strokeWidth=1] - The default stroke width
      * @param {Object=} options.svg - Options used to create svgRoot when none is provided
-     * @param {String} [options.svg.attr.class='arc-svg']
-     * @param {String} [options.svg.attr.width=options.radius*2]
-     * @param {String} [options.svg.attr.height=options.radius*2]
+     * @param {String} [options.svg.attr.class='drw-svg']
+     * @param {String} [options.svg.attr.width='100%']
+     * @param {String} [options.svg.attr.height='100%']
      * @param {String} [options.svg.css.overflow='visible']
 
-     * @param {Object=} options.css - CSS properties to apply to the arc's path element.
-     * @param {Object=} options.attr - Attributes to apply to the arc's path element.
-     * @param {String} [options.attr.class='arc-path'] - Class string applied to the path element.
-     * @param {String} [options.attr.fill='transparent'] - The fill color of the path.
-     * @param {String} [options.attr.stroke='#f37121'] - The stroke color of the path.
-     * @param {String} [options.attr['stroke-width']=15] - The stroke-width of the path.
-
-     * @requires {@link  mkr}
-     * @returns {arc} A new arc instance.
+     * @requires {@link  drw}
+     * @returns {msk} A new drw instance.
     **/
-    var arc = function(options) {
+    var drw = function(options) {
         options = options || {};
         _count++;
         var id = this._id = options.id || className+'-'+_count;
-        this._parent = mkr.setDefault(options, 'parent', document.body);
-
-        mkr.setDefault(options, 'attr', {});
-        mkr.setDefault(options.attr, 'id', id);
-        mkr.setDefault(options, 'css', {});
+        this._parent = mkr.getDefault(options, 'parent', document.body);
+        
+        //mkr.setDefault(options, 'attr', {});
+        //mkr.setDefault(options.attr, 'id', id);
+        //mkr.setDefault(options, 'css', {});
         mkr.setDefault(options, 'svg', {});
 
-        mkr.setDefault(options.attr, 'class', 'arc-path');
-        mkr.setDefault(options.attr, 'fill', 'transparent');
-        mkr.setDefault(options.attr, 'stroke', '#f37121');
-        mkr.setDefault(options.attr, 'stroke-width', 15);
-
-        this._radius = mkr.setDefault(options, 'radius', 50);
-        var d = 2*options.radius;
-
         mkr.setDefault(options.svg, 'attr', {});
-        mkr.setDefault(options.svg.attr, 'class', 'arc-svg');
-        mkr.setDefault(options.svg.attr, 'width', d);
-        mkr.setDefault(options.svg.attr, 'height', d);
+        mkr.setDefault(options.svg.attr, 'class', 'drw-svg');
+        mkr.setDefault(options.svg.attr, 'width', '100%');
+        mkr.setDefault(options.svg.attr, 'height', '100%');
         mkr.setDefault(options.svg, 'css', {});
         mkr.setDefault(options.svg.css, 'overflow', visible);
 
-        this._svg = options.svgRoot;
-        if(!this._svg) {
-            this._svg = mkr.create('svg', options.svg, this._parent);
-        }
-        else if(typeof this._svg === 'string') {
-            this._svg = mkr.query(this._svg)
-        }
-        this._start = mkr.setDefault(options, 'start', 0);
+        this._svg = options.svgRoot || mkr.create('svg', options.svg, this._parent);
+
+        this._drawData = {};
+        this._drawData.fill = mkr.default(options.fill, 'transparent');
+        this._drawData.stroke = mkr.default(options.stroke, '#000000');
+        this._drawData['stroke-width'] = mkr.default(options.strokeWidth, 1);
         
-        this._length = arc.flatten(mkr.setDefault(options, 'length', 0));
-        this._end = this._start + this._length;
-
-        this._cx = mkr.setDefault(options, 'cx', this._radius);
-        this._cy = mkr.setDefault(options, 'cy', this._radius);
-        this._rotation = mkr.setDefault(options, 'rotation', 0);
-        this._sweepFlag = mkr.setDefault(options, 'sweepFlag', 0);
-
-        mkr.setDefault(options.attr, 'd', this.path);    
-        this._path = mkr.create('path', {attr:options.attr, css:options.css}, this._svg);   
-
+        this._init();
         _instances[id] = this;
     };
   
-    arc.prototype = {
+    drw.prototype = {
         /**
-         * @name arc#svg
+         * @name drw#svg
          * @public
          * @readonly
          * @type SVGElement
@@ -558,254 +527,490 @@
         get svg() {return this._svg;},
 
         /**
-         * @name arc#el
+         * @name drw#fill
          * @public
-         * @readonly
-         * @type SVGElement
-         * @description The path element associated with this instance
+         * @type String
+         * @description The current fill color
         **/
-        get el() {return this._path;},
-
-        /**
-         * @name arc#cx
-         * @public
-         * @type Number
-         * @description The center of the arc along the x-axis
-        **/
-        get cx() {return this._cx;},
-        set cx(value) {
-            this._cx = value;
-            this.update();
+        get fill() {return this._drawData.fill;},
+        set fill(value) {
+            this._drawData.fill = value;
         },
 
         /**
-         * @name arc#cy
+         * @name drw#stroke
          * @public
-         * @type Number
-         * @description The center of the arc along the y-axis
+         * @type String
+         * @description The current stroke color
         **/
-        get cy() {return this._cy;},
-        set cy(value) {
-            this._cy = value;
-            this.update();
+        get stroke() {return this._drawData.stroke;},
+        set stroke(value) {
+            this._drawData.stroke = value;
         },
 
         /**
-         * @name arc#radius
+         * @name drw#strokeWidth
          * @public
-         * @type Number
-         * @description The radius of the arc
+         * @type String
+         * @description The current stroke width
         **/
-        get radius() {return this._radius;},
-        set radius(value) {
-            this._radius = value;
-            this.update();
+        get strokeWidth() {return this._drawData.strokeWidth;},
+        set strokeWidth(value) {
+            this._drawData['stroke-width'] = value;
         },
 
         /**
-         * @name arc#end
-         * @public
-         * @type Number
-         * @description The ending point of the arc along its circle in degrees
+         * @function _init
+         * @memberof drw.prototype
+         * @private
+         * @description Initializes the drw instance
         **/
-        get end() {return this._start+this._length;},
-        set end(value) {
-            this._end = value;
-            this.length = value-this._start;
+        _init: function() {
+            //this._last = null;
+            this._lastX = this._lastY = 0;
+        },
+
+        /**
+         * @function _checkPath
+         * @memberof drw.prototype
+         * @private
+         * @description Initializes the drw instance
+        **/
+        _checkPath: function(d) {
+            this.newPath(d);
+            //if(!this._path) { this.newPath(d); }
+        },
+
+        /**
+         * @function newPath
+         * @memberof drw.prototype
+         * @public
+         * @description Starts a new path object fo subsequent drawing commands
+        **/
+        newPath: function(d) {
+            d=d||'';
+            var pathData = mkr.merge(this._drawData, {d:d}); 
+            this._next = null;
+            this._last = this._path = mkr.create('path', {attr:pathData}, this._svg);
+        },
+
+        /**
+         * @function end
+         * @memberof drw.prototype
+         * @public
+         * @description Ends the current path, optionally closing it with a 'Z' command
+         * @param {Boolean} [close=false] - Whether to append a 'Z' command to the path
+        **/
+        end: function(close) {
+            if(!this._path) return;
+
+            var _path = this._path;
+            this._path = null;
+            if(close) {
+                var path = _path.getAttribute('d').split(' ');
+                path.push('Z');
+                TweenMax.set(_path, {attr:{d:path.join(' ')}});
+            }
+        },
+        
+        //shapes
+
+        /**
+         * @function circle
+         * @memberof drw.prototype
+         * @public
+         * @description draw a circle
+         * @param {Number} x - Center of the circle along the x-axis
+         * @param {Number} y - Center of the circle along the y-axis
+         * @param {Number} r - Radius of the circle
+         * @returns {SVGElement} an ellipse element
+        **/
+        circle: function(x, y, r) {
+            return this.ellipse(x, y, r, r);
+        },
+
+        /**
+         * @function ellipse
+         * @memberof drw.prototype
+         * @public
+         * @description draw a ellipse
+         * @param {Number} x - Center of the ellipse along the x-axis
+         * @param {Number} y - Center of the ellipse along the y-axis
+         * @param {Number} rx - Radius of the ellipse along the x-axis
+         * @param {Number} ry - Radius of the ellipse along the y-axis
+         * @returns {SVGElement} an ellipse element
+        **/
+        ellipse: function(x, y, rx, ry) {
+            this.end();
+            var data = mkr.merge(this._drawData, {cx:x, cy:y, rx:rx, ry:ry});
+            
+            this._last = mkr.create('ellipse', {attr:data}, this._svg);
+            return this._last;
+        },
+
+        /**
+         * @function triangle
+         * @memberof drw.prototype
+         * @private
+         * @description draw a triangle
+         * @returns {SVGElement} an polygon element
+        **/
+        triangle: function(){},
+
+        /**
+         * @function rect
+         * @memberof drw.prototype
+         * @public
+         * @description draw a rectangle
+         * @param {Number} x - Position of the rectangle along the x-axis
+         * @param {Number} y - Position of the rectangle along the y-axis
+         * @param {Number} w - Width of the rectangle
+         * @param {Number} h - Height of the rectangle
+         * @returns {SVGElement} an rect element
+        **/
+        rect: function(x, y, w, h){
+            this.end();
+            var data = mkr.merge(this._drawData, {x:x, y:y, width:w, height:h});
+            
+            this._last = mkr.create('rect', {attr:data}, this._svg);
+            return this._last;
+        },
+
+        /**
+         * @function polygon
+         * @memberof drw.prototype
+         * @public
+         * @description draw a rectangle
+         * @param {...Number} points - Points used to form the polygon
+         * @returns {SVGElement} an polygon element
+        **/
+        polygon: function(points) {
+            this.end();
+            var pts = '';
+            for(var i=0; i&lt;points.length; i++) {
+                pts = points[i]+(i%2==0 ? ',' : ' ');
+            }
+            console.log(pts);
+            var data = mkr.merge(this._drawData, {points:pts});
+            
+            this._last = mkr.create('polygon', {attr:data}, this._svg);
+            return this._last;
+        },
+        
+        //drawing commands
+
+        /**
+         * @function _move
+         * @memberof drw.prototype
+         * @private
+         * @description Move the drawing cursor to specific coordinates
+         * @param {Number} x - Cursor position along the x-axis
+         * @param {Number} y - Cursor position along the y-axis
+         * @returns {TweenMax}
+        **/
+        _move: function(x, y){
+            this._checkPath();
+            var path = this._path.getAttribute('d').split(' ');
+            path.push('M', x, y);
+
+            return TweenMax.set(this._path, {attr:{d:path.join(' ')}});
+        },
+
+        /**
+         * @function qdrtc
+         * @memberof drw.prototype
+         * @public
+         * @description Draw a quadratic bezier curve
+         * @param {Number} cx - Control point along the x-axis
+         * @param {Number} cy - Control point along the y-axis
+         * @param {Number} x - End point along the x-axis
+         * @param {Number} y - End point along the y-axis
+         * @returns {TweenMax}
+        **/
+        qdrtc: function(cx, cy, x, y){
+            this._checkPath(['M',cx,cy].join(' '));
+            var path = this._path.getAttribute('d').split(' ');
+            path.push('Q', cx, cy, x, y);
+
+            return TweenMax.set(this._path, {attr:{d:path.join(' ')}});
+        },
+
+        /**
+         * @function curve
+         * @memberof drw.prototype
+         * @public
+         * @description Draw a cubic bezier curve
+         * @param {Number} cx1 - Control point1 along the x-axis
+         * @param {Number} cy1 - Control point1 along the y-axis
+         * @param {Number} cx2 - Control point2 along the x-axis
+         * @param {Number} cy2 - Control point2 along the y-axis
+         * @param {Number} x - End point along the x-axis
+         * @param {Number} y - End point along the y-axis
+         * @returns {TweenMax}
+        **/
+        curve: function(cx1, cy1, cx2, cy2, x, y){
+            this._checkPath(['M',cx1,cy1].join(' '));
+            var path = this._path.getAttribute('d').split(' ');
+            path.push('C', cx1, cy1, cx2, cy2, x, y);
+
+            return TweenMax.set(this._path, {attr:{d:path.join(' ')}});
+        },
+
+        /* pieTo: function(duration, start, length, vars, r, cx, cy, icx, icy, iR, iStart, iLength) {
+            var sw = this.strokeWidth;
+            var tweens = [TweenMax.set(this, {strokeWidth:r*1.5})];
+            tweens = tweens.concat(this.arcTo(duration, start, length, vars, r, cx, cy, icx, icy, iR, iStart, iLength));
+            tweens.push(TweenMax.set(this, {strokeWidth:sw}));
+            return tweens
+        }, */
+
+
+        /**
+         * @function arcTo
+         * @memberof drw.prototype
+         * @public
+         * @description Animate an arc
+         * @param {Number} duration - Duration of the animation in seconds
+         * @param {Number} start - Final starting point of the arc along the circle in degrees
+         * @param {Number} length - Final length of the arc in degrees from 0-359
+         * @param {Number} vars - Options passed to the TweenMax instance which facilitates the animation
+         * @param {Number} r - Final radius of the arc
+         * @param {Number} cx - Final center of the arc along the x-axis
+         * @param {Number} cy - Final center of the arc along the y-axis
+
+         * @param {Number} icx - Initial center of the arc along the x-axis
+         * @param {Number} icy - Initial center of the arc along the y-axis
+         * @param {Number} iR - Initial radius of the arc
+         * @param {Number} iStart - Initial starting point of the arc along the circle in degrees
+         * @param {Number} iLength - Initial length of the arc in degrees from 0-359
+         * @returns {TweenMax}
+        **/
+        arcTo: function(duration, start, length, vars, r, cx, cy, icx, icy, iR, iStart, iLength) {
+            r = mkr.default(r, 50), iR = mkr.default(iR, r);
+            start = mkr.default(start, 0), iStart = mkr.default(iStart, start);
+            length = mkr.default(length, 360), iLength = mkr.default(iLength, 0);
+            cx = mkr.default(cx, this._lastX); icx = mkr.default(icx, this._lastX);
+            cy = mkr.default(cy, this._lastY); icy = mkr.default(icy, this._lastY);
+            
+            var end = start + length;
+            var rad1 = (end-90)*(Math.PI/180.0);
+            var rad2 = (start-90)*(Math.PI/180.0);
+            
+            var x2 = cx+(r*Math.cos(rad2));// - (r*Math.cos(rad1));
+            var y2 = cy+(r*Math.sin(rad2));// + (r*Math.sin(rad1));
+            
+            end = iStart + iLength;
+            var iRad1 = (end-90)*(Math.PI/180.0);
+            var iRad2 = (iStart-90)*(Math.PI/180.0);
+            
+            cx-=(r*Math.cos(iRad1));
+            cy-=(r*Math.sin(iRad1));
+            
+            icx-=(iR*Math.cos(iRad1));
+            icy-=(iR*Math.sin(iRad1));
+            
+            this.arc(icy, icy, iR, iStart, iLength);
+            
+            var p = drw.calculateArc(cx, cy, r, start, length);
+            this._lastX = p[1]; //update last point to coord of last point in arc
+            this._lastY = p[2];
+            
+            var prefix = ['M'].join(' ')
+
+            var tVars = {cx:cx, cy:cy, r:r, start:start, length:length};
+            
+            //grab current arc properties and tween this target to new props based on params
+            var targetPath = this._last;
+            var target = {cx:icx, cy:icy, r:iR, start:iStart, length:iLength};
+
+            vars.onUpdate = function() {
+                var newArc = drw.calculateArc(target.cx, target.cy, target.r, target.start, target.length);
+                newArc.splice(0, 1);
+                var d = prefix+' '+newArc.join(' ');
+                TweenMax.set(targetPath, {attr:{d:d}});
+            }
+                    
+            return [TweenMax.to(this._path, duration, vars), TweenMax.to(target, duration, tVars)];
+        },
+
+        /**
+         * @function arc
+         * @memberof drw.prototype
+         * @public
+         * @description Draw an arc
+         * @param {Number} cx - Center of the arc along the x-axis
+         * @param {Number} cy - Center of the arc along the y-axis
+         * @param {Number} r - Radius of the arc
+         * @param {Number} start - Starting point of the arc along the circle in degrees
+         * @param {Number} length - Length of the arc in degrees from 0-359
+         * @returns {TweenMax}
+        **/
+        arc: function(cx, cy, r, start, length) {
+            this._checkPath();
+            //var path = this._path.getAttribute('d').split(' ');
+            var path = drw.calculateArc(cx, cy, r, start, length);
+            this._path._mkrarcdata = {cx:cx, cy:cy, r:r, start:start, length:length, path:path};
+
+            return TweenMax.set(this._path, {attr:{d:path.join(' ')}});
         },
         
         /**
-         * @name arc#start
+         * @function lineTo
+         * @memberof drw.prototype
          * @public
-         * @type Number
-         * @description The starting point of the arc along its circle in degrees
+         * @description Animate a line between two points
+         * @param {Number} duration - Duration of the animation in seconds
+         * @param {Number} x - End point of the line along the x-axis
+         * @param {Number} y - End point of the line along the y-axis
+         * @param {Number} vars - Options passed to the TweenMax instance which facilitates the animation
+         * @param {Number} fromX - Origin point of the line along the x-axis
+         * @param {Number} fromY - Origin point of the line along the y-axis
+         * @returns {TweenMax}
         **/
-        get start() {return this._start;},
-        set start(value) {
-            this._start = value;
-            this.update();
-        },
-
-        /**
-         * @name arc#length
-         * @public
-         * @type Number
-         * @description The length of the arc in degrees
-        **/
-        get length() {return this._length;},
-        set length(value) {
-            this._length = value;
-            this.update();
-        },
-
-        /**
-         * @name arc#rotation
-         * @public
-         * @type Number
-         * @description The rotation of the arc in degrees
-        **/
-        get rotation() {return this._rotation;},
-        set rotation(value) {
-            this._rotation = value;
-            this.update();
-        },
-
-        /**
-         * @name arc#largeArcFlag
-         * @public
-         * @readonly
-         * @type Number
-         * @description The largeArcFlag value used in the svg drawing command to produce the arc
-        **/
-        get largeArcFlag() {return this._largeArcFlag;},
-
-        /**
-         * @name arc#sweepFlag
-         * @public
-         * @type Number
-         * @description The sweepFlag value used in the svg drawing command to produce the arc
-        **/
-        get sweepFlag() {return this._sweepFlag;},
-        set sweepFlag(value) {
-            this._sweepFlag = value;
-            this.update();
-        },
-
-        /**
-         * @name arc#calculatedPath
-         * @public
-         * @readonly
-         * @type String
-         * @description The svg drawing command to produce the main path element
-        **/
-        get calculatedPath() {
-            return this.calculatePath(this.cx, this.cy, this.radius, this.start, this.length);
-        },
-
-        /**
-         * @name arc#path
-         * @public
-         * @readonly
-         * @type Number
-         * @description The main path element
-        **/
-        get path() {
-            return this._path;
-        },
-
-        /**
-         * @function calculatePath
-         * @memberof arc.prototype
-         * @public
-         * @description Returns the svg drawing command to produce the specified
-         * @param {Number} cx - The center of the arc along the x-axis
-         * @param {Number} cy - The center of the arc along the y-axis
-         * @param {Number} r - The radius of the arc
-         * @param {Number} start - The starting point of the arc along its circle in degrees
-         * @param {Number} length - The length of the arc in degrees
-         * @returns {String} The svg drawing command 
-        **/
-        calculatePath: function(cx, cy, r, start, length) {
-            length = arc.flatten(length);
-            if(length &lt; 0) length+= 360;
-            var end = start + length;
+        lineTo: function(duration, x, y, vars, fromX, fromY) {
+            fromX = mkr.default(fromX, this._lastX);
+            fromY = mkr.default(fromY, this._lastY);
             
-            var rad1 = (end-90)*(Math.PI/180.0);
-            var rad2 = (start-90)*(Math.PI/180.0);
-            var x1 = cx+(r*Math.cos(rad1));
-            var y1 = cy+(r*Math.sin(rad1));
-            var x2 = cx+(r*Math.cos(rad2));
-            var y2 = cy+(r*Math.sin(rad2)); t
-            var largeArcFlag = length &lt;= 180 ? 0 : 1;
-            var sweepFlag = this.sweepFlag;
-
-            return [
-                "M", x1, y1, 
-                "A", r, r, 0, largeArcFlag, sweepFlag, x2, y2
-            ].join(" ");
+            this._lastX = x;
+            this._lastY = y;
+            this.line(fromX, fromY);
+            
+            vars = vars || {}; vars.attr = vars.attr || {};
+                vars.attr.d = ['M', fromX, fromY, 'L', x, y].join(' ');
+            return TweenMax.to(this._path, duration, vars);
         },
 
         /**
-         * @function update
-         * @memberof arc.prototype
-         * @private
-         * @description Updates the arc
-         * @param {Boolean} [draw=true] - Whether to invoke the draw function
+         * @function line
+         * @memberof drw.prototype
+         * @public
+         * @description Draw a line
+         * @param {Number} x - End point of the line along the x-axis
+         * @param {Number} y - End point of the line along the y-axis
+         * @returns {TweenMax}
         **/
-        update: function(draw) {
-            if(mkr.default(draw, true)) this.draw();
-        },
-
-        /**
-         * @function draw
-         * @memberof arc.prototype
-         * @private
-         * @description Draws the path of the arc
-        **/
-        draw: function() {
-            TweenMax.set(this._path, {attr:{d:this.path}});
+        line: function(x, y){
+            this._checkPath(['M',x,y].join(' '));
+            var path = this._next || this._path.getAttribute('d');
+            path = path.split(' ');
+            path.push('L', x, y);
+            this._next = path = path.join(' ');
+            return TweenMax.to(this._path, 0, {attr:{d:path}});
         }
     };
-
+    
     /**
-    * @function flatten
-    * @memberof arc
-    * @static
-    * @description The provided value flattened in the range of 0-360
-    * @param {Number} value - The value to flatten
-    * @returns {Number} The flattened value 
+     * @function calcArcFrom
+     * @memberof drw
+     * @private
+     * @static
+     * @description Calculate an arc... is this even useful???
+     * @param {Number} cx - Center of the arc along the x-axis
+     * @param {Number} cy - Center of the arc along the y-axis
+     * @param {Number} r - Radius of the arc
+     * @param {Number} start - Starting point of the arc along the circle in degrees
+     * @param {Number} length - Length of the arc in degrees from 0-359
+     * @returns {Array} Array of characters representing an arc command
     **/
-    arc.flatten = function(value) {
-        if(value%360 == 0 &amp;&amp; value != 0) value+= 359.999*(value/Math.abs(value));
-        return value%360;
+    drw.calcArcFrom = function(x, y, r, start, length) {
+        if(length%360 == 0 &amp;&amp; length != 0) length+= 359.999*(length/Math.abs(length));
+        length = length%360;
+
+        var end = start + length;
+        var rad1 = (end-90)*(Math.PI/180.0);
+        var rad2 = (start-90)*(Math.PI/180.0);
+        //var x1 = cx+(r*Math.cos(rad1));
+        //var y1 = cy+(r*Math.sin(rad1));
+        var cx = x-(r*Math.cos(rad1));
+        var cy = y-(r*Math.sin(rad1));
+        var x2 = cx+(r*Math.cos(rad2));
+        var y2 = cy+(r*Math.sin(rad2));
+        var largeArcFlag = length &lt;= 180 ? 0 : 1;
+        var sweepFlag = 0;
+
+        return ['M', x, y, 'A', r, r, 0, largeArcFlag, sweepFlag, x2, y2];
+    };
+    
+    /**
+     * @function calculateArc
+     * @memberof drw
+     * @static
+     * @description Calculate an arc command with the given parameters
+     * @param {Number} cx - Center of the arc along the x-axis
+     * @param {Number} cy - Center of the arc along the y-axis
+     * @param {Number} r - Radius of the arc
+     * @param {Number} start - Starting point of the arc along the circle in degrees
+     * @param {Number} length - Length of the arc in degrees from 0-359
+     * @returns {Array} Array of characters representing an arc command
+    **/
+    drw.calculateArc = function(cx, cy, r, start, length) {
+        if(length%360 == 0 &amp;&amp; length != 0) length+= 359.999*(length/Math.abs(length));
+        length = length%360;
+
+        var end = start + length;
+        var rad1 = (end-90)*(Math.PI/180.0);
+        var rad2 = (start-90)*(Math.PI/180.0);
+        var x1 = cx+(r*Math.cos(rad1));
+        var y1 = cy+(r*Math.sin(rad1));
+        var x2 = cx+(r*Math.cos(rad2));
+        var y2 = cy+(r*Math.sin(rad2));
+        var largeArcFlag = length &lt;= 180 ? 0 : 1;
+        var sweepFlag = 0;
+
+        return ['M', x1, y1, 'A', r, r, 0, largeArcFlag, sweepFlag, x2, y2];
     };
 
     /**
-    * @function getInstance
-    * @memberof arc
-    * @static
-    * @description returns the arc instance associated with the id
-    * @param {String} id - The lookup id
-    * @returns {arc} The associate arc, if it exists
+     * @function splitPath
+     * @memberof drw
+     * @static
+     * @private
+     * @description Searches the given path for the first instance of the specified command and returns the results in an array
+     * @param {String} path - The path to search
+     * @param {String} cmd - The command to look for
+     * @returns {Array} Array of containing the index of the path command, the command header, the full command, and the remaining path in that order.
     **/
-    arc.getInstance = function(id) {
+    drw.splitPath = function(path, cmd) {
+        cmd = cmd || 'A-Z';
+        var n = path.search(new RegExp('['+cmd+'](?!.*['+cmd+'])', 'gi'));
+        if(n &lt; 0) return [n, '', path, ''];
+        return [n, path[n], path.substr(0, n+1), path.substr(n+2)];
+    };
+
+    /**
+     * @function getInstance
+     * @memberof drw
+     * @static
+     * @description returns the drw instance associated with the id
+     * @param {String} id - The lookup id
+     * @returns {drw} The associate drw, if it exists
+    **/
+    drw.getInstance = function(id) {
         return _instances[id];
     };
 
     /**
-    * @function getElInstance
-    * @memberof arc
-    * @static
-    * @description returns the arc instance associated with the provided element's id attribute
-    * @param {Element} el - The element with the lookup id
-    * @returns {arc} The associate arc, if it exists
-    **/    
-    arc.getElInstance = function(el) {
-        return _instances[el.id];
-    };
-
-    /**
-    * @alias arc.VERSION
-    * @memberof arc
+    * @alias drw.VERSION
+    * @memberof drw
     * @static
     * @readonly
     * @type String
-    * @description returns arc's version number
+    * @description returns drw's version number
     **/
-    Object.defineProperty(arc, 'VERSION', {
+    Object.defineProperty(drw, 'VERSION', {
         get: function() {
           return '0.0.1';
         }
     });
 
     if(typeof define === 'function' &amp;&amp; define.amd){ //AMD
-        define(function () { return arc; });
+        define(function () { return drw; });
     } else if (typeof module !== 'undefined' &amp;&amp; module.exports){ //node
-        module.exports = arc;
+        module.exports = drw;
     } else { //browser
-        global[className] = arc;
+        global[className] = drw;
     }
-})(mkr._constructs, 'arc');</code></pre>
+})(mkr._constructs, 'drw');</code></pre>
         </article>
     </section>
 

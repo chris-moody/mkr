@@ -31,6 +31,16 @@ $(function() {
     var reg2 = /(id\=\"\.)(\w?(\.)?(\w)*)+\"/g;
     content = content.replace(reg2, 'id="$2"');
 
+    //replace construct constructors
+    var reg3 = /(new)\s(\w+)/g;
+    content = content.replace(reg3, function(match, p1, p2) {
+        //console.log(p2);
+        if(p2 !== 'mkr') {
+            return 'new mkr._constructs.'+p2;
+        }
+        return match;
+    });
+
     $('#wrap > .main').html(content);
 
     //remove leading dots from hrefs
@@ -41,7 +51,7 @@ $(function() {
     // fix -end
 
 
-	var classSelector = '.navigation > ul.list > li.item';
+    var classSelector = '.navigation > ul.list > li.item';
     $(classSelector).each(function() {
         var className = $(this).data('name');
         console.log(className);
@@ -66,7 +76,7 @@ $(function() {
         var staticMethods = [];
         $(this).find('ul.methods > li > a').each(function() {
             var methodId = $(this).attr('href').split('#')[1];
-            console.log(methodId);
+            //console.log(methodId);
 
             var target = document.querySelectorAll('#'+methodId+' .type-signature.static');
             if(target.length > 0) {

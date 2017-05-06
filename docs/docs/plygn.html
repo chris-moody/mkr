@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: clp</title>
+    <title>Class: plygn</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -430,7 +430,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="clp.html">Class: clp</h1>
+        <h1 class="page-title" data-filename="plygn.html">Class: plygn</h1>
         
 
 
@@ -439,10 +439,10 @@
     
 <header>
     <h2>
-    clp
+    plygn
     </h2>
     
-        <div class="class-description">Harness the power of SVG clippaths with clp</div>
+        <div class="class-description">Shortcut for creating SVG polygons</div>
     
 </header>  
 
@@ -454,14 +454,14 @@
         
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="clp">
+        <h4 class="name" id="plygn">
             
-            new clp<span class="signature">(options)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="clp.html">clp</a>}</span>
+            new plygn<span class="signature">(options)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="msk.html">msk</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_clp.js.html">constructs/svg/clp.js</a>, <a href="constructs_svg_clp.js.html#line31">line 31</a>
+            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line31">line 31</a>
         </div>
         
     </div>
@@ -472,7 +472,7 @@
     
     
     <div class="description">
-        Initializes a new clp instance.
+        Initializes a new plygn instance.
     </div>
     
 
@@ -519,7 +519,7 @@
             
             <td class="description last">
                 
-                Options used to customize the clp
+                Options used to customize the plygn
                 
 
 <table class="params">
@@ -573,7 +573,7 @@
                         
                     
                 
-                Element which the clp's svgRoot is appended</td>
+                Element which the plygn's svgRoot is appended</td>
         </tr>
 	
 	
@@ -641,20 +641,20 @@
                         
                     
                 
-                svg element which to append the clp. Can be a selector string or element. It is auto-generated and added to options.parent when not provided</td>
+                svg element which to append the plygn. Can be a selector string or element. It is auto-generated and added to options.parent when not provided</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>clips</code></td>
+                <td class="name"><code>x</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">Number</span>
 
 
             
@@ -662,6 +662,8 @@
             
             
                 <td class="default">
+                
+                    0
                 
                 </td>
             
@@ -675,20 +677,20 @@
                         
                     
                 
-                1x2 Array of object descriptors used to create clipping areas in the clippath.</td>
+                Origin of the polygon along the x-axis</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>targets</code></td>
+                <td class="name"><code>y</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">Number</span>
 
 
             
@@ -696,6 +698,8 @@
             
             
                 <td class="default">
+                
+                    0
                 
                 </td>
             
@@ -709,7 +713,7 @@
                         
                     
                 
-                1x2 Array of object descriptors used to create targets for the clippath.</td>
+                Origin of the polygon along the y-axis</td>
         </tr>
 	
 	
@@ -783,7 +787,7 @@
             
                 <td class="default">
                 
-                    'clp-svg'
+                    'plygn-svg'
                 
                 </td>
             
@@ -873,7 +877,59 @@
                         
                     
                 
-                Attributes to apply to the clp's clippath element.</td>
+                Attributes to apply to the plygn's polygon element.
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>points</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                An array of points used to draw the polygon relative to its origin</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
         </tr>
 	
 	
@@ -907,7 +963,7 @@
                         
                     
                 
-                CSS Properties to apply to the clp's clippath element.</td>
+                CSS Properties to apply to the plygn's polygon element.</td>
         </tr>
 	
 	
@@ -974,11 +1030,11 @@
             
             <td class="type">
             
-                        <a href="clp.html">clp</a>
+                        <a href="msk.html">msk</a>
                         
                     
             </td>
-            <td class="description last">A new clp instance.</td>
+            <td class="description last">A new plygn instance.</td>
         </tr>
     
     </tbody>
@@ -1000,7 +1056,7 @@
         <h3 class="subsection-title">Requires</h3>
         
         <ul>
-            <li><a href="mkr.html">mkr</a></li>
+            <li><a href="plygn.html">plygn</a></li>
         </ul>
     
     
@@ -1023,7 +1079,7 @@
 <dd>
     
     <div class="description">
-        The clippath element associated with this instance
+        The polygon element associated with this instance
     </div>
     
     
@@ -1146,6 +1202,96 @@
     
 </dd>
 
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="x">x<span class="type-signature type number">Number</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The origin of the polygon along the x-axis
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="y">y<span class="type-signature type number">Number</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The origin of the polygon along the y-axis
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
         </dl>
     
     
@@ -1158,12 +1304,12 @@
     <div class="nameContainer">
         <h4 class="name" id=".getElInstance">
             
-            <span class="type-signature static">static</span>clp.getElInstance<span class="signature">(el)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="clp.html">clp</a>}</span>
+            <span class="type-signature static">static</span>plygn.getElInstance<span class="signature">(el)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="plygn.html">plygn</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_clp.js.html">constructs/svg/clp.js</a>, <a href="constructs_svg_clp.js.html#line190">line 190</a>
+            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line176">line 176</a>
         </div>
         
     </div>
@@ -1174,7 +1320,7 @@
     
     
     <div class="description">
-        returns the clp instance associated with the provided element's id attribute
+        returns the plygn instance associated with the provided element's id attribute
     </div>
     
 
@@ -1282,11 +1428,11 @@
             
             <td class="type">
             
-                        <a href="clp.html">clp</a>
+                        <a href="plygn.html">plygn</a>
                         
                     
             </td>
-            <td class="description last">The associate clp, if it exists</td>
+            <td class="description last">The associate plygn, if it exists</td>
         </tr>
     
     </tbody>
@@ -1303,12 +1449,12 @@
     <div class="nameContainer">
         <h4 class="name" id=".getInstance">
             
-            <span class="type-signature static">static</span>clp.getInstance<span class="signature">(id)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="clp.html">clp</a>}</span>
+            <span class="type-signature static">static</span>plygn.getInstance<span class="signature">(id)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="plygn.html">plygn</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_clp.js.html">constructs/svg/clp.js</a>, <a href="constructs_svg_clp.js.html#line178">line 178</a>
+            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line164">line 164</a>
         </div>
         
     </div>
@@ -1319,7 +1465,7 @@
     
     
     <div class="description">
-        returns the clp instance associated with the id
+        returns the plygn instance associated with the id
     </div>
     
 
@@ -1427,11 +1573,11 @@
             
             <td class="type">
             
-                        <a href="clp.html">clp</a>
+                        <a href="plygn.html">plygn</a>
                         
                     
             </td>
-            <td class="description last">The associate clp, if it exists</td>
+            <td class="description last">The associate plygn, if it exists</td>
         </tr>
     
     </tbody>
@@ -1446,14 +1592,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="addClip">
+        <h4 class="name" id="update">
             
-            addClip<span class="signature">(type, <span class="optional">options</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
+            update<span class="signature">()</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_clp.js.html">constructs/svg/clp.js</a>, <a href="constructs_svg_clp.js.html#line118">line 118</a>
+            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line145">line 145</a>
         </div>
         
     </div>
@@ -1464,7 +1610,7 @@
     
     
     <div class="description">
-        Invokes mkr.create to add a new element to the clippath
+        Updates the points attribute of the polygon element.
     </div>
     
 
@@ -1472,86 +1618,6 @@
     
     
     
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                The type of element to create.</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                A set of attributes and css properties used to create the element</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -1588,395 +1654,6 @@
     
     
     
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Element
-                        
-                    
-            </td>
-            <td class="description last">The new element</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="addTarget">
-            
-            addTarget<span class="signature">(typeOrTarget, <span class="optional">options</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="constructs_svg_clp.js.html">constructs/svg/clp.js</a>, <a href="constructs_svg_clp.js.html#line131">line 131</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Assigns a clipppath url to a new or existing element. Target element is added to the svgRoot
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>typeOrTarget</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                An existing element, or the type of element to create.</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                A set of attributes and css properties applied to the target element</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Element
-                        
-                    
-            </td>
-            <td class="description last">The target element</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="addTargets">
-            
-            addTargets<span class="signature">(targets, <span class="optional">options</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Element}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="constructs_svg_clp.js.html">constructs/svg/clp.js</a>, <a href="constructs_svg_clp.js.html#line154">line 154</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Assigns a clipppath url to a set of existing elements. Target elements are added to the svgRoot
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>targets</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                An array or selector string</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                A set of attributes and css properties applied to the target elements</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Element
-                        
-                    
-            </td>
-            <td class="description last">The target elements</td>
-        </tr>
-    
-    </tbody>
-</table>
-
     
     
     
