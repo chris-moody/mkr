@@ -1,5 +1,5 @@
 /*!
- * VERSION: 0.3.01
+ * VERSION: 0.3.02
  * DATE: 2017-05-01
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
@@ -477,7 +477,7 @@
 		mkr.each(target, function(el) {
 			var parent = el.parentNode, lastParent = el.parentNode;
 			while(parent && parent !== window.document) {
-				console.log(parent);
+				//console.log(parent);
 				parentOpts.height = el.scrollHeight+(el._gsTransform?el._gsTransform.y:0);
 				TweenMax.set(parent, parentOpts);
 				//TweenMax.set(parent, {overflowY:'visible', height:parent.scrollHeight+1});
@@ -508,7 +508,7 @@
 
 		var tweens = [];
 		mkr.each(target, function(el) {
-			var scrollTime = el.scrollHeight/speed;
+			var scrollTime = ((el.scrollHeight-el.clientHeight)-el.scrollTop)/speed;
 			tweens.push(TweenMax.to(el, scrollTime, options));
 			//duration = Math.max(duration, scrollTime);
 		});
@@ -1467,7 +1467,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.3.01';
+	      return '0.3.02';
 	    }
 	});
 
