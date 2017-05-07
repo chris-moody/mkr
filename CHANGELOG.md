@@ -19,4 +19,4 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="0.3.0"></a>
-# [0.3.0](https://github.com/chris-moody/admkr/compare/v2.3.0...v0.3.0) (2017-04-08)
+# [0.3.0](https://github.com/chris-moody/admkr/compare/v0.2.27...v0.3.0) (2017-04-08)
