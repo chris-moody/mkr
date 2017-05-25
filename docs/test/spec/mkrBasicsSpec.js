@@ -66,6 +66,16 @@ describe("mkr basics v"+mkr.VERSION, function() {
       expect(mkr.query('#greenBox p')).toBeDefined();
     });
 
+    it(".create can also specify an insertion index", function() {
+      var pink = m.create('div', {
+        attr:{id:'pinkAtZero'},
+        css:{width:m.width, height:m.height, background:'rgba(255,0,0,.3)'}
+      }, undefined, 0);
+
+      expect(mkr.query('#pinkAtZero')).toBeDefined();
+      expect([].indexOf.call(pink.parentNode.children, pink)).toEqual(0)
+    });
+
     it("use mkr.add to insert existing elements into the DOM", function() {
       mkr.add(mkr.query('#blueBox p'), '#redBox');
       var red = mkr.query('#redBox');
