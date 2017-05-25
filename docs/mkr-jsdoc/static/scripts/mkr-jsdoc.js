@@ -23,6 +23,14 @@
     }
 })();
 $(function() {
+    var classSelector = '.navigation > ul.list > li.item';
+    var classes = [];
+
+    $(classSelector).each(function() {
+        var className = $(this).data('name');
+        classes.push(className);
+    });
+
     // fix -replace @see tags with links!
     var reg = /(\@see) ([A-z]?(\.)?[A-z](\w)*)+/g;
     var content = $('#wrap > .main').html().replace(reg, '<a href="#$2">See $2</a>');
@@ -35,8 +43,8 @@ $(function() {
     var reg3 = /(new)\s(\w+)/g;
     content = content.replace(reg3, function(match, p1, p2) {
         //console.log(p2);
-        if(p2 !== 'mkr') {
-            return 'new mkr._constructs.'+p2;
+        if(p2 !== 'mkr' && classes.indexOf(p2) > -1) {
+            return 'new mkr.constructs.'+p2;
         }
         return match;
     });
@@ -51,11 +59,8 @@ $(function() {
     // fix -end
 
 
-    var classSelector = '.navigation > ul.list > li.item';
+    
     $(classSelector).each(function() {
-        var className = $(this).data('name');
-        console.log(className);
-
         //look in .members for statics
         var staticMembers = [];
         $(this).find('ul.members > li > a').each(function() {

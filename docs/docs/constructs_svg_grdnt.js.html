@@ -67,9 +67,11 @@
             
                 <li data-name="arc#parent"><a href="arc.html#parent">parent</a></li>
             
-                <li data-name="arc#radius"><a href="arc.html#radius">radius</a></li>
-            
                 <li data-name="arc#rotation"><a href="arc.html#rotation">rotation</a></li>
+            
+                <li data-name="arc#rx"><a href="arc.html#rx">rx</a></li>
+            
+                <li data-name="arc#ry"><a href="arc.html#ry">ry</a></li>
             
                 <li data-name="arc#slice"><a href="arc.html#slice">slice</a></li>
             
@@ -797,44 +799,44 @@
             </ul>
         </li>
     
-        <li class="item" data-name="rct">
+        <li class="item" data-name="rect">
             <span class="title">
-                <a href="rct.html">rct</a>
+                <a href="rect.html">rect</a>
                 
             </span>
             <ul class="members itemMembers">
             
             <span class="subtitle">Members</span>
             
-                <li data-name="rct#dasharray"><a href="rct.html#dasharray">dasharray</a></li>
+                <li data-name="rect#dasharray"><a href="rect.html#dasharray">dasharray</a></li>
             
-                <li data-name="rct#dashoffset"><a href="rct.html#dashoffset">dashoffset</a></li>
+                <li data-name="rect#dashoffset"><a href="rect.html#dashoffset">dashoffset</a></li>
             
-                <li data-name="rct#el"><a href="rct.html#el">el</a></li>
+                <li data-name="rect#el"><a href="rect.html#el">el</a></li>
             
-                <li data-name="rct#fill"><a href="rct.html#fill">fill</a></li>
+                <li data-name="rect#fill"><a href="rect.html#fill">fill</a></li>
             
-                <li data-name="rct#height"><a href="rct.html#height">height</a></li>
+                <li data-name="rect#height"><a href="rect.html#height">height</a></li>
             
-                <li data-name="rct#id"><a href="rct.html#id">id</a></li>
+                <li data-name="rect#id"><a href="rect.html#id">id</a></li>
             
-                <li data-name="rct#parent"><a href="rct.html#parent">parent</a></li>
+                <li data-name="rect#parent"><a href="rect.html#parent">parent</a></li>
             
-                <li data-name="rct#rx"><a href="rct.html#rx">rx</a></li>
+                <li data-name="rect#rx"><a href="rect.html#rx">rx</a></li>
             
-                <li data-name="rct#ry"><a href="rct.html#ry">ry</a></li>
+                <li data-name="rect#ry"><a href="rect.html#ry">ry</a></li>
             
-                <li data-name="rct#slice"><a href="rct.html#slice">slice</a></li>
+                <li data-name="rect#slice"><a href="rect.html#slice">slice</a></li>
             
-                <li data-name="rct#stroke"><a href="rct.html#stroke">stroke</a></li>
+                <li data-name="rect#stroke"><a href="rect.html#stroke">stroke</a></li>
             
-                <li data-name="rct#strokeWidth"><a href="rct.html#strokeWidth">strokeWidth</a></li>
+                <li data-name="rect#strokeWidth"><a href="rect.html#strokeWidth">strokeWidth</a></li>
             
-                <li data-name="rct#width"><a href="rct.html#width">width</a></li>
+                <li data-name="rect#width"><a href="rect.html#width">width</a></li>
             
-                <li data-name="rct#x"><a href="rct.html#x">x</a></li>
+                <li data-name="rect#x"><a href="rect.html#x">x</a></li>
             
-                <li data-name="rct#y"><a href="rct.html#y">y</a></li>
+                <li data-name="rect#y"><a href="rect.html#y">y</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -844,9 +846,9 @@
             
             <span class="subtitle">Methods</span>
             
-                <li data-name="rct.getElInstance"><a href="rct.html#.getElInstance">getElInstance</a></li>
+                <li data-name="rect.getElInstance"><a href="rect.html#.getElInstance">getElInstance</a></li>
             
-                <li data-name="rct.getInstance"><a href="rct.html#.getInstance">getInstance</a></li>
+                <li data-name="rect.getInstance"><a href="rect.html#.getInstance">getInstance</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -981,8 +983,8 @@
     <section>
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*!
- * VERSION: 0.0.3
- * DATE: 2017-05-16
+ * VERSION: 1.0.0
+ * DATE: 2017-05-25
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -1113,6 +1115,7 @@
 	     * @description Updates the points attribute of the polygon element.
 	     * @param {Object} attr - Attributes to set on the stop element
 	     * @param {Object} attr.color - Shortcut for 'stop-color'
+         * @param {Object} attr.alpha - Shortcut for 'stop-opacity'
          * @param {int=} index - The insertion index, defaults to the number of stops. When negative, becomes the sum of itself and the number of stops
          * @returns {SVGElement} The new stop element
 	    **/
@@ -1120,6 +1123,7 @@
             index = mkr.default(index, this.stops.length);
             if(index &lt; 0) index = this.stops.length + index;
 			mkr.setDefault(attr, 'stop-color', attr.color);
+            mkr.setDefault(attr, 'stop-opacity', attr.alpha);
 			return mkr.create('stop', {attr:attr}, this._grad, index);
 		},
 
@@ -1158,6 +1162,7 @@
          * @description Updates the stop element at the specified index
          * @param {Object} attr - Attributes to set on the stop element
          * @param {Object} attr.color - Shortcut for 'stop-color'
+         * @param {Object} attr.alpha - Shortcut for 'stop-opacity'
          * @param {int} [index=-1] - The index of the target stop. When negative, becomes the sum of itself and the number of stops
          * @returns {SVGElement} The updated stop element
         **/
@@ -1165,6 +1170,7 @@
             index = mkr.default(index, -1);
             if(index &lt; 0) index = this.stops.length + index;
             mkr.setDefault(attr, 'stop-color', attr.color);
+            mkr.setDefault(attr, 'stop-opacity', attr.alpha);
             var stop = this.getStop(index);
             TweenMax.set(stop, {attr:attr});
             return stop;
@@ -1233,7 +1239,7 @@
     **/
     Object.defineProperty(grdnt, 'VERSION', {
         get: function() {
-          return '0.0.3';
+          return '1.0.0';
         }
     });
 
@@ -1256,7 +1262,7 @@
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed May 24 2017 02:23:21 GMT-0400 (EDT)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu May 25 2017 10:43:03 GMT-0400 (EDT)
         </footer>
     </div>
 </div>

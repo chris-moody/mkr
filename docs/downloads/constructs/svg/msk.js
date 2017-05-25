@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.0.2
- * DATE: 2017-05-06
+ * VERSION: 1.0.0
+ * DATE: 2017-05-25
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -33,14 +33,10 @@
      * @classdesc Harness the power of SVG masking with msk
      * @description Initializes a new msk instance.
      * @param {Object} options - Options used to customize the msk
-     * @param {*} [options.parent=document.body] - Element which the msk's svgRoot is appended
+     * @param {*=} options.parent - Preferably an SVGElement. When an HTMLElement is provided, a new SVGElement is appended to it, which becomes the parent for the msk.
      * @param {String=} options.id - The id of the instance. Auto-generated when not provided
-     * @param {*=} options.svgRoot - svg element which to append the msk. Can be a selector string or element. It is auto-generated and added to options.parent when not provided
      * @param {Array=} options.masks - 1x2 Array of object descriptors used to create masking areas in the mask.
      * @param {Array=} options.targets - 1x2 Array of object descriptors used to create targets for the mask.
-     * @param {Object=} options.svg - Options used to create svgRoot when none is provided
-     * @param {String} [options.svg.attr.class='msk-svg']
-     * @param {String} [options.svg.css.overflow='visible']
      * @param {Object=} options.attr - Attributes to apply to the msk's mask element.
      * @param {Object=} options.css - CSS Properties to apply to the msk's mask element.
 
@@ -50,52 +46,40 @@
     var msk = function(options) {
     	options = options || {};
 		_count++;
-        var id = this._id = options.id || className+'-'+_count;
-		this._parent = mkr.getDefault(options, 'parent', document.body);
+        var s,  id = this._id = options.id || className+'-'+_count;
+		this._parent = mkr.setDefault(options, 'parent', mkr.default(mkr.query('svg'), mkr.create('svg', {css:{overflow:'visible'}})));
+        if(this._parent instanceof SVGElement) {
+            s = this._svg = this._parent;
+        }
 
 		mkr.setDefault(options, 'attr', {});
         mkr.setDefault(options.attr, 'id', id);
         mkr.setDefault(options, 'css', {});
-        mkr.setDefault(options, 'svg', {});
 		
 		var masks = mkr.default(options.masks, []); //objects
 		var targets = mkr.default(options.targets, []); //
 		
-        mkr.setDefault(options.svg, 'attr', {});
-        mkr.setDefault(options.svg.attr, 'class', 'msk-svg');
-        mkr.setDefault(options.svg, 'css', {});
-        mkr.setDefault(options.svg.css, 'overflow', 'visible');
-		
-		var s = this._svg = options.svgRoot || mkr.create('svg', options.svg, this._parent)
-			var d = mkr.query('defs', s) || mkr.create('defs', {}, s)
+		if(!s) s = this._svg = mkr.create('svg', {css:{overflow:'visible'}}, this._parent)
+			var d = this._defs = mkr.query('defs', s) || mkr.create('defs', {}, s)
 				var mask = this._mask = mkr.create('mask', {attr:options.attr, css:options.css}, d)
 					for(var i=0; i<masks.length; i++) {
 						var m = masks[i];
 						if(m.length < 1) m.push('rect');
 						if(m.length < 2) m.push({});
-						this.addMask(m[0], m[1]);
+						this.create(m[0], m[1]);
 					}
 			for(var i=0; i<targets.length; i++) {
 				var target = targets[i];
 				if(target.length < 1) target.push('div');
 				if(target.length < 2) target.push({});
 				
-				this.addTarget(target[0], target[1], s);
+				this.createTarget(target[0], target[1], s);
 			}
 		
 		_instances[id] = this;
 	};
 	
 	msk.prototype = {
-        /**
-         * @name msk#svg
-         * @public
-         * @readonly
-         * @type SVGElement
-         * @description The root svg element
-        **/
-        get svg() {return this._svg;},
-
         /**
          * @name msk#el
          * @public
@@ -105,64 +89,219 @@
         **/
         get el() {return this._mask;},
 
+        /**
+         * @name msk#id
+         * @public
+         * @readonly
+         * @type String
+         * @description The id of this instance's mask element
+        **/
+        get id() {return this.el.id;},
+
+        /**
+         * @name msk#parent
+         * @public
+         * @readonly
+         * @type SVGElement
+         * @description The parent of the defs element
+        **/
+        get parent() {return this.defs.parentNode;},
+
+        /**
+         * @name msk#defs
+         * @public
+         * @readonly
+         * @type SVGElement
+         * @description The SVGDefsElement where the mask is stored
+        **/
+        get defs() {return this._defs;},
+
+        /**
+         * @name msk#url
+         * @public
+         * @readonly
+         * @type String
+         * @description The url function string used to assign the mask to an element
+        **/
+        get url() {return 'url("#'+this.id+'")';},
+
+        /**
+         * @name msk#masks
+         * @public
+         * @readonly
+         * @type NodeList
+         * @description A nodelist of the mask's child elements
+        **/
+        get masks() {return mkr.queryAll('*', this.el)},
+
+        /**
+         * @function construct
+         * @memberof msk.prototype
+         * @public
+         * @description Invokes mkr.construct to produce a new construct and add it to the mask
+         * @param {String} type - The type of construct to produce.
+         * @param {Object=} options - A set of attributes and css properties used to produce the element
+         * @param {int=} index - The insertion index, defaults to the number of mask children. When negative, becomes the sum of itself and the length of masks
+         * @returns {Element} The new element
+        **/
+        construct: function(type, options, index) {
+            options.parent = this.el;
+            return mkr.construct(type, options);
+        },
+
 		/**
-	     * @function addMask
+	     * @function create
 	     * @memberof msk.prototype
 	     * @public
-	     * @description Invokes mkr.create to add a new element to the mask
-	     * @param {String} type - The type of element to create.
-		 * @param {Object=} options - A set of attributes and css properties used to create the element
+	     * @description Invokes mkr.create to produce a new element and add it to the mask
+	     * @param {String} type - The type of element to produce. Checkout {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask#Usage_context MDN Mask} for permitted content
+		 * @param {Object=} options - A set of attributes and css properties used to produce the element
+	     * @param {int=} index - The insertion index, defaults to the number of mask children. When negative, becomes the sum of itself and the length of masks
 	     * @returns {Element} The new element
 	    **/
-		addMask: function(type, options) {
-			return mkr.create(type, options, this._mask);
+		create: function(type, options, index) {
+			return mkr.create(type, options, this.el, index);
 		},
+
+        /**
+         * @function add
+         * @memberof msk.prototype
+         * @public
+         * @description Invokes mkr.add to add existing elements to the mask
+         * @param {*} target - A single element, array of elements, or a css selector string.
+         * @param {int=} index - Insertion index of the target. Defaults to the number of mask children. When negative, becomes the sum of itself and the length of masks
+         * @returns {*} The added element, or array of elements
+        **/
+        add: function(target, index) {
+            return mkr.add(target, this.el, index);
+        },
 		
+        /**
+         * @function remove
+         * @memberof msk.prototype
+         * @public
+         * @description Removes the element at the specified index from the mask
+         * @param {int} [index=-1] - The index of the target element. When negative, becomes the sum of itself and the length of masks
+         * @returns {SVGElement} The element that was removed
+        **/
+        remove: function(index) {
+            index = mkr.default(index, -1);
+            if(index < 0) index = this.masks.length + index;
+            return mkr.remove(this.masks[index]);
+        },
+
+        /**
+         * @function get
+         * @memberof msk.prototype
+         * @public
+         * @description Returns the element at the specified index in the mask
+         * @param {int} [index=-1] - The index of the target element. When negative, becomes the sum of itself and the length of masks
+         * @returns {SVGElement} The element at the specified index
+        **/
+        get: function(index) {
+            index = mkr.default(index, -1);
+            if(index < 0) index = this.masks.length + index;
+            return this.masks[index];
+        },
+
+        /**
+         * @function set
+         * @memberof msk.prototype
+         * @public
+         * @description Updates the element at the specified index in the mask
+         * @param {Object} options - A set of attributes and css properties to set on the element
+         * @param {int} [index=-1] - The index of the target element. When negative, becomes the sum of itself and the length of masks
+         * @returns {SVGElement} The updated element
+        **/
+        set: function(options, index) {
+            index = mkr.default(index, -1);
+            if(index < 0) index = this.masks.length + index;
+            var clip = this.get(index);
+            TweenMax.set(clip, options);
+            return clip;
+        },
+
+        /**
+         * @function constructTarget
+         * @memberof msk.prototype
+         * @public
+         * @description Invokes mkr.construct to produce a new construct, add it to the parent and set its css mask set to this instances's url property.
+         * @param {String} type - The type of construct to produce.
+         * @param {Object=} options - A set of attributes and css properties to assign to the construct
+         * @param {int=} index - The insertion index, defaults to the number of children on the root svg. When negative, becomes the sum of itself and the number of children
+         * @returns {*} The new construct
+        **/
+        constructTarget: function(type, options, index) {
+            options = options || {};
+            options.parent = this.parent;
+            mkr.setDefault(options, 'css', {});            
+            options.css.mask = this.url;
+            return mkr.construct(type, options);
+        },
+
 		/**
-	     * @function addTarget
+	     * @function createTarget
 	     * @memberof msk.prototype
 	     * @public
-	     * @description Assigns a mask url to a new or existing element. Target element is added to the svgRoot
-	     * @param {*} typeOrTarget - An existing element, or the type of element to create.
+	     * @description Invokes mkr.create to produce a new element, add to the parent and set its css mask set to this instances's url property.
+	     * @param {*} type - Type of SVGElement to create.
 		 * @param {Object=} options - A set of attributes and css properties applied to the target element
+	     * @param {int=} index - The insertion index, defaults to the number of children on the parent. When negative, becomes the sum of itself and the number of children
 	     * @returns {Element} The target element
 	    **/
-		addTarget: function(typeOrTarget, options) {
+		createTarget: function(type, options, index) {
 			options = options || {};
-			mkr.setDefault(options, 'attr', {});
-			options.attr.mask = 'url(#'+this._id+')';
-			if(typeof typeOrTarget === 'string') {
-				return mkr.create(typeOrTarget, options, this._svg);
-			}
-			else {
-				mkr.add(typeOrTarget, this._svg)
-				TweenMax.set(typeOrTarget, options);
-			}
-			return typeOrTarget;
+			mkr.setDefault(options, 'css', {});
+			options.css.mask = this.url;
+			return mkr.create(type, options, this.parent, index);
 		},
 		
 		/**
-	     * @function addTargets
+	     * @function assign
 	     * @memberof msk.prototype
 	     * @public
-	     * @description Assigns a mask url to a set of existing elements. Target elements are added to the svgRoot
+	     * @description Assigns this instance's mask url to the targeted elements.
 	     * @param {*} targets - An array or selector string
 		 * @param {Object=} options - A set of attributes and css properties applied to the target elements
-	     * @returns {Element} The target elements
+		 * @param {Boolean} [add=false] - Optionally add the targets to the parent.
+	     * @param {int=} index - The insertion index, defaults to the number of children on the parent. When negative, becomes the sum of itself and the number of children
+         * @returns {Element} The target elements
 	    **/
-		addTargets: function(targets, options) {
+		assign: function(targets, options, add, index) {
 			options = options || {};
 			mkr.setDefault(options, 'css', {});
-			options.attr.mask = 'url(#'+this._id+')';
+			options.css.mask = this.url;
 
-			var t = []
+			var t = [];
+			add = mkr.default(add, false);
 			mkr.each(targets, function(el) {
-				mkr.add(el, this._svg)
+				if(add) mkr.add(el, this.parent, index)
 				TweenMax.set(el, options);
 				t.push(el)
-			});
+			}, this);
 			return t;
 		},
+
+        /**
+         * @function unassign
+         * @memberof msk.prototype
+         * @public
+         * @description Removes the mask assignment from the target elements.
+         * @param {*} targets - An array or selector string
+         * @param {Boolean} [remove=false] - Optionally remove the targets from the parent.
+         * @returns {Element} The target elements
+        **/
+        unassign: function(targets, remove) {
+            remove = mkr.default(remove, false);
+
+            var t = []
+            mkr.each(targets, function(el) {
+                TweenMax.set(el, {clearProps:'mask'});
+                if(remove) mkr.remove(el);
+                t.push(el);
+            });
+            return t;
+        },
     };
 	
 	/**
@@ -199,7 +338,7 @@
     **/
     Object.defineProperty(msk, 'VERSION', {
         get: function() {
-          return '0.0.2';
+          return '1.0.0';
         }
     });
 

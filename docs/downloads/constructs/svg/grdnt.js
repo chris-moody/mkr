@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.0.2
- * DATE: 2017-05-06
+ * VERSION: 1.0.0
+ * DATE: 2017-05-25
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -33,41 +33,34 @@
      * @classdesc Shortcut for creating SVG gradients
      * @description Initializes a new grdnt instance.
      * @param {Object} options - Options used to customize the grdnt
-     * @param {*} [options.parent=document.body] - Element which the grdnt's svgRoot is appended
+     * @param {*=} options.parent - Preferably an SVGElement. When an HTMLElement is provided, a new SVGElement is appended to it, which becomes the parent for the grdnt.
      * @param {String=} options.id - The id of the instance. Auto-generated when not provided
-     * @param {*=} options.svgRoot - svg element which to append the grdnt. Can be a selector string or element. It is auto-generated and added to options.parent when not provided
      * @param {String} [options.type=grdnt.LINEAR] - The type of gradient to create. Can be grdnt.LINEAR or grdnt.RADIAL.
      * @param {Array} [options.stops=[]] - An array of objects containing stop element attributes. Used to initialize the stops for the gradient
-     * @param {Object=} options.svg - Options used to create svgRoot when none is provided
-     * @param {String} [options.svg.attr.class='grdnt-svg']
-     * @param {String} [options.svg.css.overflow='visible']
      * @param {Object=} options.attr - Attributes to apply to the grdnt's gradient element.
      * @param {Object=} options.css - CSS Properties to apply to the grdnt's gradient element.
 
-     * @requires {@link  grdnt}
-     * @returns {msk} A new grdnt instance.
+     * @requires {@link  mkr}
+     * @returns {grdnt} A new grdnt instance.
     **/
     var grdnt = function(options) {
 		options = options || {};
 		_count++;
-        var id = this._id = options.id || className+'-'+_count;
-		this._parent = mkr.getDefault(options, 'parent', document.body);
+        var s, id = this._id = options.id || className+'-'+_count;
+        this._parent = mkr.setDefault(options, 'parent', mkr.default(mkr.query('svg'), mkr.create('svg', {css:{overflow:'visible'}})));
+        if(this._parent instanceof SVGElement) {
+            s = this._svg = this._parent;
+        }
 		
 		mkr.setDefault(options, 'attr', {});
         mkr.setDefault(options.attr, 'id', id);
         mkr.setDefault(options, 'css', {});
-        mkr.setDefault(options, 'svg', {});
-
-        mkr.setDefault(options.svg, 'attr', {});
-        mkr.setDefault(options.svg.attr, 'class', 'grdnt-svg');
-        mkr.setDefault(options.svg, 'css', {});
-        mkr.setDefault(options.svg.css, 'overflow', 'visible');
 
 		var type = mkr.default(options.type, grdnt.LINEAR);
 		var stops = mkr.default(options.stops, []);
 		
-		var s = this._svg = options.svgRoot || mkr.create('svg', options.svg, this._parent)
-			var d = mkr.query('defs', s) || mkr.create('defs', {}, s)
+		if(!s) s = this._svg = mkr.create('svg', {css:{overflow:'visible'}}, this._parent)
+			var d = this._defs = mkr.query('defs', s) || mkr.create('defs', {}, s)
 				var grad = this._grad = mkr.create(type+'Gradient', {attr:options.attr, css:options.css}, d)
 					for(var i=0; i<stops.length; i++) {
 						this.addStop(stops[i]);
@@ -78,15 +71,6 @@
 	
 	grdnt.prototype = {
         /**
-         * @name grdnt#svg
-         * @public
-         * @readonly
-         * @type SVGElement
-         * @description The root svg element
-        **/
-        get svg() {return this._svg;},
-
-        /**
          * @name grdnt#el
          * @public
          * @readonly
@@ -96,17 +80,117 @@
         get el() {return this._grad;},
 
         /**
+         * @name grdnt#id
+         * @public
+         * @readonly
+         * @type String
+         * @description The id of this instance's gradient element
+        **/
+        get id() {return this.el.id;},
+
+        /**
+         * @name grdnt#parent
+         * @public
+         * @readonly
+         * @type SVGElement
+         * @description The parent of the defs element
+        **/
+        get parent() {return this.defs.parentNode;},
+
+        /**
+         * @name grdnt#defs
+         * @public
+         * @readonly
+         * @type SVGElement
+         * @description The SVGDefsElement where the gradient is stored
+        **/
+        get defs() {return this._defs;},
+
+        /**
+         * @name grdnt#url
+         * @public
+         * @readonly
+         * @type String
+         * @description The url function string used to assign the gradient as a fill, stroke, etc
+        **/
+        get url() {return 'url(#'+this.id+')';},
+
+        /**
+         * @name grdnt#svg
+         * @public
+         * @readonly
+         * @type NodeList
+         * @description A nodelist of the grdnt's stop elements
+        **/
+        get stops() {return mkr.queryAll('#'+this.id+' stop')},
+
+        /**
 	     * @function addStop
 	     * @memberof grdnt.prototype
 	     * @public
 	     * @description Updates the points attribute of the polygon element.
 	     * @param {Object} attr - Attributes to set on the stop element
 	     * @param {Object} attr.color - Shortcut for 'stop-color'
+         * @param {Object} attr.alpha - Shortcut for 'stop-opacity'
+         * @param {int=} index - The insertion index, defaults to the number of stops. When negative, becomes the sum of itself and the number of stops
+         * @returns {SVGElement} The new stop element
 	    **/
-		addStop: function(attr) {
-			mkr.setDefault(attr, 'stop-color', attr.color)
-			return mkr.create('stop', {attr:attr}, this._grad);
-		}
+		addStop: function(attr, index) {
+            index = mkr.default(index, this.stops.length);
+            if(index < 0) index = this.stops.length + index;
+			mkr.setDefault(attr, 'stop-color', attr.color);
+            mkr.setDefault(attr, 'stop-opacity', attr.alpha);
+			return mkr.create('stop', {attr:attr}, this._grad, index);
+		},
+
+        /**
+         * @function removeStop
+         * @memberof grdnt.prototype
+         * @public
+         * @description Removes the stop element at the specified index
+         * @param {int} [index=-1] - The index of the target stop. When negative, becomes the sum of itself and the number of stops
+         * @returns {SVGElement} The stop element that was removed
+        **/
+        removeStop: function(index) {
+            index = mkr.default(index, -1);
+            if(index < 0) index = this.stops.length + index;
+            return mkr.remove(this.stops[index]);
+        },
+
+        /**
+         * @function getStop
+         * @memberof grdnt.prototype
+         * @public
+         * @description Returns the stop element at the specified index
+         * @param {int} [index=-1] - The index of the target stop. When negative, becomes the sum of itself and the number of stops
+         * @returns {SVGElement} The stop element at the specified index
+        **/
+        getStop: function(index) {
+            index = mkr.default(index, -1);
+            if(index < 0) index = this.stops.length + index;
+            return this.stops[index];
+        },
+
+        /**
+         * @function setStop
+         * @memberof grdnt.prototype
+         * @public
+         * @description Updates the stop element at the specified index
+         * @param {Object} attr - Attributes to set on the stop element
+         * @param {Object} attr.color - Shortcut for 'stop-color'
+         * @param {Object} attr.alpha - Shortcut for 'stop-opacity'
+         * @param {int} [index=-1] - The index of the target stop. When negative, becomes the sum of itself and the number of stops
+         * @returns {SVGElement} The updated stop element
+        **/
+        setStop: function(attr, index) {
+            index = mkr.default(index, -1);
+            if(index < 0) index = this.stops.length + index;
+            mkr.setDefault(attr, 'stop-color', attr.color);
+            mkr.setDefault(attr, 'stop-opacity', attr.alpha);
+            var stop = this.getStop(index);
+            TweenMax.set(stop, {attr:attr});
+            return stop;
+        }
     };
 	
 	/**
@@ -171,7 +255,7 @@
     **/
     Object.defineProperty(grdnt, 'VERSION', {
         get: function() {
-          return '0.0.2';
+          return '1.0.0';
         }
     });
 

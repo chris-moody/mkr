@@ -1,2 +1,3 @@
 .DS_S
 node_modules
+/dist/constructs/svg/SVGConstruct.*

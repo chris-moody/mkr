@@ -67,9 +67,11 @@
             
                 <li data-name="arc#parent"><a href="arc.html#parent">parent</a></li>
             
-                <li data-name="arc#radius"><a href="arc.html#radius">radius</a></li>
-            
                 <li data-name="arc#rotation"><a href="arc.html#rotation">rotation</a></li>
+            
+                <li data-name="arc#rx"><a href="arc.html#rx">rx</a></li>
+            
+                <li data-name="arc#ry"><a href="arc.html#ry">ry</a></li>
             
                 <li data-name="arc#slice"><a href="arc.html#slice">slice</a></li>
             
@@ -797,44 +799,44 @@
             </ul>
         </li>
     
-        <li class="item" data-name="rct">
+        <li class="item" data-name="rect">
             <span class="title">
-                <a href="rct.html">rct</a>
+                <a href="rect.html">rect</a>
                 
             </span>
             <ul class="members itemMembers">
             
             <span class="subtitle">Members</span>
             
-                <li data-name="rct#dasharray"><a href="rct.html#dasharray">dasharray</a></li>
+                <li data-name="rect#dasharray"><a href="rect.html#dasharray">dasharray</a></li>
             
-                <li data-name="rct#dashoffset"><a href="rct.html#dashoffset">dashoffset</a></li>
+                <li data-name="rect#dashoffset"><a href="rect.html#dashoffset">dashoffset</a></li>
             
-                <li data-name="rct#el"><a href="rct.html#el">el</a></li>
+                <li data-name="rect#el"><a href="rect.html#el">el</a></li>
             
-                <li data-name="rct#fill"><a href="rct.html#fill">fill</a></li>
+                <li data-name="rect#fill"><a href="rect.html#fill">fill</a></li>
             
-                <li data-name="rct#height"><a href="rct.html#height">height</a></li>
+                <li data-name="rect#height"><a href="rect.html#height">height</a></li>
             
-                <li data-name="rct#id"><a href="rct.html#id">id</a></li>
+                <li data-name="rect#id"><a href="rect.html#id">id</a></li>
             
-                <li data-name="rct#parent"><a href="rct.html#parent">parent</a></li>
+                <li data-name="rect#parent"><a href="rect.html#parent">parent</a></li>
             
-                <li data-name="rct#rx"><a href="rct.html#rx">rx</a></li>
+                <li data-name="rect#rx"><a href="rect.html#rx">rx</a></li>
             
-                <li data-name="rct#ry"><a href="rct.html#ry">ry</a></li>
+                <li data-name="rect#ry"><a href="rect.html#ry">ry</a></li>
             
-                <li data-name="rct#slice"><a href="rct.html#slice">slice</a></li>
+                <li data-name="rect#slice"><a href="rect.html#slice">slice</a></li>
             
-                <li data-name="rct#stroke"><a href="rct.html#stroke">stroke</a></li>
+                <li data-name="rect#stroke"><a href="rect.html#stroke">stroke</a></li>
             
-                <li data-name="rct#strokeWidth"><a href="rct.html#strokeWidth">strokeWidth</a></li>
+                <li data-name="rect#strokeWidth"><a href="rect.html#strokeWidth">strokeWidth</a></li>
             
-                <li data-name="rct#width"><a href="rct.html#width">width</a></li>
+                <li data-name="rect#width"><a href="rect.html#width">width</a></li>
             
-                <li data-name="rct#x"><a href="rct.html#x">x</a></li>
+                <li data-name="rect#x"><a href="rect.html#x">x</a></li>
             
-                <li data-name="rct#y"><a href="rct.html#y">y</a></li>
+                <li data-name="rect#y"><a href="rect.html#y">y</a></li>
             
             </ul>
             <ul class="typedefs itemMembers">
@@ -844,9 +846,9 @@
             
             <span class="subtitle">Methods</span>
             
-                <li data-name="rct.getElInstance"><a href="rct.html#.getElInstance">getElInstance</a></li>
+                <li data-name="rect.getElInstance"><a href="rect.html#.getElInstance">getElInstance</a></li>
             
-                <li data-name="rct.getInstance"><a href="rct.html#.getInstance">getInstance</a></li>
+                <li data-name="rect.getInstance"><a href="rect.html#.getInstance">getInstance</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -1155,7 +1157,7 @@
 	
         <tr>
             
-                <td class="name"><code>radius</code></td>
+                <td class="name"><code>rx</code></td>
             
             
             <td class="type">
@@ -1184,7 +1186,43 @@
                         
                     
                 
-                The radius of the arc</td>
+                The x-axis radius of the arc</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>ry</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    30
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                The y-axis radius of the arc</td>
         </tr>
 	
 	
@@ -2284,7 +2322,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="radius">radius<span class="type-signature type number">Number</span> </h4>
+        <h4 class="name" id="rotation">rotation<span class="type-signature type number">Number</span> </h4>
     </div>
     
     
@@ -2292,7 +2330,7 @@
 <dd>
     
     <div class="description">
-        The radius of the arc
+        The rotation of the arc in degrees
     </div>
     
     
@@ -2329,7 +2367,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="rotation">rotation<span class="type-signature type number">Number</span> </h4>
+        <h4 class="name" id="rx">rx<span class="type-signature type number">Number</span> </h4>
     </div>
     
     
@@ -2337,7 +2375,52 @@
 <dd>
     
     <div class="description">
-        The rotation of the arc in degrees
+        The x-axis radius of the arc
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="ry">ry<span class="type-signature type number">Number</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The y-axis radius of the arc
     </div>
     
     
@@ -2607,12 +2690,12 @@
     <div class="nameContainer">
         <h4 class="name" id=".calculatePath">
             
-            <span class="type-signature static">static</span>arc.calculatePath<span class="signature">(cx, cy, r, start, length, sweepFlag)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
+            <span class="type-signature static">static</span>arc.calculatePath<span class="signature">(cx, cy, rx, ry, start, length, sweepFlag)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line419">line 419</a>
+            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line432">line 432</a>
         </div>
         
     </div>
@@ -2700,7 +2783,7 @@
 	
         <tr>
             
-                <td class="name"><code>r</code></td>
+                <td class="name"><code>rx</code></td>
             
             
             <td class="type">
@@ -2716,7 +2799,30 @@
             
             <td class="description last">
                 
-                The radius of the arc</td>
+                The x-axis radius of the arc</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>ry</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The y-axis radius of the arc</td>
         </tr>
 	
 	
@@ -2872,7 +2978,7 @@
     
         
         <div class="tag-source">
-            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line452">line 452</a>
+            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line466">line 466</a>
         </div>
         
     </div>
@@ -3017,7 +3123,7 @@
     
         
         <div class="tag-source">
-            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line477">line 477</a>
+            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line491">line 491</a>
         </div>
         
     </div>
@@ -3162,7 +3268,7 @@
     
         
         <div class="tag-source">
-            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line465">line 465</a>
+            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line479">line 479</a>
         </div>
         
     </div>
@@ -3302,12 +3408,12 @@
     <div class="nameContainer">
         <h4 class="name" id="calculatePath">
             
-            calculatePath<span class="signature">(cx, cy, r, start, length, sweepFlag)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
+            calculatePath<span class="signature">(cx, cy, rx, ry, start, length, sweepFlag)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line381">line 381</a>
+            <a href="constructs_svg_arc.js.html">constructs/svg/arc.js</a>, <a href="constructs_svg_arc.js.html#line393">line 393</a>
         </div>
         
     </div>
@@ -3395,7 +3501,7 @@
 	
         <tr>
             
-                <td class="name"><code>r</code></td>
+                <td class="name"><code>rx</code></td>
             
             
             <td class="type">
@@ -3411,7 +3517,30 @@
             
             <td class="description last">
                 
-                The radius of the arc</td>
+                The x-axis radius of the arc</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>ry</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                The y-axis radius of the arc</td>
         </tr>
 	
 	
@@ -3573,7 +3702,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed May 24 2017 02:23:21 GMT-0400 (EDT)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu May 25 2017 10:43:03 GMT-0400 (EDT)
         </footer>
     </div>
 </div>
