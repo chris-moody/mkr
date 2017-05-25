@@ -1,6 +1,6 @@
 {
   "name": "mkrjs",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "dist/mkr.min.js",
   "description": "Lightweight library focused on javascript-based content creation",
   "homepage": "https://chris-moody.github.io/mkr/",
