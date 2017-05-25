@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: plygn</title>
+    <title>Class: rct</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -973,7 +973,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="plygn.html">Class: plygn</h1>
+        <h1 class="page-title" data-filename="rct.html">Class: rct</h1>
         
 
 
@@ -982,10 +982,10 @@
     
 <header>
     <h2>
-    plygn
+    rct
     </h2>
     
-        <div class="class-description">Shortcut for creating SVG polygons</div>
+        <div class="class-description">Shortcut for creating SVG rects.</div>
     
 </header>  
 
@@ -997,14 +997,14 @@
         
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="plygn">
+        <h4 class="name" id="rct">
             
-            new plygn<span class="signature">(options)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="plygn.html">plygn</a>}</span>
+            new rct<span class="signature">(options)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="rct.html">rct</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line31">line 31</a>
+            <a href="constructs_svg_rct.js.html">constructs/svg/rct.js</a>, <a href="constructs_svg_rct.js.html#line31">line 31</a>
         </div>
         
     </div>
@@ -1015,7 +1015,7 @@
     
     
     <div class="description">
-        Initializes a new plygn instance.
+        Initializes a new rct instance.
     </div>
     
 
@@ -1062,7 +1062,7 @@
             
             <td class="description last">
                 
-                Options used to customize the plygn
+                Options used to customize the rct
                 
 
 <table class="params">
@@ -1114,7 +1114,7 @@
                         
                     
                 
-                SVGElement which to append the plygn's polygon element</td>
+                SVGElement which to append the primary element</td>
         </tr>
 	
 	
@@ -1184,7 +1184,7 @@
                         
                     
                 
-                Origin of the polygon along the x-axis</td>
+                Origin of the rectangle along the x-axis</td>
         </tr>
 	
 	
@@ -1220,20 +1220,20 @@
                         
                     
                 
-                Origin of the polygon along the y-axis</td>
+                Origin of the rectangle along the y-axis</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>points</code></td>
+                <td class="name"><code>width</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">Number</span>
 
 
             
@@ -1241,6 +1241,8 @@
             
             
                 <td class="default">
+                
+                    50
                 
                 </td>
             
@@ -1254,7 +1256,115 @@
                         
                     
                 
-                A 2d array of points used to draw the polygon relative to its origin. Each index in the parent array should contian an arry with two numbers for x and y.</td>
+                Width fo the rectangle</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    30
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                Height fo the rectangle</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>rx</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                x-axis radius of the ellipse used to round off the corners of the rectangle</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>ry</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                y-axis radius of the ellipse used to round off the corners of the rectangle</td>
         </tr>
 	
 	
@@ -1396,7 +1506,7 @@
                         
                     
                 
-                Attributes to apply to the plygn's polygon element.</td>
+                Attributes to apply to the rct's SVGElement element.</td>
         </tr>
 	
 	
@@ -1430,7 +1540,7 @@
                         
                     
                 
-                CSS Properties to apply to the plygn's polygon element.</td>
+                CSS Properties to apply to the rct's SVGElement element.</td>
         </tr>
 	
 	
@@ -1497,11 +1607,11 @@
             
             <td class="type">
             
-                        <a href="plygn.html">plygn</a>
+                        <a href="rct.html">rct</a>
                         
                     
             </td>
-            <td class="description last">A new plygn instance.</td>
+            <td class="description last">A new rct instance.</td>
         </tr>
     
     </tbody>
@@ -1538,51 +1648,6 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="coords"><span class="type-signature ">readonly</span>coords<span class="type-signature type array">Array</span> </h4>
-    </div>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        An 2d array of coordinates used to draw the polygon relative to its origin
-    </div>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
         <h4 class="name" id="dasharray">dasharray<span class="type-signature type *">*</span> </h4>
     </div>
     
@@ -1591,7 +1656,7 @@
 <dd>
     
     <div class="description">
-        The stroke-dasharray of the polygon
+        The stroke-dasharray of the primary element
     </div>
     
     
@@ -1636,7 +1701,7 @@
 <dd>
     
     <div class="description">
-        The stroke-dashoffset of the polygon
+        The stroke-dashoffset of the primary element
     </div>
     
     
@@ -1681,7 +1746,7 @@
 <dd>
     
     <div class="description">
-        The polygon element associated with this instance
+        The SVGElement element associated with this instance
     </div>
     
     
@@ -1726,7 +1791,52 @@
 <dd>
     
     <div class="description">
-        The plygn's fill color
+        The rct's fill color
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="height">height<span class="type-signature type number">Number</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Height of the rectangle
     </div>
     
     
@@ -1771,7 +1881,7 @@
 <dd>
     
     <div class="description">
-        The id of this instance's polygon element
+        The id of this instance's SVGElement element
     </div>
     
     
@@ -1816,7 +1926,7 @@
 <dd>
     
     <div class="description">
-        The parent of the polygon element
+        The parent of the primary element
     </div>
     
     
@@ -1853,7 +1963,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="points"><span class="type-signature ">readonly</span>points<span class="type-signature type array">Array</span> </h4>
+        <h4 class="name" id="rx">rx<span class="type-signature type number">Number</span> </h4>
     </div>
     
     
@@ -1861,7 +1971,7 @@
 <dd>
     
     <div class="description">
-        An 2d array of coordinares used to draw the star relative to its origin
+        x-axis radius of the ellipse used to round off the corners of the rectangle
     </div>
     
     
@@ -1898,7 +2008,7 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="points">points<span class="type-signature type array">Array</span> </h4>
+        <h4 class="name" id="ry">ry<span class="type-signature type number">Number</span> </h4>
     </div>
     
     
@@ -1906,7 +2016,7 @@
 <dd>
     
     <div class="description">
-        An 2d array of points used to draw the polygon relative to its origin
+        y-axis radius of the ellipse used to round off the corners of the rectangle
     </div>
     
     
@@ -1951,7 +2061,7 @@
 <dd>
     
     <div class="description">
-        Control how much of the polygon's stroke is drawn. Space-delimited values define a slice, ie '10 30'. A single value asserts 0 as the starting value. Accepts percentages for relative values
+        Control how much of the primary element's stroke is drawn. Space-delimited values define a slice, ie '10 30'. A single value asserts 0 as the starting value. Accepts percentages for relative values
     </div>
     
     
@@ -1996,7 +2106,7 @@
 <dd>
     
     <div class="description">
-        The plygn's stroke color
+        The rct's stroke color
     </div>
     
     
@@ -2041,7 +2151,52 @@
 <dd>
     
     <div class="description">
-        The plygn's stroke width
+        The rct's stroke width
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="width">width<span class="type-signature type number">Number</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Width of the rectangle
     </div>
     
     
@@ -2086,7 +2241,7 @@
 <dd>
     
     <div class="description">
-        The origin of the polygon along the x-axis
+        Origin of the rectangle along the x-axis
     </div>
     
     
@@ -2131,7 +2286,7 @@
 <dd>
     
     <div class="description">
-        The origin of the polygon along the y-axis
+        Origin of the rectangle along the y-axis
     </div>
     
     
@@ -2176,12 +2331,12 @@
     <div class="nameContainer">
         <h4 class="name" id=".getElInstance">
             
-            <span class="type-signature static">static</span>plygn.getElInstance<span class="signature">(el)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="plygn.html">plygn</a>}</span>
+            <span class="type-signature static">static</span>rct.getElInstance<span class="signature">(el)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="rct.html">rct</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line384">line 384</a>
+            <a href="constructs_svg_rct.js.html">constructs/svg/rct.js</a>, <a href="constructs_svg_rct.js.html#line333">line 333</a>
         </div>
         
     </div>
@@ -2192,7 +2347,7 @@
     
     
     <div class="description">
-        returns the plygn instance associated with the provided element's id attribute
+        returns the rct instance associated with the provided element's id attribute
     </div>
     
 
@@ -2300,11 +2455,11 @@
             
             <td class="type">
             
-                        <a href="plygn.html">plygn</a>
+                        <a href="rct.html">rct</a>
                         
                     
             </td>
-            <td class="description last">The associate plygn, if it exists</td>
+            <td class="description last">The associated rct, if it exists</td>
         </tr>
     
     </tbody>
@@ -2321,12 +2476,12 @@
     <div class="nameContainer">
         <h4 class="name" id=".getInstance">
             
-            <span class="type-signature static">static</span>plygn.getInstance<span class="signature">(id)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="plygn.html">plygn</a>}</span>
+            <span class="type-signature static">static</span>rct.getInstance<span class="signature">(id)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="rct.html">rct</a>}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line372">line 372</a>
+            <a href="constructs_svg_rct.js.html">constructs/svg/rct.js</a>, <a href="constructs_svg_rct.js.html#line321">line 321</a>
         </div>
         
     </div>
@@ -2337,7 +2492,7 @@
     
     
     <div class="description">
-        returns the plygn instance associated with the id
+        returns the rct instance associated with the id
     </div>
     
 
@@ -2445,779 +2600,16 @@
             
             <td class="type">
             
-                        <a href="plygn.html">plygn</a>
+                        <a href="rct.html">rct</a>
                         
                     
             </td>
-            <td class="description last">The associate plygn, if it exists</td>
+            <td class="description last">The associated rct, if it exists</td>
         </tr>
     
     </tbody>
 </table>
 
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="addPoint">
-            
-            addPoint<span class="signature">(coords, <span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{<a href="plygn.html">plygn</a>}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line290">line 290</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Add a new point to the plygn.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>coords</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                The new point coordinates</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                The insertion index, defaults to the number of points. When negative, becomes the sum of itself and the number points</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        <a href="plygn.html">plygn</a>
-                        
-                    
-            </td>
-            <td class="description last">The plygn instance</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="getPoint">
-            
-            getPoint<span class="signature">(<span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line321">line 321</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the point at the specified index
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    -1
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                The index of the target point. When negative, becomes the sum of itself and the number points</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Array
-                        
-                    
-            </td>
-            <td class="description last">The point at the specified index</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="removePoint">
-            
-            removePoint<span class="signature">(<span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line306">line 306</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Remove the point at the specified index
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    -1
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                The index target point. When negative, becomes the sum of itself and the number points</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Array
-                        
-                    
-            </td>
-            <td class="description last">The removed point coordinates</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="setPoint">
-            
-            setPoint<span class="signature">(coords, <span class="optional">index</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Array}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line335">line 335</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Updates the point at the specified index
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>coords</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                    
-                        
-                    
-                
-                The new point coordinates</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-                <td class="default">
-                
-                    -1
-                
-                </td>
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                The index of the target point. When negative, becomes the sum of itself and the number points</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        Array
-                        
-                    
-            </td>
-            <td class="description last">The updated point</td>
-        </tr>
-    
-    </tbody>
-</table>
-
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="update">
-            
-            update<span class="signature">()</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="constructs_svg_plygn.js.html">constructs/svg/plygn.js</a>, <a href="constructs_svg_plygn.js.html#line352">line 352</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Updates the points attribute of the polygon element.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
     
     
     
