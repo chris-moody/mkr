@@ -67,6 +67,8 @@
             
                 <li data-name="arc#parent"><a href="arc.html#parent">parent</a></li>
             
+                <li data-name="arc#r"><a href="arc.html#r">r</a></li>
+            
                 <li data-name="arc#rotation"><a href="arc.html#rotation">rotation</a></li>
             
                 <li data-name="arc#rx"><a href="arc.html#rx">rx</a></li>
@@ -983,8 +985,8 @@
     <section>
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*!
- * VERSION: 1.0.0
- * DATE: 2017-05-25
+ * VERSION: 1.0.1
+ * DATE: 2017-05-26
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -1028,32 +1030,35 @@
      * @returns {grdnt} A new grdnt instance.
     **/
     var grdnt = function(options) {
-		options = options || {};
-		_count++;
-        var s, id = this._id = options.id || className+'-'+_count;
+        options = options || {};
+        _count++;
+        var id = this._id = options.id || className+'-'+_count;
         this._parent = mkr.setDefault(options, 'parent', mkr.default(mkr.query('svg'), mkr.create('svg', {css:{overflow:'visible'}})));
-        if(this._parent instanceof SVGElement) {
-            s = this._svg = this._parent;
+        var p = typeof this._parent == 'string' ? mkr.query(this._parent) : this._parent;
+        if(!(p instanceof SVGElement)) {
+            this._parent = mkr.query('svg', p) || mkr.create('svg', {css:{overflow:'visible'}}, this._parent);
         }
-		
-		mkr.setDefault(options, 'attr', {});
+        /*if(this._parent instanceof SVGElement) {
+            s = this._svg = this._parent;
+        }*/
+        
+        mkr.setDefault(options, 'attr', {});
         mkr.setDefault(options.attr, 'id', id);
         mkr.setDefault(options, 'css', {});
 
-		var type = mkr.default(options.type, grdnt.LINEAR);
-		var stops = mkr.default(options.stops, []);
-		
-		if(!s) s = this._svg = mkr.create('svg', {css:{overflow:'visible'}}, this._parent)
-			var d = this._defs = mkr.query('defs', s) || mkr.create('defs', {}, s)
-				var grad = this._grad = mkr.create(type+'Gradient', {attr:options.attr, css:options.css}, d)
-					for(var i=0; i&lt;stops.length; i++) {
-						this.addStop(stops[i]);
-					}
-		
-		_instances[id] = this;
-	};
-	
-	grdnt.prototype = {
+        var type = mkr.default(options.type, grdnt.LINEAR);
+        var stops = mkr.default(options.stops, []);
+        
+        var d = this._defs = mkr.query('defs', this._parent) || mkr.create('defs', {}, this._parent)
+            var grad = this._grad = mkr.create(type+'Gradient', {attr:options.attr, css:options.css}, d)
+                for(var i=0; i&lt;stops.length; i++) {
+                    this.addStop(stops[i]);
+                }
+        
+        _instances[id] = this;
+    };
+    
+    grdnt.prototype = {
         /**
          * @name grdnt#el
          * @public
@@ -1109,23 +1114,23 @@
         get stops() {return mkr.queryAll('#'+this.id+' stop')},
 
         /**
-	     * @function addStop
-	     * @memberof grdnt.prototype
-	     * @public
-	     * @description Updates the points attribute of the polygon element.
-	     * @param {Object} attr - Attributes to set on the stop element
-	     * @param {Object} attr.color - Shortcut for 'stop-color'
+         * @function addStop
+         * @memberof grdnt.prototype
+         * @public
+         * @description Updates the points attribute of the polygon element.
+         * @param {Object} attr - Attributes to set on the stop element
+         * @param {Object} attr.color - Shortcut for 'stop-color'
          * @param {Object} attr.alpha - Shortcut for 'stop-opacity'
          * @param {int=} index - The insertion index, defaults to the number of stops. When negative, becomes the sum of itself and the number of stops
          * @returns {SVGElement} The new stop element
-	    **/
-		addStop: function(attr, index) {
+        **/
+        addStop: function(attr, index) {
             index = mkr.default(index, this.stops.length);
             if(index &lt; 0) index = this.stops.length + index;
-			mkr.setDefault(attr, 'stop-color', attr.color);
+            mkr.setDefault(attr, 'stop-color', attr.color);
             mkr.setDefault(attr, 'stop-opacity', attr.alpha);
-			return mkr.create('stop', {attr:attr}, this._grad, index);
-		},
+            return mkr.create('stop', {attr:attr}, this._grad, index);
+        },
 
         /**
          * @function removeStop
@@ -1176,8 +1181,8 @@
             return stop;
         }
     };
-	
-	/**
+    
+    /**
     * @alias grdnt.LINEAR
     * @memberof grdnt
     * @static
@@ -1229,7 +1234,7 @@
         return _instances[el.id];
     };
 
-	/**
+    /**
     * @alias grdnt.VERSION
     * @memberof grdnt
     * @static
@@ -1239,7 +1244,7 @@
     **/
     Object.defineProperty(grdnt, 'VERSION', {
         get: function() {
-          return '1.0.0';
+          return '1.0.1';
         }
     });
 
@@ -1262,7 +1267,7 @@
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu May 25 2017 10:43:03 GMT-0400 (EDT)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri May 26 2017 21:52:45 GMT-0400 (EDT)
         </footer>
     </div>
 </div>

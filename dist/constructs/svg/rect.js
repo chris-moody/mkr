@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.0.1
- * DATE: 2017-05-23
+ * VERSION: 0.0.2
+ * DATE: 2017-05-26
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -57,7 +57,7 @@
         this._parent = mkr.setDefault(options, 'parent', mkr.default(mkr.query('svg'), mkr.create('svg', {css:{overflow:'visible'}})));
         var p = typeof this._parent == 'string' ? mkr.query(this._parent) : this._parent;
         if(!(p instanceof SVGElement)) {
-            this._parent = mkr.create('svg', {css:{overflow:'visible'}}, this._parent);
+            this._parent = mkr.query('svg', p) || mkr.create('svg', {css:{overflow:'visible'}}, this._parent);
         }
 
 		mkr.setDefault(options, 'attr', {});
@@ -352,7 +352,7 @@
     **/
     Object.defineProperty(rect, 'VERSION', {
         get: function() {
-          return '0.0.1';
+          return '0.0.2';
         }
     });
 

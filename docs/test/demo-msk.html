@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>mkrjs msk demos</title>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/TextPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/CSSRulePlugin.min.js"></script>
+
+  <script src="../downloads/mkr.js"></script>
+  <script src="../downloads/constructs/svg/msk.js"></script>
+
+  <script type="text/javascript">
+    var m = new mkr({
+      css:{width:600, height:300, background:'grey'},
+      tmln:{paused:true, repeat:-1, yoyo:false}
+    });
+
+    //create a new msk instance using the construct method
+    var c1 = m.construct('msk', {
+      masks:[ //define svg elements the mask is initialized with
+        ['rect',    {attr:{x:30, y:0, width:150, height:120, fill:'white'}}], //each entry should be a 2-member array
+        ['circle',  {attr:{cx:40, cy:30, r:0, fill:'grey'}}] //the svg tagname followed by and options object
+      ],
+
+      targets:[ //define svg elements the mask will target
+        ['rect',    {attr:{x:50, y:25, width:40, height:50, fill:'red'}}], //each entry should be a 2-member array
+        ['circle',  {attr:{cx:55, cy:45, r:15, fill:'blue'}}] //the svg tagname followed by and options object
+      ]
+    });
+
+    //additional masks can be created using the create method
+    c1.create('ellipse', {attr:{cx:100, cy:30, rx:0, ry:0, fill:'white'}, css:{alpha:.4}})
+
+    //additional targets can be created using the createTarget method
+    c1.createTarget('ellipse', {attr:{cx:120, cy:75, rx:20, ry:45, fill:'green'}})
+
+    //get a reference to the exising svg element
+    var s = mkr.query('svg');
+
+    //create an ellipse
+    var e = m.create('ellipse', {
+      attr:{
+        cx:220, cy:120, width:100, height:100, 'stroke-width':15,
+        fill:"cyan",
+        stroke:"black"
+      }
+    }, s)
+
+    //the mask can be assigned to additional targets using the assing method
+    c1.assign(e);
+    
+    //create an svg rect...
+    m.create('rect', {
+      attr:{
+        x:0, y:0, width:200, height:100, 'stroke-width':3,
+        fill:"magenta"
+      }, css:{
+        alpha:.3,
+        mask: c1.url //the msk can also employed by assigning its url to another element
+      }
+    }, s) //notice that we are adding svg elements to the root svg
+
+
+    //and of course gsap can animate any property/attribute
+
+    //animate the offset of the 2nd stop used in the border gradient
+    m.tmln.to(mkr.query('#'+c1._id+' rect'), 1, {attr:{width:0, height:0}});
+    m.tmln.to(mkr.query('#'+c1._id+' circle'), 1, {attr:{cx:130, cy:50, r:'+=60'}});
+    m.tmln.to(mkr.query('#'+c1._id+' circle'), 1, {attr:{cx:0, cy:0, r:0}});
+    m.tmln.to(mkr.query('#'+c1._id+' ellipse'), 1, {attr:{rx:130, ry:50}});
+    m.tmln.to(mkr.query('#'+c1._id+' ellipse'), 1, {attr:{rx:0, ry:0}});
+    m.tmln.to(mkr.query('#'+c1._id+' rect'), 1, {attr:{width:'+=150', height:'+=120'}});
+
+
+    //create a button/click listener to toggle animation
+    m.create('div', {attr:{id:'clickMe'}, css:{cursor:'pointer', textAlign:'center', x:10, y:120, width:130, height:25, padding:'10px', lineHeight:'25px', borderRadius:5, background:'red', color:'white'}, text:'Click to animate'});
+
+    mkr.on('#clickMe', 'click', function() {
+      if(m.tmln.paused()) {
+        m.tmln.play();
+        TweenMax.set('#clickMe', {text:'Click to pause'});
+      }
+      else {
+        m.tmln.pause();
+        TweenMax.set('#clickMe', {text:'Click to animate'})
+      }
+    });
+  </script>
+</body>
+</html>

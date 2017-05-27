@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>mkrjs arc demos</title>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/TextPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/CSSRulePlugin.min.js"></script>
+
+  <!-- include source files here... -->
+  <script src="../downloads/mkr.js"></script>
+  <script src="../downloads/constructs/svg/arc.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript">
+    //everythinggs better with a mkr instance!
+    var m = new mkr({tmln:{paused:true, repeat:-1, repeatDelay:1, yoyo:true}});
+
+    //define some globals
+    var r = 60; //radius
+    var spd = 1; //anim spd
+    var stroke = '#f37121';
+    var stroke2 = '#71f321';
+    var sw = 15;
+
+    //our first arc
+    var a = m.construct('arc', {
+      start:0, //the arc's starting point along its circle in degrees
+      length:360, //the length of the arc in degrees
+      rx: 50, //the x-axis radius of the arc's circle
+      ry: 50, //the y-axis radius of the arc's circle
+      cx:60, cy:60, //the center of the circle on the x and y axes, respectively
+      stroke:'#f37121', //attribute shortcuts...
+      fill:'red',
+      strokeWidth:20
+    });
+    
+    // if the specified parent is not an svg element, it is searched. If one
+    // is not, one is created, appended to the parent, and used as the parent
+    // for this instance.
+
+    //for a PIE effect, leave out fill and set stroke width to its radius*2
+    //50 = 30
+    //r = 3/5r
+    var b = m.construct('arc', {
+      length:360,
+      cx:180, cy:60, rx:r/2, ry:r/2,
+      stroke:stroke,
+      strokeWidth:r
+    });
+
+    //animating just the length form 360 to 0
+    //creates a counter-clockwise animation
+    m.tmln.to(a, 1, {length:0}, 0); 
+    m.tmln.to(b, 1, {length:0}, 0);
+
+    //arcs can be elliptical
+    var c = m.construct('arc', {start:270, length:360, rx:r, ry:r/2, cx:60, cy:180, stroke:stroke2, strokeWidth:sw});
+    var d = m.construct('arc', {start:90, length:360, rx:r/2, ry:r, cx:180, cy:180, stroke:stroke2, strokeWidth:sw});
+
+    //animate the start and length properties in the same direction to create a rotation effect
+    m.tmln.to(c, 1, {length:0, start:'-=180'}, 0);
+    m.tmln.to(d, 1, {length:0, start:'-=360'}, 0);
+
+    //
+    var e = m.construct('arc', {start:0, length:360, cx:300, cy:60, stroke:stroke, strokeWidth:sw});
+    var f = m.construct('arc', {start:180, length:360, r:r/2, cx:420, cy:60, stroke:stroke, strokeWidth:r});
+
+    //animate the start and length properties in the opposite direction to create a vertical pac-man effect
+    m.tmln.to(e, 1, {length:0, start:'+=180'}, 0);
+    m.tmln.to(f, 1, {length:0, start:'+=180'}, 0);
+
+    //offset the start by 90degrees for a horizontal pac-man
+    var g = m.construct('arc', {start:90, length:360, r:r/2, cx:300, cy:180, stroke:stroke, strokeWidth:r});
+    var h = m.construct('arc', {start:270, length:360, end:90, cx:420, cy:180, stroke:stroke, strokeWidth:sw});
+    m.tmln.to(g, 1, {length:0, start:'+=180'}, 0);
+    m.tmln.to(h, 1, {length:0, start:'+=180'}, 0);
+
+    //create more complex effects by combining multiple arcs!
+    var m2 = new mkr({tmln:{paused:true, repeat:-1, repeatDelay:1, yoyo:true}});
+    var stroke='#f00ff0', n=8, r=10, sw=5;
+    var arcs = [];
+    while(n-- > 0) {
+      var fill = 'transparent';
+      var rad = n== 1? r/2 : r;
+      sw = n == 1 ? rad*n*2 : sw;
+      var rc = m2.construct('arc', {
+        start:n*(360/8), length:359.99, cx:550, cy:125, r:rad*n, 
+        attr:{stroke:stroke, 'stroke-width':sw, fill:fill}
+      });
+      arcs.unshift(rc);
+    }
+
+    m2.tmln.staggerTo(arcs, 1.5, {length:0, start:'-=360'}, .25, 0);
+
+    var zR = 60, spd2=.5;
+    var z = m2.construct('arc', {start:270, length:360, end:90, cx:700, cy:125, r:zR, stroke:'magenta', fill:'yellow', strokeWidth:sw});
+    m2.tmln.to(z, spd2, {rx:'-='+zR/2}, 0);
+    m2.tmln.to(z, spd2, {ry:'+='+zR/2}, 1*spd2);
+    m2.tmln.to(z, spd2, {rx:'+='+zR/2}, 2*spd2);
+    m2.tmln.to(z, spd2, {ry:'-='+zR/2}, 3*spd2);
+    m2.tmln.to(z, spd2, {ry:zR/2, rx:zR*1.5, start:'+=180', length:'-=360'}, 4*spd2);
+    m2.tmln.to(z, spd2, {ry:zR, rx:zR, start:'+=180', length:'+=360'}, 5*spd2);
+
+    //create a button/click listener to toggle animation
+    m2.create('div', {attr:{id:'clickMe'}, css:{cursor:'pointer', textAlign:'center', x:500, y:200, width:130, height:25, padding:'10px', lineHeight:'25px', borderRadius:5, background:'red', color:'white'}, text:'Click to animate'});
+
+    mkr.on('#clickMe', 'click', function() {
+      if(m.tmln.paused()) {
+        m.tmln.play();
+        m2.tmln.play();
+        TweenMax.set('#clickMe', {text:'Click to pause'});
+      }
+      else {
+        m.tmln.pause();
+        m2.tmln.pause();
+        TweenMax.set('#clickMe', {text:'Click to animate'})
+      }
+    });
+  </script>
+</body>
+</html>

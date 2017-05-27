@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>mkrjs grdnt demos</title>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/TextPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/CSSRulePlugin.min.js"></script>
+
+  <script src="../downloads/mkr.js"></script>
+  <script src="../downloads/constructs/svg/grdnt.js"></script>
+
+  <script type="text/javascript">
+    var m = new mkr({
+      css:{width:600, height:300, background:'grey'},
+      tmln:{paused:true, repeat:-1, yoyo:true}
+    });
+
+    //create a grdnt using the construct method
+    var g1 = m.construct('grdnt', {
+      stops:[ //defining color stops for our gradient is simple
+        {offset:0, color:'#ff0000'},
+        {offset:.5, color:'yellow'},
+        {offset:1, color:'orange'}
+      ]
+    });
+
+    var g2 = m.construct('grdnt', {
+      stops:[
+        {offset:0, color:'blue'},
+        {offset:.5, color:'cyan'},
+        {offset:1, color:'green'}
+      ]
+    });
+
+    //this time, lets define a radial gradient with some extra attributes
+    var g3 = m.construct('grdnt', {
+      attr:{cx:.6, cy:.6, fx:.4, fy:.6}, type:'radial',
+      stops:[
+        {offset:0, color:'blue'},
+        {offset:.5, color:'cyan'},
+        {offset:1, color:'green'}
+      ]
+    });
+
+    //this time, lets define a linear gradient with some extra attributes
+    var g4 = m.construct('grdnt', {
+      attr:{x1:1, x2:0, y1:1, y2:0},
+      stops:[
+        {offset:0, color:'purple'},
+        {offset:.5, color:'magenta'},
+        {offset:1, color:'pink'}
+      ]
+    });
+
+    //So we've created some gradients, but how do we use them?
+    //First we need to create some elements to apply them to...
+
+    //get a reference to the exising svg element
+    var s = mkr.query('svg');
+
+    //create an svg rect...
+    m.create('rect', {
+      attr:{
+        x:10, y:10, width:200, height:100, 'stroke-width':3,
+        fill:"url(#"+g2._id+")", //gradients can be assigned to both fill...
+        stroke:"url(#"+g1._id+")" //...and stroke 
+      }
+    }, s) //notice that we are adding svg elements to an svg parent
+
+    //create a 2nd svg rect...
+    m.create('rect', {
+      attr:{
+        x:220, y:120, width:100, height:100, 'stroke-width':3,
+        fill:"url(#"+g4._id+")", //gradients can be assigned to both fill...
+        stroke:"url(#"+g1._id+")" //...and stroke 
+      }
+    }, s)
+
+    //create an svg circle...
+    m.create('circle', {
+      attr:{
+        cx:275, cy:60, r:50, 'stroke-width':3,
+        fill:"url(#"+g3._id+")", //use the radial gradient for the circle fill
+        stroke:"url(#"+g1._id+")"
+      }
+    }, s)
+
+    //create a 2nd svg circle...
+    m.create('circle', {
+      attr:{
+        cx:385, cy:60, r:50, 'stroke-width':3,
+        fill:"url(#"+g3._id+")", //use the radial gradient for the circle fill
+        stroke:"url(#"+g1._id+")"
+      }
+    }, s)
+
+    //and of course gsap can animate any property/attribute
+    //it's worth noting that animating the gradient and its elements directly affects all instances of that gradient!
+
+    //animate the offset of the 2nd stop used in the border gradient
+    m.tmln.to(mkr.queryAll('#'+g1._id+' stop')[1], .5, {attr:{offset:.8}, ease:Power1.easeInOut}, 0)
+
+    //animate the color of the 1st stop used in the border gradient
+    m.tmln.to(mkr.queryAll('#'+g1._id+' stop')[0], .5, {attr:{'stop-color':'#ff00ff'}, ease:Power1.easeInOut}, 0)
+
+    //animate the offset of the 2nd stop used in the rect fill gradient
+    m.tmln.to(mkr.queryAll('#'+g2._id+' stop')[1], .5, {attr:{offset:.8}, ease:Power1.easeInOut}, 0)
+
+    //animate the cx/cy/fx/fy attrs of the radial gradient for a neat effect
+    m.tmln.to('#'+g3._id, .5, {attr:{cx:.4, cy:.4, fx:.6, fy:.4}, ease:Power1.easeInOut}, 0)
+
+    //animate the x1/x2/y2/y2 attrs of the fourth gradient for another neat effect
+    m.tmln.to('#'+g4._id, .5, {attr:{x1:0, x2:1, y1:.75, y2:.25}, ease:Power0.easeNone}, 0)
+
+
+    //create a button/click listener to toggle animation
+    m.create('div', {attr:{id:'clickMe'}, css:{cursor:'pointer', textAlign:'center', x:10, y:120, width:130, height:25, padding:'10px', lineHeight:'25px', borderRadius:5, background:'red', color:'white'}, text:'Click to animate'});
+
+    mkr.on('#clickMe', 'click', function() {
+      if(m.tmln.paused()) {
+        m.tmln.play();
+        TweenMax.set('#clickMe', {text:'Click to pause'});
+      }
+      else {
+        m.tmln.pause();
+        TweenMax.set('#clickMe', {text:'Click to animate'})
+      }
+    });
+  </script>
+</body>
+</html>
