@@ -1,6 +1,6 @@
 /*!
- * VERSION: 1.0.0
- * DATE: 2017-05-25
+ * VERSION: 1.1.0
+ * DATE: 2017-05-26
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -36,9 +36,10 @@
      * @param {*=} options.parent - SVGElement which to append the arc's path element
      * @param {String=} options.id - The id of the instance. Auto-generated when not provided
      * @param {Number} [options.rx=50] - The x-axis radius of the arc
-     * @param {Number} [options.ry=30] - The y-axis radius of the arc
-     * @param {Number} [options.cx=this.radius] - The center of the arc along the x-axis
-     * @param {Number} [options.cy=this.radius] - The center of the arc along the y-axis
+     * @param {Number} [options.ry=50] - The y-axis radius of the arc
+     * @param {Number=} options.r - Use this option to create a circular, an arc that uses the same value for both rx and ry
+     * @param {Number} [options.cx=this.rx] - The center of the arc along the x-axis
+     * @param {Number} [options.cy=this.ry] - The center of the arc along the y-axis
      * @param {Number} [options.start=0] - The starting point of the arc along its circle in degrees
      * @param {Number} [options.length=0] - The length of the arc along in degrees
      * @param {Number} [options.rotation=0] - The rotation of the arc in degrees
@@ -62,7 +63,7 @@
         this._parent = mkr.setDefault(options, 'parent', mkr.default(mkr.query('svg'), mkr.create('svg', {css:{overflow:'visible'}})));
         var p = typeof this._parent == 'string' ? mkr.query(this._parent) : this._parent;
         if(!(p instanceof SVGElement)) {
-            this._parent = mkr.create('svg', {css:{overflow:'visible'}}, this._parent);
+            this._parent = mkr.query('svg', p) || mkr.create('svg', {css:{overflow:'visible'}}, this._parent);
         }
 
         mkr.setDefault(options, 'attr', {});
@@ -78,15 +79,22 @@
         mkr.setDefault(options.attr, 'stroke', options.stroke);
         mkr.setDefault(options.attr, 'stroke-width', options.strokeWidth);
 
-        this._rx = mkr.default(options.rx, 50);
-        this._ry = mkr.default(options.ry, 30);
+        var r = options.r;
+        if(r !== undefined) {
+            this._rx = this._ry = r;
+        }
+        else {
+            this._rx = mkr.default(options.rx, 50);
+            this._ry = mkr.default(options.ry, 50);
+        }
+        
         this._start = mkr.default(options.start, 0);
         
         this._length = arc.flatten(mkr.default(options.length, 0));
         this._end = this._start + this._length;
 
         this._cx = mkr.default(options.cx, this._rx);
-        this._cy = mkr.default(options.cx, this._ry);
+        this._cy = mkr.default(options.cy, this._ry);
         this._rotation = mkr.default(options.rotation, 0);
         this._sweepFlag = mkr.default(options.sweepFlag, 0);
 
@@ -283,6 +291,18 @@
         get cy() {return this._cy;},
         set cy(value) {
             this._cy = value;
+            this.update();
+        },
+
+        /**
+         * @name arc#r
+         * @public
+         * @type Number
+         * @description The radius of the arc
+        **/
+        get r() {return this._rx;},
+        set r(value) {
+            this._rx = this._ry = value;
             this.update();
         },
 
@@ -510,7 +530,7 @@
     **/
     Object.defineProperty(arc, 'VERSION', {
         get: function() {
-          return '1.0.0';
+          return '1.1.0';
         }
     });
 

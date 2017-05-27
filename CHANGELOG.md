@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.3"></a>
+## [0.4.3](https://github.com/chris-moody/mkr/compare/v0.4.2...v0.4.3) (2017-05-27)
+
+
+### Bug Fixes
+
+* **msk, clp, grdnt:** Prevent defs-based svg construct from creating extra svg elements ([1c6924d](https://github.com/chris-moody/mkr/commit/1c6924d))
+
+
 
 <a name="0.4.2"></a>
 ## [0.4.2](https://github.com/chris-moody/mkr/compare/v0.4.1...v0.4.2) (2017-05-26)
