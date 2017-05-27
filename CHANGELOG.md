@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **mks, clp, grdnt:** Prevent defs-based svg construct from creating extra svg elements ([1c6924d](https://github.com/chris-moody/mkr/commit/1c6924d))
+* **msk, clp, grdnt:** Prevent defs-based svg construct from creating extra svg elements ([1c6924d](https://github.com/chris-moody/mkr/commit/1c6924d))
 
 
 
@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **arc:** Add r property for circular control ([f2c3f9a](https://github.com/chris-moody/mkr/commit/f2c3f9a))
+
 
 
 
