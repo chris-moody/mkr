@@ -33,12 +33,10 @@
     "url": "https://github.com/chris-moody/mkr/issues"
   },
   "devDependencies": {
-    "bookshelf-jsdoc-theme": "^0.1.2",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.0.0",
     "jasmine": "^2.5.3",
-    "minami": "^1.1.1",
-    "postman-jsdoc-theme": "0.0.2",
+    "jsdoc": "^3.5.5",
     "standard-version": "^4.3.0",
     "uglify-js": "^3.3.12"
   },
