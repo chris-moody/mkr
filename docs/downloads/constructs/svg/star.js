@@ -357,8 +357,8 @@
             var dR = mkr.RAD*(360/len);
             for(var i=0; i<len; i++) {
                 r = i%2 == 0 ? this.r1 : this.r2;
-                var x = this._x + r*Math.cos(dR*i);
-                var y = this._y + r*Math.sin(dR*i);
+                var x = /*this._x*/0 + r*Math.cos(dR*i);
+                var y = /*this._y*/0 + r*Math.sin(dR*i);
                 this._coords[i] = [x, y];
                 newPts += (i>0?', ':'')+x+' '+y;
             }
