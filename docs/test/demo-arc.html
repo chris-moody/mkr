@@ -18,7 +18,10 @@
   <!-- include spec files here... -->
   <script type="text/javascript">
     //everythinggs better with a mkr instance!
-    var m = new mkr({tmln:{paused:true, repeat:-1, repeatDelay:1, yoyo:true}});
+    var m = new mkr({
+      css:{width:600, height:300, background:'grey'},
+      tmln:{paused:true, repeat:-1, yoyo:true}
+    });
 
     //define some globals
     var r = 60; //radius
@@ -27,12 +30,13 @@
     var stroke2 = '#71f321';
     var sw = 15;
 
-    //our first arc
+    //create a new arc instance using the construct method
     var a = m.construct('arc', {
       start:0, //the arc's starting point along its circle in degrees
       length:360, //the length of the arc in degrees
-      rx: 50, //the x-axis radius of the arc's circle
-      ry: 50, //the y-axis radius of the arc's circle
+      rx: 30, //the x-axis radius of the arc's circle
+      ry: 30, //the y-axis radius of the arc's circle
+      r: 50, //the radius of the arc. This options sets and overrides rx and ry
       cx:60, cy:60, //the center of the circle on the x and y axes, respectively
       stroke:'#f37121', //attribute shortcuts...
       fill:'red',

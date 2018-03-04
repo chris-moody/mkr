@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.4.3
- * DATE: 2017-05-26
+ * VERSION: 0.4.4
+ * DATE: 2018-03-03
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -930,7 +930,7 @@
 				if(typeof src[key] === 'object') {//if both values are objects
 					if(typeof merger[key] === 'object')
 						res[key] = mkr.merge(src[key], mkr.copy(merger[key]), overwrite);//set value to their merge
-					else if(override) res[key] = merger[key]
+					else if(overwrite) res[key] = merger[key]
 				}
 				else if(!overwrite) {continue;}
 				else res[key] = merger[key];
@@ -1507,7 +1507,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.4.3';
+	      return '0.4.4';
 	    }
 	});
 

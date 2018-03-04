@@ -169,4 +169,4 @@ mkr uses the [greensock animation platform](https://greensock.com) to apply prop
 ####License
 mkr is developed and maintained by Christopher C. Moody and is 100% FREE under the MIT License
 
-copyright 2017 Christopher C. Moody
+copyright 2017-2018 Christopher C. Moody
