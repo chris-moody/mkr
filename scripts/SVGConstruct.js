@@ -1,9 +1,9 @@
 /*!
- * VERSION: 0.0.2
- * DATE: 2017-05-23
+ * VERSION: 0.1.0
+ * DATE: 2018-03-04
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
- * @license copyright 2017 Christopher C. Moody
+ * @license copyright 2017-2018 Christopher C. Moody
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of
  *  this software and associated documentation files (the "Software"), to deal in the
@@ -59,10 +59,30 @@
         mkr.setDefault(options, 'fill', 'transparent');
         mkr.setDefault(options, 'stroke', '#000000');
         mkr.setDefault(options, 'strokeWidth', 1);
+        mkr.setDefault(options, 'lineCap', undefined);
+        mkr.setDefault(options, 'lineJoin', undefined);
+        mkr.setDefault(options, 'miterLimit', undefined);
         
         mkr.setDefault(options.attr, 'fill', options.fill);
         mkr.setDefault(options.attr, 'stroke', options.stroke);
         mkr.setDefault(options.attr, 'stroke-width', options.strokeWidth);
+        mkr.setDefault(options.attr, 'stroke-linecap', options.lineCap);
+        mkr.setDefault(options.attr, 'stroke-linejoin', options.lineJoin);
+        mkr.setDefault(options.attr, 'stroke-miterlimit', options.miterLimit);
+
+        mkr.setDefault(options.css, 'x', mkr.default(options.x, 0));
+        mkr.setDefault(options.css, 'y', mkr.default(options.y, 0));
+        mkr.setDefault(options.css, 'z', mkr.default(options.z, 0));
+        mkr.setDefault(options.css, 'skewX', mkr.default(options.skewX, 0));
+        mkr.setDefault(options.css, 'skewY', mkr.default(options.skewY, 0));
+        mkr.setDefault(options.css, 'scale', mkr.default(options.scale, 1));
+        mkr.setDefault(options.css, 'scaleX', mkr.default(options.scaleX, 1));
+        mkr.setDefault(options.css, 'scaleY', mkr.default(options.scaleY, 1));
+        mkr.setDefault(options.css, 'scaleZ', mkr.default(options.scaleZ, 1));
+        mkr.setDefault(options.css, 'rotation', mkr.default(options.rotation, 0));
+        mkr.setDefault(options.css, 'rotationX', mkr.default(options.rotationX, 0));
+        mkr.setDefault(options.css, 'rotationY', mkr.default(options.rotationY, 0));
+        mkr.setDefault(options.css, 'rotationZ', mkr.default(options.rotationZ, 0));
 
         this._el = mkr.create(type, {attr:options.attr, css:options.css}, this._parent)
 
@@ -124,12 +144,45 @@
         /**
          * @name SVGConstruct#strokeWidth
          * @public
-         * @type Number
+         * @type *
          * @description The SVGConstruct's stroke width
         **/
         get strokeWidth() {return this.el.getAttribute('stroke-width');},
         set strokeWidth(value) {
             this.el.setAttribute('stroke-width', value);
+        },
+
+        /**
+         * @name SVGConstruct#lineCap
+         * @public
+         * @type *
+         * @description The SVGConstruct's stroke-linecap
+        **/
+        get lineCap() {return this.el.getAttribute('stroke-linecap');},
+        set lineCap(value) {
+            this.el.setAttribute('stroke-linecap', value);
+        },
+
+        /**
+         * @name SVGConstruct#lineJoin
+         * @public
+         * @type *
+         * @description The SVGConstruct's stroke-linejoin
+        **/
+        get lineJoin() {return this.el.getAttribute('stroke-linejoin');},
+        set lineJoin(value) {
+            this.el.setAttribute('stroke-linejoin', value);
+        },
+
+        /**
+         * @name SVGConstruct#miterLimit
+         * @public
+         * @type *
+         * @description The SVGConstruct's stroke-miterlimit
+        **/
+        get miterLimit() {return this.el.getAttribute('stroke-miterlimit');},
+        set miterLimit(value) {
+            this.el.setAttribute('stroke-miterlimit', value);
         },
 
         /**
@@ -172,7 +225,7 @@
             da = this.dasharray.split(',');
             da0 = mkr.unitless(String(da[0]).trim());
             
-            if(offset === 0 && da0 === 'none') return '0 100%';
+            if(offset === 0 && isNaN(da0)) return '0 100%';
 
             da1 = mkr.unitless(String(da[1]).trim());
             var start, end, len = this.el.getTotalLength();
@@ -236,6 +289,178 @@
 
             TweenMax.set(this, {dashoffset:offset, dasharray:da0+'px,'+da1+'px'});
         },
+
+        //--TRANSFORMS
+
+
+        /**
+         * @name SVGConstruct#x
+         * @public
+         * @type Number
+         * @description The origin of the construct along the x-axis 
+        **/
+        get x() {
+            return this.el._gsTransform.x;
+        },
+        set x(value) {
+            TweenMax.set(this.el, {x:value});
+        },
+
+        /**
+         * @name SVGConstruct#y
+         * @public
+         * @type Number
+         * @description The origin of the construct along the y-axis
+        **/
+        get y() {
+            return this.el._gsTransform.y;
+        },
+        set y(value) {
+            TweenMax.set(this.el, {y:value});
+        },
+
+        /**
+         * @name SVGConstruct#z
+         * @public
+         * @type Number
+         * @description The origin of the construct along the z-axis
+        **/
+        get z() {
+            return this.el._gsTransform.z;
+        },
+        set z(value) {
+            TweenMax.set(this.el, {z:value});
+        },
+
+        /**
+         * @name SVGConstruct#rotation
+         * @public
+         * @type Number
+         * @description The rotation of the construct
+        **/
+        get rotation() {
+            return this.el._gsTransform.rotation;
+        },
+        set rotation(value) {
+            TweenMax.set(this.el, {rotation:value});
+        },
+
+        /**
+         * @name SVGConstruct#rotationX
+         * @public
+         * @type Number
+         * @description The rotation of the construct along the x-axis 
+        **/
+        get rotationX() {
+            return this.el._gsTransform.rotationX;
+        },
+        set rotationX(value) {
+            TweenMax.set(this.el, {rotationX:value});
+        },
+
+        /**
+         * @name SVGConstruct#rotationY
+         * @public
+         * @type Number
+         * @description The rotation of the construct along the y-axis
+        **/
+        get rotationY() {
+            return this.el._gsTransform.rotationY;
+        },
+        set rotationY(value) {
+            TweenMax.set(this.el, {rotationY:value});
+        },
+
+        /**
+         * @name SVGConstruct#rotationZ
+         * @public
+         * @type Number
+         * @description The rotation of the construct along the z-axis
+        **/
+        get rotationZ() {
+            return this.el._gsTransform.rotationZ;
+        },
+        set rotationZ(value) {
+            TweenMax.set(this.el, {rotationZ:value});
+        },
+
+        /**
+         * @name SVGConstruct#scale
+         * @public
+         * @type Number
+         * @description The scale of the construct
+        **/
+        get scale() {
+            return this.el._gsTransform.scale;
+        },
+        set scale(value) {
+            TweenMax.set(this.el, {scale:value});
+        },
+
+        /**
+         * @name SVGConstruct#scaleX
+         * @public
+         * @type Number
+         * @description The scale of the construct along the x-axis 
+        **/
+        get scaleX() {
+            return this.el._gsTransform.scaleX;
+        },
+        set scaleX(value) {
+            TweenMax.set(this.el, {scaleX:value});
+        },
+
+        /**
+         * @name SVGConstruct#scaleY
+         * @public
+         * @type Number
+         * @description The scale of the construct along the y-axis
+        **/
+        get scaleY() {
+            return this.el._gsTransform.scaleY;
+        },
+        set scaleY(value) {
+            TweenMax.set(this.el, {scaleY:value});
+        },
+
+        /**
+         * @name SVGConstruct#scaleZ
+         * @public
+         * @type Number
+         * @description The scale of the construct along the z-axis
+        **/
+        get scaleZ() {
+            return this.el._gsTransform.scaleZ;
+        },
+        set scaleZ(value) {
+            TweenMax.set(this.el, {scaleZ:value});
+        },
+
+        /**
+         * @name SVGConstruct#skewX
+         * @public
+         * @type Number
+         * @description The skew of the construct along the x-axis 
+        **/
+        get skewX() {
+            return this.el._gsTransform.skewX;
+        },
+        set skewX(value) {
+            TweenMax.set(this.el, {skewX:value});
+        },
+
+        /**
+         * @name SVGConstruct#skewY
+         * @public
+         * @type Number
+         * @description The skew of the construct along the y-axis
+        **/
+        get skewY() {
+            return this.el._gsTransform.skewY;
+        },
+        set skewY(value) {
+            TweenMax.set(this.el, {skewY:value});
+        }
 	};
 	
 	/**
@@ -272,7 +497,7 @@
     **/
     Object.defineProperty(SVGConstruct, 'VERSION', {
         get: function() {
-          return '0.0.2';
+          return '0.1.0';
         }
     });
 
