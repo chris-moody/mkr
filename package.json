@@ -23,7 +23,10 @@
     "scripts"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "./scripts/mkrdoc",
+    "min": "./scripts/mkrmin",
+    "version": "standard-version"
   },
   "bugs": {
     "url": "https://github.com/chris-moody/mkr/issues"
@@ -35,7 +38,8 @@
     "jasmine": "^2.5.3",
     "minami": "^1.1.1",
     "postman-jsdoc-theme": "0.0.2",
-    "standard-version": "^4.3.0"
+    "standard-version": "^4.3.0",
+    "uglify-js": "^3.3.12"
   },
   "config": {
     "commitizen": {
