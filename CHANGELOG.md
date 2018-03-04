@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.5"></a>
+## <small>0.4.5 (2018-03-04)</small>
+
+* Development (#27) ([d8c528f](https://github.com/chris-moody/mkr/commit/d8c528f)), closes [#27](https://github.com/chris-moody/mkr/issues/27)
+* Development (#31) ([4936a62](https://github.com/chris-moody/mkr/commit/4936a62)), closes [#31](https://github.com/chris-moody/mkr/issues/31)
+* Release 0.4.2 ([ab5e863](https://github.com/chris-moody/mkr/commit/ab5e863))
+* Release 0.4.3 ([9e416af](https://github.com/chris-moody/mkr/commit/9e416af))
+
+
+
 <a name="0.4.3"></a>
 ## [0.4.3](https://github.com/chris-moody/mkr/compare/v0.4.2...v0.4.3) (2017-05-27)
 
