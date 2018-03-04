@@ -1,9 +1,9 @@
 /*!
- * VERSION: 0.0.2
- * DATE: 2017-05-26
+ * VERSION: 0.0.3
+ * DATE: 2018-03-03
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
- * @license copyright 2017 Christopher C. Moody
+ * @license copyright 2017-2018 Christopher C. Moody
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of
  *  this software and associated documentation files (the "Software"), to deal in the
@@ -182,7 +182,7 @@
             da = this.dasharray.split(',');
             da0 = mkr.unitless(String(da[0]).trim());
             
-            if(offset === 0 && da0 === 'none') return '0 100%';
+            if(offset === 0 && isNaN(da0)) return '0 100%';
 
             da1 = mkr.unitless(String(da[1]).trim());
             var start, end, len = this.el.getTotalLength();
@@ -326,7 +326,7 @@
     **/
     Object.defineProperty(ellps, 'VERSION', {
         get: function() {
-          return '0.0.2';
+          return '0.0.3';
         }
     });
 
