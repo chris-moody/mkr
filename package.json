@@ -26,7 +26,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "./scripts/mkrdoc",
     "min": "./scripts/mkrmin",
-    "version": "standard-version"
+    "version": "standard-version",
+    "version:dry": "standard-version --dry-run"
   },
   "bugs": {
     "url": "https://github.com/chris-moody/mkr/issues"
