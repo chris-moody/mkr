@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/chris-moody/mkr/compare/v0.4.5...v0.6.0) (2019-10-30)
+
+
+### Bug Fixes
+
+* **mkr:** fix hasClass function to return boolean instead of int ([166ebbe](https://github.com/chris-moody/mkr/commit/166ebbe))
+
+
+### Features
+
+* **scrllr, scrllbr, scrllmsk:** Add new scroll-related mkr ui constructs ([76acc1b](https://github.com/chris-moody/mkr/commit/76acc1b))
+
+
+
 <a name="0.4.5"></a>
 ## <small>0.4.5 (2018-03-04)</small>
 
