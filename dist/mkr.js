@@ -39,6 +39,7 @@
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
+	 * @param {String=} [options.revealKey='isi'] - Optional dom id and URL query param for screen capture
 	 * @param {Object=} options.css - CSS properties to apply to the container element.
 	 * @param {Object=} options.attr - Attributes to apply to the container element.
 	 * @param {String} [options.attr.class='mkr-container'] - Class string applied to the container element. Applied classes will always include 'mkr-container'
@@ -72,7 +73,7 @@
 
 		mkr.setDefault(options, 'attr', {});
 		var classes = 'mkr-container mkr-'+id;
-		'class' in options.attr ? options.attr.class += ' '+classes : options.attr.class = classes;
+		'class' in options.attr ? options.attr.class += ' '+classes : options.attr.class = classes;	
 
 		/**
 		 * @name mkr#container
@@ -83,6 +84,9 @@
 
 		_instances[id] = this;
 
+		var revealKey = mkr.setDefault(options, 'revealKey', null);
+		var revealFlag = window.location.href.indexOf("?"+revealKey) > -1;
+
 		var _imageLoaded = function() {
 			_loadedImages++;
 			var self = _instances[id];
@@ -90,9 +94,29 @@
 				if(self._loadCallback) {
 					self._loadCallback.apply(self._loadContext);
 				}
+
+				if (revealFlag) {
+					var _reveal = document.getElementById(revealKey);
+					console.log(revealKey, _reveal);
+					TweenLite.set(document.getElementsByTagName('div'), {autoAlpha:0});
+					TweenLite.set(_reveal.getElementsByTagName('div'), {autoAlpha:1});
+					TweenLite.set(_reveal, {
+						x: 0,
+						y: 0,
+						autoAlpha: 1,
+						height: "auto",
+						overflow:"visible"
+					});
+					mkr.add(_reveal, document.body);
+				}
+				
 				_preload = false;
 			}
 		}
+
+		
+		//mkr.once(window, 'load', function() {
+		//});
 
 		/**
 		 * @name mkr#id
@@ -146,6 +170,7 @@
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties and default values are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
+	 * @param {String=} [options.revealKey='isi'] - Optional dom id and URL query param for screen capture
 	 * @param {Object=} [options.border] - A set of attributes and css properties used to create the border
 
 	 * @param {Object=} options.border.attr - Attributes to apply to the border element.
@@ -165,6 +190,7 @@
 	mkr.makeDC = function(width, height, options) {
 		options = options || {};
 
+		mkr.setDefault(options, 'revealKey', 'isi');
 		mkr.setDefault(options, 'border', {});
 		mkr.setDefault(options.border, 'css', {});		
 		mkr.setDefault(options.border.css, 'top', 0);
@@ -849,8 +875,8 @@
     mkr.hasClass = function(target, className) {
     	if(typeof target === 'string') target = mkr.query(target);
     	if(!target) return false;
-
-    	return target.className.split(' ').indexOf(className); 
+    	return true;
+    	//return target.className.split(' ').indexOf(className); 
 	};
 
 	/**
@@ -1507,7 +1533,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.4.4';
+	      return '0.4.6';
 	    }
 	});
 
