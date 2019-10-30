@@ -1,5 +1,5 @@
 /*!
- * VERSION: 0.4.6
+ * VERSION: 0.5.0
  * DATE: 2019-10-28
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
@@ -1529,7 +1529,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.4.6';
+	      return '0.5.0';
 	    }
 	});
 
