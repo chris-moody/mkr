@@ -915,6 +915,123 @@
             </ul>
         </li>
     
+        <li class="item" data-name="scrllbr">
+            <span class="title">
+                <a href="scrllbr.html">scrllbr</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="scrllbr#el"><a href="scrllbr.html#el">el</a></li>
+            
+                <li data-name="scrllbr#range"><a href="scrllbr.html#range">range</a></li>
+            
+                <li data-name="scrllbr#scroll"><a href="scrllbr.html#scroll">scroll</a></li>
+            
+                <li data-name="scrllbr#target"><a href="scrllbr.html#target">target</a></li>
+            
+                <li data-name="scrllbr#type"><a href="scrllbr.html#type">type</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="scrllbr.getElInstance"><a href="scrllbr.html#.getElInstance">getElInstance</a></li>
+            
+                <li data-name="scrllbr.getInstance"><a href="scrllbr.html#.getInstance">getInstance</a></li>
+            
+                <li data-name="scrllbr#addListeners"><a href="scrllbr.html#addListeners">addListeners</a></li>
+            
+                <li data-name="scrllbr#onMutate"><a href="scrllbr.html#onMutate">onMutate</a></li>
+            
+                <li data-name="scrllbr#onScroll"><a href="scrllbr.html#onScroll">onScroll</a></li>
+            
+                <li data-name="scrllbr#removeListeners"><a href="scrllbr.html#removeListeners">removeListeners</a></li>
+            
+                <li data-name="scrllbr#startScroll"><a href="scrllbr.html#startScroll">startScroll</a></li>
+            
+                <li data-name="scrllbr#stopScroll"><a href="scrllbr.html#stopScroll">stopScroll</a></li>
+            
+                <li data-name="scrllbr#trackScroll"><a href="scrllbr.html#trackScroll">trackScroll</a></li>
+            
+                <li data-name="scrllbr#updateScroll"><a href="scrllbr.html#updateScroll">updateScroll</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="scrllmsk">
+            <span class="title">
+                <a href="scrllmsk.html">scrllmsk</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="scrllmsk#container"><a href="scrllmsk.html#container">container</a></li>
+            
+                <li data-name="scrllmsk#content"><a href="scrllmsk.html#content">content</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="scrllmsk.getElInstance"><a href="scrllmsk.html#.getElInstance">getElInstance</a></li>
+            
+                <li data-name="scrllmsk.getInstance"><a href="scrllmsk.html#.getInstance">getInstance</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="scrllr">
+            <span class="title">
+                <a href="scrllr.html">scrllr</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="scrllr#br"><a href="scrllr.html#br">br</a></li>
+            
+                <li data-name="scrllr#container"><a href="scrllr.html#container">container</a></li>
+            
+                <li data-name="scrllr#msk"><a href="scrllr.html#msk">msk</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="scrllr.getElInstance"><a href="scrllr.html#.getElInstance">getElInstance</a></li>
+            
+                <li data-name="scrllr.getInstance"><a href="scrllr.html#.getInstance">getInstance</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
         <li class="item" data-name="star">
             <span class="title">
                 <a href="star.html">star</a>
@@ -985,8 +1102,8 @@
     <section>
         <article>
             <pre id="source-code" class="prettyprint source "><code>/*!
- * VERSION: 0.4.4
- * DATE: 2018-03-03
+ * VERSION: 0.4.6
+ * DATE: 2019-10-28
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -1025,6 +1142,7 @@
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
+	 * @param {String=} [options.revealKey='isi'] - Optional dom id and URL query param for screen capture
 	 * @param {Object=} options.css - CSS properties to apply to the container element.
 	 * @param {Object=} options.attr - Attributes to apply to the container element.
 	 * @param {String} [options.attr.class='mkr-container'] - Class string applied to the container element. Applied classes will always include 'mkr-container'
@@ -1069,6 +1187,9 @@
 
 		_instances[id] = this;
 
+		var revealKey = mkr.setDefault(options, 'revealKey', null);
+		var revealFlag = window.location.href.indexOf("?"+revealKey) > -1;
+
 		var _imageLoaded = function() {
 			_loadedImages++;
 			var self = _instances[id];
@@ -1076,6 +1197,22 @@
 				if(self._loadCallback) {
 					self._loadCallback.apply(self._loadContext);
 				}
+				
+				if (revealFlag) {
+					var _reveal = document.getElementById(revealKey);
+					console.log(revealKey, _reveal);
+					TweenLite.set(document.getElementsByTagName('div'), {autoAlpha:0});
+					TweenLite.set(_reveal.getElementsByTagName('div'), {autoAlpha:1});
+					TweenLite.set(_reveal, {
+						x: 0,
+						y: 0,
+						autoAlpha: 1,
+						height: "auto",
+						overflow:"visible"
+					});
+					mkr.add(_reveal, document.body);
+				}
+				
 				_preload = false;
 			}
 		}
@@ -1132,6 +1269,7 @@
 	 * @param {Object} options - A set of attributes and css properties used to create the container. A few special properties and default values are documented below.
 	 * @param {Element} [options.parent=document.body] - Element the mkr instance container is appended to
 	 * @param {Boolean} [options.preload=false] - When true, delays loading img elements until the instance's load function in called
+	 * @param {String=} [options.revealKey='isi'] - Optional dom id and URL query param for screen capture
 	 * @param {Object=} [options.border] - A set of attributes and css properties used to create the border
 
 	 * @param {Object=} options.border.attr - Attributes to apply to the border element.
@@ -1151,6 +1289,7 @@
 	mkr.makeDC = function(width, height, options) {
 		options = options || {};
 
+		mkr.setDefault(options, 'revealKey', 'isi');
 		mkr.setDefault(options, 'border', {});
 		mkr.setDefault(options.border, 'css', {});		
 		mkr.setDefault(options.border.css, 'top', 0);
@@ -1835,8 +1974,8 @@
     mkr.hasClass = function(target, className) {
     	if(typeof target === 'string') target = mkr.query(target);
     	if(!target) return false;
-
-    	return target.className.split(' ').indexOf(className); 
+    	return true;
+    	//return target.className.split(' ').indexOf(className); 
 	};
 
 	/**
@@ -2493,7 +2632,7 @@
 	**/
 	Object.defineProperty(mkr, 'VERSION', {
 	    get: function() {
-	      return '0.4.4';
+	      return '0.4.6';
 	    }
 	});
 
@@ -2525,7 +2664,7 @@ f})(this);</code></pre>
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 04 2018 02:28:41 GMT-0500 (EST)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Oct 29 2019 21:56:15 GMT-0400 (Eastern Daylight Time)
         </footer>
     </div>
 </div>
