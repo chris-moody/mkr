@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.1"></a>
+## [0.6.1](https://github.com/chris-moody/mkr/compare/v0.6.0...v0.6.1) (2019-10-31)
+
+
+### Bug Fixes
+
+* **mkr:** fix hasClass behavior ([8803d28](https://github.com/chris-moody/mkr/commit/8803d28))
+* **scrllbr:** fix thumb height calculation ([1382a46](https://github.com/chris-moody/mkr/commit/1382a46))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/chris-moody/mkr/compare/v0.4.5...v0.6.0) (2019-10-30)
 
