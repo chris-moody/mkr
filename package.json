@@ -37,7 +37,7 @@
     "cz-conventional-changelog": "^2.0.0",
     "jasmine": "^2.5.3",
     "jsdoc": "^3.5.5",
-    "standard-version": "^4.3.0",
+    "standard-version": "^8.0.1",
     "uglify-js": "^3.3.12"
   },
   "config": {
