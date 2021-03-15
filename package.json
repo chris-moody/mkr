@@ -33,7 +33,7 @@
     "url": "https://github.com/chris-moody/mkr/issues"
   },
   "devDependencies": {
-    "commitizen": "^2.9.6",
+    "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^2.0.0",
     "jasmine": "^2.5.3",
     "jsdoc": "^3.5.5",
