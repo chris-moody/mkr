@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.6.1
- * DATE: 2019-10-30
+ * VERSION: 0.6.2
+ * DATE: 2021-03-15
  * UPDATES AND DOCS AT: https://chris-moody.github.io/mkr
  *
  * @license copyright 2017 Christopher C. Moody
@@ -192,6 +192,7 @@
 		mkr.setDefault(options.border.css, 'top', 0);
 		mkr.setDefault(options.border.css, 'left', 0);
 		mkr.setDefault(options.border.css, 'zIndex', 10);
+		mkr.setDefault(options.border.css, 'z', 1);
 		mkr.setDefault(options.border.css, 'position', 'absolute');
 		mkr.setDefault(options.border.css, 'pointerEvents', 'none');
 		mkr.setDefault(options.border.css, 'borderWidth', '1px');
@@ -528,16 +529,16 @@
 	**/
     mkr.scroll = function(target, speed, options) {
     	options = options || {};
-		mkr.setDefault(options, 'scrollTo', 'max');
-		mkr.setDefault(options, 'ease', Power0.easeNone);
-		speed = mkr.default(speed, 14);
+			mkr.setDefault(options, 'scrollTo', 'max');
+			mkr.setDefault(options, 'ease', Power0.easeNone);
+			speed = mkr.default(speed, 14);
 
-		var tweens = [];
-		mkr.each(target, function(el) {
-			var scrollTime = ((el.scrollHeight-el.clientHeight)-el.scrollTop)/speed;
-			tweens.push(TweenMax.to(el, scrollTime, options));
-			//duration = Math.max(duration, scrollTime);
-		});
+			var tweens = [];
+			mkr.each(target, function(el) {
+				var scrollTime = ((el.scrollHeight-el.clientHeight)-el.scrollTop)/speed;
+				tweens.push(TweenMax.to(el, scrollTime, options));
+				//duration = Math.max(duration, scrollTime);
+			});
 		return tweens;
     };
 
