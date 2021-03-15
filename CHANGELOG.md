@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.6.2](https://github.com/chris-moody/mkr/compare/v0.6.1...v0.6.2) (2021-03-15)
+
+
+### Bug Fixes
+
+* **mkr.js:** Fix safari z/z-index bug ([e1d927d](https://github.com/chris-moody/mkr/commit/e1d927d749f62f48150ff27041686afa132d35b9))
 
 <a name="0.6.1"></a>
 ## [0.6.1](https://github.com/chris-moody/mkr/compare/v0.6.0...v0.6.1) (2019-10-31)
